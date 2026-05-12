@@ -1,0 +1,9 @@
+# Rogue Night — robots.txt
+# https://roguenight.com.au
+
+User-agent: *
+Allow: /
+Disallow: /404
+Disallow: /404.html
+
+Sitemap: https://roguenight.com.au/sitemap.xml

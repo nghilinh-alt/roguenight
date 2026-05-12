@@ -1,0 +1,45 @@
+# OS noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Editors
+.vscode/
+.idea/
+*.sublime-*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+venv/
+.venv/
+env/
+
+# Build / staging artifacts that aren't checked in
+# (the canonical built outputs live in public/ which IS tracked)
+src/rogue-night-landing.html
+src/rogue-night-privacy.html
+src/rogue-night-terms.html
+src/rogue-night-404.html
+src/og-image.png
+src/apple-touch-icon.png
+
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# Logs
+*.log
+npm-debug.log*
+*.bundle
+*.zip
