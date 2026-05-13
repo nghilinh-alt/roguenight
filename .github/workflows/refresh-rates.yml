@@ -1,0 +1,41 @@
+name: Refresh FX rates
+
+# Updates agents/dhc-report-writer/data/rates.json from open.er-api.com.
+# Runs every Monday at 03:00 UTC (~1pm AEDT). The Lois report-writer skill
+# reads the cached rates rather than hitting the API at report-draft time,
+# so this is the only place that touches the network.
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Refresh rates
+        run: python3 agents/dhc-report-writer/scripts/refresh_rates.py
+
+      - name: Commit if changed
+        run: |
+          if [[ -n "$(git status --porcelain agents/dhc-report-writer/data/rates.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add agents/dhc-report-writer/data/rates.json
+            git commit -m "chore(fx): refresh rates ($(date -u +'%Y-%m-%d'))"
+            git push
+          else
+            echo "No rate changes since last run."
+          fi
