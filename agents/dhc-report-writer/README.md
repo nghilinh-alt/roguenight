@@ -161,6 +161,21 @@ Plus the **Implementation · optional** dark callout box (always include):
 - "What we don't do" sub-block: hands-on training (we provide written guides + pointers to official video training)
 - "Implementation quote provided on request — book a walkthrough to scope."
 
+**Currency convention (locked):** all figures in the report are AUD with no "A" prefix on display (just `$880`, not `A$880`). When a vendor quotes natively in non-AUD (HubSpot/Slack/Asana/Zapier/most US SaaS in USD; some EU/UK tools in EUR/GBP), convert before showing in the report:
+
+```bash
+python3 agents/dhc-report-writer/scripts/convert_currency.py <amount> <currency>
+# Example:
+python3 agents/dhc-report-writer/scripts/convert_currency.py 49 USD
+# -> $67.75 AUD (from $49 USD at 1.3826 USD->AUD, rate as of 2026-05-13)
+```
+
+In the report, show the AUD figure with a small inline attribution: `$68 AUD (originally $49 USD, May 2026 rate)`. The transparency builds trust and forestalls customer questions about where a number came from.
+
+Rates live in `agents/dhc-report-writer/data/rates.json` and refresh weekly via `.github/workflows/refresh-rates.yml` (cron: Mondays 03:00 UTC). The script reads only from the cached file — never hits a live API at report-draft time, so drafting is fast and predictable.
+
+Supported source currencies: USD, GBP, EUR, CAD, NZD. If a vendor's currency isn't in the list, extend `CURRENCIES` in `refresh_rates.py` and re-run.
+
 ### 08. Your future digital employees
 
 Renders THREE batches (Day 90 / Day 180 / Day 270) using the `batches` array in vars.json. Each batch has a header (`number`, `day`, `title`, `description`) followed by three agent cards. The legacy flat `employees` array still works for backward compatibility — `populate_template.py` auto-wraps it as Batch 01.
