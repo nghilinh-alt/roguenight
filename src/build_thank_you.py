@@ -186,7 +186,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     var firstName = name.split(' ')[0];
     document.getElementById('customer-name').textContent = firstName + ' — the form is in';
   }
-  var PAYMENT_LINK_BASE = 'https://pay.roguenight.com.au/dhc-350';
+  // Stripe Payment Link (default buy.stripe.com host — we skipped the
+  // A$180/year custom domain in favour of buying URL polish later, if ever).
+  var PAYMENT_LINK_BASE = 'https://buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03';
   var payNowUrl = PAYMENT_LINK_BASE;
   var qs = [];
   if (email) qs.push('prefilled_email=' + encodeURIComponent(email));
