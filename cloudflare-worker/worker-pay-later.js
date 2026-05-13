@@ -141,11 +141,15 @@ async function handlePayLater(request, env) {
 
     // 3. Create the invoice. collection_method=send_invoice + auto_advance=true
     //    tells Stripe to finalize and email the Hosted Invoice Page link automatically.
+    //    pending_invoice_items_behavior=include pulls the pending invoice item we just
+    //    created in step 2 into this invoice. Stripe's default is `exclude` (since 2024),
+    //    which would create an empty $0 invoice. Always set this explicitly.
     const invoiceBody = form({
       customer: customer.id,
       collection_method: "send_invoice",
       days_until_due: daysUntilDue,
       auto_advance: "true",
+      pending_invoice_items_behavior: "include",
       description: `Digital Health Check — your specially curated report. Pay any time within ${daysUntilDue} days. Report begins once invoice is paid.`,
       "metadata[tally_ref]": ref || "",
       "metadata[source]": "thank-you-page-pay-later",
