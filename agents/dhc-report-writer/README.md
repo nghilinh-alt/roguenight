@@ -80,19 +80,19 @@ Paragraph 3: the future state in the client's own words, then the bridge (e.g. "
 Key Benefits boxes:
 - **Benefit 01** — time back (hours/month range, dollar value range)
 - **Benefit 02** — sales / pipeline / cash captured
-- **Benefit 03** — software cost (lead with the headline total, e.g. "A$144/month total")
+- **Benefit 03** — software cost (lead with the headline total, e.g. "$144/month total")
 
 ### 02. Quantified benefits
 
 Table: each row is a change (e.g. "Paper-based invoicing → Xero Cashbook"), with hours saved per month and dollar value range per month.
 
 **Use ranges, not point estimates.** AU 2026 hourly rate ranges:
-- Owner-operator (general): A$60-120/hr
-- Owner-operator (salon, hands-on): A$40-60/hr
-- Admin / front desk: A$28-35/hr
-- Apprentice / junior trade: A$25-40/hr
-- Nail technician / similar trade: A$25-35/hr
-- Tradesperson (qualified): A$50-80/hr
+- Owner-operator (general): $60-120/hr
+- Owner-operator (salon, hands-on): $40-60/hr
+- Admin / front desk: $28-35/hr
+- Apprentice / junior trade: $25-40/hr
+- Nail technician / similar trade: $25-35/hr
+- Tradesperson (qualified): $50-80/hr
 
 Subtotal row with italic styling. Estimate basis note in `.meta` styling below the table.
 
@@ -200,9 +200,9 @@ End with the **Implementation · optional** dark callout box for digital employe
 
 Three doors. The v5 template's exact copy is the locked default:
 
-1. **Feel strongly about something? We'll amend the report.** Free of charge. The A$880 covers the work, including refinement.
+1. **Feel strongly about something? We'll amend the report.** Free of charge. The $880 covers the work, including refinement.
 2. **Engage Rogue Night for the implementation.** Fixed-fee, fixed-scope. Quote after a scoping call.
-3. **Take the report and run it yourself.** The recommendations are vendor-neutral. The A$880 has covered the work.
+3. **Take the report and run it yourself.** The recommendations are vendor-neutral. The $880 has covered the work.
 
 **Locked instruction (per Linh, 2026-05-11):** do NOT include "Book a free 45-minute walkthrough call" copy in the email body or in section 09. Walkthroughs happen organically; don't prompt for them in the canonical send.
 
@@ -246,8 +246,8 @@ Score each candidate agent for THIS client on three dimensions:
 **Impact (1-5):**
 - 1 = small admin saving, minor cash recovered
 - 2 = noticeable saving, one specific workflow improved
-- 3 = significant time back OR moderate cash captured (~A$500-1,500/mo)
-- 4 = major saving + cash combined (~A$1,500-4,000/mo)
+- 3 = significant time back OR moderate cash captured (~$500-1,500/mo)
+- 4 = major saving + cash combined (~$1,500-4,000/mo)
 - 5 = transformational — multiple workflows or substantial revenue captured
 
 **Readiness (1-5):**
@@ -354,7 +354,7 @@ Drop any agent that doesn't make sense for the client's industry:
    - Primary pain (first tag in `Pain tag (derived)`) gets priority weighting
    - Cost-sensitivity: if "I have no money" appears in Anything else notes, lead with cheapest credible tiers
    - Drop any tool the matcher recommended that doesn't fit the client's specific situation
-5. **Draft per-client copy** for each tool's "Why this for you" and "Why not the alternatives". These are the high-judgement bits that justify the A$880 fee — don't template them.
+5. **Draft per-client copy** for each tool's "Why this for you" and "Why not the alternatives". These are the high-judgement bits that justify the $880 fee — don't template them.
 6. **Score the digital employees** against the impact / readiness / pain-match rubric. Pick 3 per batch. Draft each card with pain_match, pain_tier, readiness, ties_to, ties_label.
 7. **Assemble `vars.json`** (see `report_vars.example.json` for shape). Include narrative copy for sections 01, 02, 04, 05, 06, 08. Section 06 phases array MUST span Week 1 → Week 12.
 8. **Run `populate_template.py`** → produces `report.html` using v5 CSS + client content.

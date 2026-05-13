@@ -73,7 +73,7 @@ Replace these placeholder values:
     "@type": "Country",
     "name": "Australia"
   },
-  "priceRange": "A$880",
+  "priceRange": "$880",
   "offers": {
     "@type": "Offer",
     "name": "AI & Automation Strategy",

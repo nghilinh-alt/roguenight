@@ -1,6 +1,6 @@
 # Payment Flow — Tally to Stripe
 
-Step-by-step setup for the branded post-Tally payment experience: Stripe Payment Link (default `buy.stripe.com/...` URL — custom subdomain skipped to save A$180/year), Cloudflare-Pages-hosted thank-you and confirmation pages, Cloudflare Worker for the Pay-Later invoice automation, and Tally redirect configuration.
+Step-by-step setup for the branded post-Tally payment experience: Stripe Payment Link (default `buy.stripe.com/...` URL — custom subdomain skipped to save $180/year), Cloudflare-Pages-hosted thank-you and confirmation pages, Cloudflare Worker for the Pay-Later invoice automation, and Tally redirect configuration.
 
 Estimated total setup: 60-90 minutes.
 
@@ -65,14 +65,14 @@ Dashboard → Payment Links → + New
 
 - Product: "AI & Automation Strategy"
 - Description: "Specially curated report for your small to medium business. Delivered within 48 hours."
-- Price: A$880.00 (one-time)
+- Price: $880.00 (one-time)
 - After payment: redirect to `https://roguenight.com.au/confirmation/`
 - Customer information to collect: just email (other fields already captured by Tally)
 - Save the link — you'll get a `https://buy.stripe.com/abc123xyz` URL.
 
 **1.3 Custom domain — SKIPPED**
 
-Stripe lets you add a custom domain like `pay.roguenight.com.au` to your Payment Links. We decided against this — the custom-domain feature costs A$180/year per Payment Link and the default `buy.stripe.com/...` URL works fine. If you want to revisit this later, the feature is at Dashboard → Settings → Payment Links → Custom domains.
+Stripe lets you add a custom domain like `pay.roguenight.com.au` to your Payment Links. We decided against this — the custom-domain feature costs $180/year per Payment Link and the default `buy.stripe.com/...` URL works fine. If you want to revisit this later, the feature is at Dashboard → Settings → Payment Links → Custom domains.
 
 **1.4 Configure Invoicing** (3 min)
 
@@ -210,7 +210,7 @@ Once all four pieces are deployed, run a full test in Stripe **test mode** (sk_t
 3. Click "Send me an invoice".
 4. Within 1-3 seconds, the inline confirmation should appear ("Invoice on the way").
 5. Check that inbox: you should receive a Stripe invoice email from `noreply@stripe.com` with subject "Invoice from Rogue Night PTY LTD".
-6. Email contains a link to the Hosted Invoice Page. Click it — page should be Rogue Night branded with the A$880 amount and payment buttons.
+6. Email contains a link to the Hosted Invoice Page. Click it — page should be Rogue Night branded with the $880 amount and payment buttons.
 7. Pay using the test card. Invoice marks as paid in your Stripe dashboard.
 
 ### Test 3: Error handling
@@ -250,7 +250,7 @@ Expected: `{"error":"A valid email is required."}` with status 400. This confirm
 
 - Cloudflare Workers free tier: 100,000 requests/day. You'll send dozens per month at most.
 - Cloudflare Pages free tier: unlimited bandwidth, 500 builds/month — well within range for this site.
-- Stripe: 1.75% + A$0.30 per AU card transaction. International cards 2.9% + A$0.30. No monthly fee.
+- Stripe: 1.75% + $0.30 per AU card transaction. International cards 2.9% + $0.30. No monthly fee.
 
 **Customer support scripts:**
 

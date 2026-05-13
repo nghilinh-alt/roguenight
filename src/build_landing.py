@@ -23,11 +23,11 @@ with open(os.path.join(_DATA, 'horizontal_sm-b64.txt')) as f:
     LOGO_SM_B64 = f.read().strip()
 
 TALLY_URL = 'https://tally.so/r/xX4YaG'
-PDF_PAGES = 23
+PDF_PAGES = 18
 SITE_URL = 'https://roguenight.com.au'
 ABN = '31 633 650 334'
 PRICE = '880'
-PRICE_DISPLAY = 'A$880'
+PRICE_DISPLAY = '$880'
 
 # MODE: 'staging' (default — absolute URLs to the live site so the in-thread
 # preview works inside an iframe) or 'production' (same-origin relative paths
@@ -36,11 +36,11 @@ PRICE_DISPLAY = 'A$880'
 STAGING_MODE = os.environ.get('STAGING_MODE', 'true').lower() != 'false'
 
 if STAGING_MODE:
-    PDF_URL = 'https://roguenight.com.au/health-check-sample.pdf'
+    PDF_URL = 'https://roguenight.com.au/sample-strategy.pdf'
     PRIVACY_URL = 'https://roguenight.com.au/privacy/'
     TERMS_URL = 'https://roguenight.com.au/terms/'
 else:
-    PDF_URL = '/health-check-sample.pdf'
+    PDF_URL = '/sample-strategy.pdf'
     PRIVACY_URL = '/privacy/'
     TERMS_URL = '/terms/'
 
@@ -52,7 +52,7 @@ HTML = f"""<!DOCTYPE html>
 
 <!-- Primary meta -->
 <title>Rogue Night — AI &amp; Automation Strategy for Australian small to medium businesses</title>
-<meta name="description" content="Rogue Night helps Australian small to medium businesses identify the right tools, eliminate wasted effort, and design AI-powered systems. AI &amp; Automation Strategy, A$880 flat, in your inbox within 48 hours.">
+<meta name="description" content="Rogue Night helps Australian small to medium businesses identify the right tools, eliminate wasted effort, and design AI-powered systems. AI &amp; Automation Strategy, $880 flat, in your inbox within 48 hours.">
 <meta name="keywords" content="AI automation strategy Australia, AI agents small business, digital employees, small to medium business consulting, Australian AI consultant, business automation, AI implementation, tool stack audit, business optimisation plan">
 <meta name="author" content="Rogue Night PTY LTD">
 <meta name="theme-color" content="#0A0E1A">
@@ -69,7 +69,7 @@ HTML = f"""<!DOCTYPE html>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rogue Night">
 <meta property="og:title" content="Rogue Night — Run your business smarter">
-<meta property="og:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. A custom plan to identify the right tools, eliminate wasted effort, and design AI-powered systems. A$880, within 48 hours.">
+<meta property="og:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. A custom plan to identify the right tools, eliminate wasted effort, and design AI-powered systems. $880, within 48 hours.">
 <meta property="og:url" content="{SITE_URL}/">
 <meta property="og:image" content="{SITE_URL}/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -80,7 +80,7 @@ HTML = f"""<!DOCTYPE html>
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rogue Night — Run your business smarter">
-<meta name="twitter:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. A$880, within 48 hours.">
+<meta name="twitter:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. $880, within 48 hours.">
 <meta name="twitter:image" content="{SITE_URL}/og-image.png">
 <meta name="twitter:image:alt" content="Rogue Night logo on Ink background with editorial headline">
 
@@ -190,13 +190,13 @@ HTML = f"""<!DOCTYPE html>
   /* Brand bar */
   .brand-bar {{
     position: relative;
-    padding: 1.5rem 6% 0;
+    padding: 2rem 6% 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }}
   .brand-bar a {{ text-decoration: none; }}
-  .brand-logo {{ display: block; height: 56px; width: auto; }}
+  .brand-logo {{ display: block; height: 80px; width: auto; }}
   .brand-bar .cta-ghost {{ font-size: 0.95rem; }}
 
   /* Hero */
@@ -723,7 +723,8 @@ HTML = f"""<!DOCTYPE html>
   .footer-meta-sep {{ margin: 0 0.8rem; opacity: 0.5; }}
   @media (max-width: 720px) {{
     .footer-grid {{ grid-template-columns: 1fr; gap: 2rem; }}
-    .brand-bar .brand-logo {{ height: 44px; }}
+    .brand-bar .brand-logo {{ height: 60px; }}
+    .brand-bar {{ padding-top: 1.5rem; }}
   }}
 </style>
 </head>

@@ -18,7 +18,7 @@ roguenight/
 │   ├── confirmation/index.html # /confirmation — post-Stripe-success
 │   ├── 404.html
 │   ├── og-image.png · favicon.svg · apple-touch-icon.png · logo-stacked.png
-│   ├── health-check-sample.pdf
+│   ├── sample-strategy.pdf
 │   ├── robots.txt · sitemap.xml · .htaccess
 │
 ├── src/                 # Python build scripts (Pillow + numpy)
@@ -90,7 +90,7 @@ Tally → Stripe payment flow architecture is documented in [`docs/PAYMENT-FLOW.
 
 Quick summary:
 
-1. **Stripe Dashboard** — brand it, create Payment Link for A$880, configure Invoicing reminders (custom domain `pay.roguenight.com.au` skipped — `buy.stripe.com` URL is fine)
+1. **Stripe Dashboard** — brand it, create Payment Link for $880, configure Invoicing reminders (custom domain `pay.roguenight.com.au` skipped — `buy.stripe.com` URL is fine)
 2. **Cloudflare Pages** — auto-deploys `public/` from `main`. No manual upload step.
 3. **Cloudflare Worker** — deploy `cloudflare-worker/worker-pay-later.js`, set Stripe secrets, wire `roguenight.com.au/api/*` route
 4. **Tally** — configure redirect with `@variable` params (email, name, business, ref)

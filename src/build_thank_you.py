@@ -137,7 +137,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <div class="eyebrow">Step 02 · Payment</div>
   <h1>Your questionnaire is in. <span class="accent">Now, the work begins.</span></h1>
   <p class="lede" id="lede-text">
-    Thanks <span class="you" id="customer-name">for completing the questionnaire</span> &mdash; we have everything we need to start building your strategy. Two ways to settle the A$880 fee, your call.
+    Thanks <span class="you" id="customer-name">for completing the questionnaire</span> &mdash; we have everything we need to start building your strategy. Two ways to settle the $880 fee, your call.
   </p>
   <div class="next-steps">
     <div class="next-steps-label">What happens next</div>
@@ -158,7 +158,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <span class="sub">Pay whenever you're ready. We hold off building until the invoice is paid.</span>
     </button>
   </div>
-  <div class="price-line">A$880 flat &middot; Strategy delivered to your inbox in 48 hours &middot; Yours to keep</div>
+  <div class="price-line">$880 flat &middot; Strategy delivered to your inbox in 48 hours &middot; Yours to keep</div>
   <div class="confirmation" id="confirmation">
     <h3>Invoice on the way.</h3>
     <p>We've just sent a Stripe invoice to <span class="invoice-email" id="invoice-email">your email</span>. Open it, click the secure payment link, settle when ready. Cards, Apple Pay, and bank transfer all accepted.</p>
@@ -187,7 +187,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     document.getElementById('customer-name').textContent = firstName + ' — the form is in';
   }
   // Stripe Payment Link (default buy.stripe.com host — we skipped the
-  // A$180/year custom domain in favour of buying URL polish later, if ever).
+  // $180/year custom domain in favour of buying URL polish later, if ever).
   var PAYMENT_LINK_BASE = 'https://buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03';
   var payNowUrl = PAYMENT_LINK_BASE;
   var qs = [];

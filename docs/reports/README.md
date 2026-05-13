@@ -18,7 +18,7 @@ Per-client AI & Automation Strategy reports — both the templates and the gener
 | Mock response (Pacific Coast Plumbing) | [`agents/dhc-report-writer/data/mock_response.json`](../../agents/dhc-report-writer/data/mock_response.json) |
 | Per-client HTML preview | Generated on demand by Lois, published via `PublishWebpage` → public URL stored in Airtable `Reports.Report URL` |
 | Per-client PDF | Generated on demand by `render_pdf.py` → attached to Airtable `Reports.Report PDF` |
-| Sample report PDF (public, on the landing page) | [`../../public/health-check-sample.pdf`](../../public/health-check-sample.pdf) (mirrored from `assets-raw/`) |
+| Sample report PDF (public, on the landing page) | [`../../public/sample-strategy.pdf`](../../public/sample-strategy.pdf) (mirrored from `assets-raw/sample-strategy.pdf`) |
 | Per-client lifecycle (status, walkthrough notes, engagement decision) | Airtable Reports table |
 
 ## To preview the template without a client
@@ -41,10 +41,8 @@ You'll see the v5 template populated with Pacific Coast Plumbing (trades example
 If you want to ship a new sample report on the landing page:
 
 1. Generate the sample via the populate script (use the mock or a synthetic non-PII customer).
-2. Convert to PDF via `render_pdf.py`.
-3. Save it as `assets-raw/health-check-sample.pdf` (replacing the existing one).
-4. Regenerate the page-1 thumbnail and base64-encode into `src/data/sample-thumb-b64.txt`.
-5. Update `PDF_PAGES` and `SAMPLE_CLIENT` constants in `src/build_landing.py`.
+2. Convert to PDF via WeasyPrint (`python3 -c "import weasyprint; weasyprint.HTML('preview.html').write_pdf('sample.pdf')"`) or `render_pdf.py`.
+3. Save it as `assets-raw/sample-strategy.pdf` (replacing the existing one).
+4. Regenerate the page-1 thumbnail via `pdftoppm -r 144 -png -f 1 -l 1 sample.pdf thumb`, resize to 800px wide, save as JPEG, base64-encode, write to `src/data/sample-thumb-b64.txt`.
+5. Update `PDF_PAGES` constant in `src/build_landing.py` to match the new PDF page count.
 6. Run `python3 src/build_all.py` to rebuild and stage the new public PDF + landing-page references.
-
-See [`docs/DEPLOYMENT-GUIDE.md`](../DEPLOYMENT-GUIDE.md) for the full sample-swap workflow.

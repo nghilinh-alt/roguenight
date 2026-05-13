@@ -4,7 +4,7 @@ Schema spec for the Airtable base that holds questionnaire responses, the vetted
 
 **Base:** `appCLdTCbJ5zGe9fo` ("Rogue Night — AI & Automation Strategy")
 **Plan:** Free tier (1,000 records per base, unlimited bases, all relational features included)
-**Upgrade trigger:** cross 1,000 responses or need >1GB attachments. At that point Team plan is A$30/seat/month.
+**Upgrade trigger:** cross 1,000 responses or need >1GB attachments. At that point Team plan is $30/seat/month.
 
 ---
 
@@ -47,7 +47,7 @@ One row per questionnaire submission. Mirrors the live Tally form at `https://ta
 | `Submitted` | Date with time | Airtable's built-in `Created time` field |
 | `Status` | Single select | `New` · `In analysis` · `Has reports` · `Engaged` · `Declined` · `Stale` |
 | `Owner` | Collaborator | Linh, for now. Future-proof for a second analyst. |
-| `Stripe paid` | Checkbox | A$880 received |
+| `Stripe paid` | Checkbox | $880 received |
 
 ### Section A — The landscape
 
