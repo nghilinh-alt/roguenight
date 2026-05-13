@@ -2,7 +2,7 @@
 
 Handles the **Pay Later** path of the Tally → Stripe payment flow.
 
-When a customer clicks "Send me an invoice" on `roguenight.com.au/thank-you/`, the page POSTs to `/api/pay-later`. Cloudflare proxying intercepts that path and routes it to this Worker. The Worker calls the Stripe Invoicing API to create a Customer + Invoice with `collection_method=send_invoice` and `auto_advance=true`. Stripe automatically finalises and emails the customer the Hosted Invoice Page link.
+When a customer clicks "Send me an invoice" on `roguenight.com.au/thank-you/`, the page POSTs to `/api/pay-later`. Cloudflare proxying intercepts that path and routes it to this Worker. The Worker calls the Stripe Invoicing API to (1) create a Customer, (2) attach an Invoice Item, (3) create the Invoice in draft state, and (4) **explicitly finalize the invoice** via `POST /v1/invoices/:id/finalize`. The finalization step is what triggers Stripe to email the customer the Hosted Invoice Page link — without it, the invoice sits in draft and no email is ever sent (the silent failure we saw in v1).
 
 ## Files
 
@@ -21,8 +21,8 @@ When a customer clicks "Send me an invoice" on `roguenight.com.au/thank-you/`, t
    - `STRIPE_SECRET_KEY` = `sk_test_...` (or `sk_live_...` once you're ready)
    - `ALLOWED_ORIGIN` = `https://roguenight.com.au`
 6. Settings → Variables, set plain-text env vars:
-   - `PRODUCT_NAME` = `Digital Health Check`
-   - `AMOUNT_CENTS` = `35000`
+   - `PRODUCT_NAME` = `AI & Automation Strategy`
+   - `AMOUNT_CENTS` = `88000`
    - `CURRENCY` = `aud`
    - `DAYS_UNTIL_DUE` = `14`
 7. Triggers → Routes → Add route: `roguenight.com.au/api/*` → Worker `rogue-night-pay-later`
@@ -64,7 +64,7 @@ You should also receive a Stripe invoice email at the address you sent.
 
 ## Costs
 
-Cloudflare Workers free tier: 100,000 requests per day. Your DHC volume is dozens per month at most, so this stays free indefinitely. Stripe charges transaction fees only — no monthly fee.
+Cloudflare Workers free tier: 100,000 requests per day. Your AI & Automation Strategy volume is dozens per month at most, so this stays free indefinitely. Stripe charges transaction fees only — no monthly fee.
 
 ## Voice rules
 
