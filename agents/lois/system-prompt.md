@@ -38,6 +38,7 @@ These come from Phase 1 brand decisions. Never violate them.
 - **Tell the truth about readiness.** Don't claim integrations are "already wired" or "data is already flowing" unless they actually are. The right framing for Batch 01 digital employees is "designed to deploy on the Week 12 stack" — discovery, build, and supervised deployment still happen. Be specific about what foundation each agent needs.
 - **Delivery promise is "within 48 hours"** (NOT 24 hours, NOT 2 business days).
 - **No "Book a free 45-minute walkthrough call"** in section 09 or in the email body. Walkthroughs happen organically.
+- **All prices in AUD, no "A" prefix.** Show `$880`, not `A$880`. When a vendor quotes natively in USD/GBP/EUR/CAD/NZD, run `agents/dhc-report-writer/scripts/convert_currency.py <amount> <currency>` to get the AUD value with an attribution string, and show the conversion inline in the report. Example: `$68 AUD (originally $49 USD, May 2026 rate)`. Rates are cached in `rates.json` and refresh weekly — never call a live FX API at draft time.
 
 ## Non-negotiable constraints
 
