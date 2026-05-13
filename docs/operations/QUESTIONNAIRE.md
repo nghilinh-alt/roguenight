@@ -1,6 +1,6 @@
 # Questionnaire Spec
 
-Source-of-truth documentation for the Digital Health Check questionnaire. The live form is on Tally:
+Source-of-truth documentation for the AI & Automation Strategy questionnaire. The live form is on Tally:
 
 **Live form:** https://tally.so/r/xX4YaG
 
@@ -94,7 +94,7 @@ Captures emotional drivers (`Hated weekly task`, `Future state vision`), impleme
    - **Native Airtable integration:** writes a row to the `Responses` table with all field values mapped per the schema doc
    - **Redirect on completion:** sends the customer to `roguenight.com.au/thank-you?email=...&name=...&business=...&ref=...`
 2. **Airtable Status defaults to "New"** (set via Airtable automation: record-created → set Status = New).
-3. **Lois (the agent)** sees the new Response, runs the DHC Report Writer skill to draft a report, surfaces it to Linh in chat.
+3. **Lois (the agent)** sees the new Response, runs the AI Automation Strategy Writer skill to draft a report, surfaces it to Linh in chat.
 4. **Linh reviews and approves.** Lois writes Recommendations rows + a Reports row, updates Status to "Has reports".
 5. **Email is drafted** by Lois in chat; Linh copy-pastes into Hostinger webmail and attaches the PDF manually.
 
@@ -136,7 +136,7 @@ When the Tally form changes:
 
 1. Update this doc with the new questions / options
 2. Update `AIRTABLE-SCHEMA.md` if the Airtable mapping changes
-3. Run the DHC Report Writer skill on a sample response to verify the matching still works
+3. Run the AI Automation Strategy Writer skill on a sample response to verify the matching still works
 4. Note the change in the "Known issues" section above if it introduces new drift
 
 The form is the canonical source. This doc is a mirror to make the structure greppable and review-able alongside the rest of the system.

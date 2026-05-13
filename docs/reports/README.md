@@ -1,6 +1,6 @@
 # Reports
 
-Per-client Digital Health Check reports — both the templates and the generated outputs — are **not stored in this repo**.
+Per-client AI & Automation Strategy reports — both the templates and the generated outputs — are **not stored in this repo**.
 
 ## Why not?
 

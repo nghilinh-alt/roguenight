@@ -75,20 +75,20 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <header class="brand-bar">
   <div class="brand-bar-inner">
     <img class="brand-logo" src="data:image/png;base64,__LOGO_B64__" alt="Rogue Night">
-    <div class="brand-tag">Digital Health Check</div>
+    <div class="brand-tag">AI &amp; Automation Strategy</div>
   </div>
 </header>
 <main>
   <div class="eyebrow">Step 03 &middot; Confirmed</div>
   <h1>Payment received. <span class="accent">We start tonight.</span></h1>
   <p class="lede">
-    Thanks &mdash; your A$350 has landed. Stripe has emailed you a receipt for your records. We'll begin your specially curated report within 48 hours.
+    Thanks &mdash; your A$880 has landed. Stripe has emailed you a receipt for your records. We'll begin your specially curated strategy within 48 hours.
   </p>
   <div class="next-steps">
     <div class="next-steps-label">What happens from here</div>
     <ol>
       <li>We review your questionnaire end-to-end &mdash; the answers, the &ldquo;why&rdquo; behind them, the bits that surprised us.</li>
-      <li>We draft your report: where your stack is now, where it could go, the digital employees that pay back fastest, and a phased rollout.</li>
+      <li>We draft your AI &amp; Automation Strategy: where your stack is now, where it could go, the digital employees that pay back fastest, and a phased rollout.</li>
       <li>It lands in your inbox as a PDF within 48 hours. Yours to keep, whatever you do next.</li>
       <li>Questions in the first 30 days? Reply to the email it came from. We're here.</li>
     </ol>

@@ -1,8 +1,8 @@
-# Airtable Base Schema — Digital Health Check
+# Airtable Base Schema — AI & Automation Strategy
 
 Schema spec for the Airtable base that holds questionnaire responses, the vetted tool catalogue, and per-client recommendations. Mirror of `catalogue/stack.md` and the live Tally form.
 
-**Base:** `appCLdTCbJ5zGe9fo` ("Rogue Night — Digital Health Check")
+**Base:** `appCLdTCbJ5zGe9fo` ("Rogue Night — AI & Automation Strategy")
 **Plan:** Free tier (1,000 records per base, unlimited bases, all relational features included)
 **Upgrade trigger:** cross 1,000 responses or need >1GB attachments. At that point Team plan is A$30/seat/month.
 
@@ -10,7 +10,7 @@ Schema spec for the Airtable base that holds questionnaire responses, the vetted
 
 ## Overview
 
-**Purpose:** structured storage for Digital Health Check questionnaire responses + the vetted tool catalogue + the recommendations Rogue Night drafts per client. Acts as the source of truth that feeds the report template.
+**Purpose:** structured storage for AI & Automation Strategy questionnaire responses + the vetted tool catalogue + the recommendations Rogue Night drafts per client. Acts as the source of truth that feeds the report template.
 
 **Why Airtable over Google Sheets:** the relational model. Each client response links to multiple recommended tools; each tool can appear across many client recommendations. Airtable handles this natively via linked records, lookups, and rollups. Sheets can fake it via VLOOKUP but breaks under iteration.
 
@@ -20,7 +20,7 @@ Schema spec for the Airtable base that holds questionnaire responses, the vetted
 
 One base, four tables.
 
-1. **`Responses`** — one row per submitted Digital Health Check questionnaire. Schema mirrors the live Tally form at `https://tally.so/r/xX4YaG`.
+1. **`Responses`** — one row per submitted AI & Automation Strategy questionnaire. Schema mirrors the live Tally form at `https://tally.so/r/xX4YaG`.
 2. **`Tools`** — the vetted tool catalogue, mirroring `catalogue/stack.md` row-for-row.
 3. **`Recommendations`** — the junction table. Each row links one Response to one Tool with per-client rationale. Powers section 04 of the report.
 4. **`Reports`** — one row per generated report version. Tracks the deliverable lifecycle.
@@ -47,7 +47,7 @@ One row per questionnaire submission. Mirrors the live Tally form at `https://ta
 | `Submitted` | Date with time | Airtable's built-in `Created time` field |
 | `Status` | Single select | `New` · `In analysis` · `Has reports` · `Engaged` · `Declined` · `Stale` |
 | `Owner` | Collaborator | Linh, for now. Future-proof for a second analyst. |
-| `Stripe paid` | Checkbox | A$350 received |
+| `Stripe paid` | Checkbox | A$880 received |
 
 ### Section A — The landscape
 
@@ -243,7 +243,7 @@ Why a separate table (vs extra fields on Responses): a Response is the one-time 
 
 1. **Tally → Airtable native integration** posts a new row into `Responses`. Status defaults to `New` via an Airtable automation.
 2. Linh (or Lois on her behalf) opens the new row, reviews, sets `Status = In analysis`.
-3. Lois runs the DHC Report Writer skill: pulls the Response, matches against Tools, drafts the report.
+3. Lois runs the AI Automation Strategy Writer skill: pulls the Response, matches against Tools, drafts the report.
 4. Linh reviews the draft, requests edits, Lois iterates.
 5. On approval, Lois writes back:
    - 5-7 Recommendations rows (linked to the Response and matching Tools)

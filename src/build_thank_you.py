@@ -6,8 +6,8 @@ Output: src/rogue-night-thank-you.html → staged to public/thank-you/index.html
         by build_all.py.
 
 This page is served at https://roguenight.com.au/thank-you/ and is the
-landing surface after a customer completes the Tally Digital Health Check
-form. It offers two payment paths:
+landing surface after a customer completes the Tally AI & Automation Strategy
+questionnaire. It offers two payment paths:
 
   1. Pay Now → opens the Stripe Payment Link at pay.roguenight.com.au
   2. Pay Later → calls /api/pay-later (Cloudflare Worker) which creates a
@@ -118,8 +118,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Digital Health Check is in · Rogue Night</title>
-  <meta name="description" content="Thanks for completing the Digital Health Check questionnaire. Choose how you'd like to pay — we'll begin tonight.">
+  <title>Your AI &amp; Automation Strategy is queued · Rogue Night</title>
+  <meta name="description" content="Thanks for completing the questionnaire. Choose how you'd like to pay — your AI &amp; Automation Strategy lands in your inbox within 48 hours.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,20 +130,20 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <header class="brand-bar">
   <div class="brand-bar-inner">
     <img class="brand-logo" src="data:image/png;base64,__LOGO_B64__" alt="Rogue Night">
-    <div class="brand-tag">Digital Health Check</div>
+    <div class="brand-tag">AI &amp; Automation Strategy</div>
   </div>
 </header>
 <main>
   <div class="eyebrow">Step 02 · Payment</div>
   <h1>Your questionnaire is in. <span class="accent">Now, the work begins.</span></h1>
   <p class="lede" id="lede-text">
-    Thanks <span class="you" id="customer-name">for completing the Digital Health Check</span> &mdash; we have everything we need to start building your report. Two ways to settle the A$350 fee, your call.
+    Thanks <span class="you" id="customer-name">for completing the questionnaire</span> &mdash; we have everything we need to start building your strategy. Two ways to settle the A$880 fee, your call.
   </p>
   <div class="next-steps">
     <div class="next-steps-label">What happens next</div>
     <ol>
       <li>You pay (or schedule payment) using one of the two paths below.</li>
-      <li>We draft your report within 48 hours, specially curated for your business.</li>
+      <li>We draft your AI &amp; Automation Strategy within 48 hours, specially curated for your business.</li>
       <li>It lands in your inbox as a PDF, yours to keep. We'll be available for questions for 30 days.</li>
     </ol>
   </div>
@@ -158,11 +158,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <span class="sub">Pay whenever you're ready. We hold off building until the invoice is paid.</span>
     </button>
   </div>
-  <div class="price-line">A$350 flat &middot; Report delivered to your inbox in 48 hours &middot; Yours to keep</div>
+  <div class="price-line">A$880 flat &middot; Strategy delivered to your inbox in 48 hours &middot; Yours to keep</div>
   <div class="confirmation" id="confirmation">
     <h3>Invoice on the way.</h3>
     <p>We've just sent a Stripe invoice to <span class="invoice-email" id="invoice-email">your email</span>. Open it, click the secure payment link, settle when ready. Cards, Apple Pay, and bank transfer all accepted.</p>
-    <p>Once it's paid, we'll begin your report within 48 hours.</p>
+    <p>Once it's paid, we'll begin your strategy within 48 hours.</p>
     <p style="margin-top: 16px; font-size: 14px; color: var(--slate);">Didn't see it? Check your spam folder. The sender is <strong>noreply@stripe.com</strong> with subject &ldquo;Invoice from Rogue Night PTY LTD&rdquo;. Or email us at <a href="mailto:hello@roguenight.com.au" style="color: var(--ink);">hello@roguenight.com.au</a>.</p>
   </div>
   <div class="error" id="error">

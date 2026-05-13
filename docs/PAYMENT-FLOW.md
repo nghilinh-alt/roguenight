@@ -1,6 +1,6 @@
 # Payment Flow — Tally to Stripe
 
-Step-by-step setup for the branded post-Tally payment experience: Stripe Payment Link on a custom subdomain, Hostinger-hosted thank-you and confirmation pages, Cloudflare Worker for the Pay-Later invoice automation, and Tally redirect configuration.
+Step-by-step setup for the branded post-Tally payment experience: Stripe Payment Link (default `buy.stripe.com/...` URL — custom subdomain skipped to save A$180/year), Cloudflare-Pages-hosted thank-you and confirmation pages, Cloudflare Worker for the Pay-Later invoice automation, and Tally redirect configuration.
 
 Estimated total setup: 60-90 minutes.
 
@@ -15,10 +15,10 @@ Estimated total setup: 60-90 minutes.
 ```
 Tally form (free)
   → redirect with email/name/ref/business params
-  → roguenight.com.au/thank-you/ (Hostinger static, Cloudflare-proxied)
+  → roguenight.com.au/thank-you/ (Cloudflare Pages, auto-deployed from this repo's main branch)
      │
-     ├─ Pay Now button → pay.roguenight.com.au/dhc-350?prefilled_email=...
-     │    (Stripe Payment Link, custom domain, branded)
+     ├─ Pay Now button → buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03?prefilled_email=...
+     │    (Stripe Payment Link, RN-branded via Stripe Dashboard branding settings)
      │    → customer pays → roguenight.com.au/confirmation/
      │
      └─ Pay Later button → fetch POST /api/pay-later (Cloudflare Worker)
@@ -36,8 +36,8 @@ Tally form (free)
 - `cloudflare-worker/wrangler.toml` — Worker config.
 
 **Setup order:**
-1. Stripe Dashboard — brand it, create the Payment Link, set up the custom domain, configure Invoicing
-2. Hostinger — upload `public/thank-you/` and `public/confirmation/`
+1. Stripe Dashboard — brand it, create the Payment Link, configure Invoicing
+2. Cloudflare Pages — already auto-deploying `public/` from `main`. No manual upload.
 3. Cloudflare Worker — deploy and wire to `/api/*` route
 4. Tally — configure the redirect with @-variables
 5. End-to-end test with Stripe test mode
@@ -59,24 +59,20 @@ Dashboard → Settings → Business → Branding
 
 This branding applies to every Stripe-hosted page — Payment Links, Checkout, Hosted Invoice Pages.
 
-**1.2 Create the Payment Link for the Digital Health Check** (3 min)
+**1.2 Create the Payment Link for the AI & Automation Strategy** (3 min)
 
 Dashboard → Payment Links → + New
 
-- Product: "Digital Health Check"
+- Product: "AI & Automation Strategy"
 - Description: "Specially curated report for your small to medium business. Delivered within 48 hours."
-- Price: A$350.00 (one-time)
+- Price: A$880.00 (one-time)
 - After payment: redirect to `https://roguenight.com.au/confirmation/`
 - Customer information to collect: just email (other fields already captured by Tally)
 - Save the link — you'll get a `https://buy.stripe.com/abc123xyz` URL.
 
-**1.3 Set up the custom domain** (5 min)
+**1.3 Custom domain — SKIPPED**
 
-Dashboard → Settings → Payment Links → Custom domains
-
-- Add domain: `pay.roguenight.com.au`
-- Stripe gives you a CNAME record to add at your DNS host (Cloudflare). Add it. Wait for verification (1-5 min).
-- Once verified, your Payment Link URL becomes: `https://pay.roguenight.com.au/dhc-350` (set the slug `/dhc-350` after activating the custom domain).
+Stripe lets you add a custom domain like `pay.roguenight.com.au` to your Payment Links. We decided against this — the custom-domain feature costs A$180/year per Payment Link and the default `buy.stripe.com/...` URL works fine. If you want to revisit this later, the feature is at Dashboard → Settings → Payment Links → Custom domains.
 
 **1.4 Configure Invoicing** (3 min)
 
@@ -96,9 +92,9 @@ Dashboard → Developers → API keys
 
 ---
 
-## Step 2 — Hostinger: upload the HTML pages
+## Step 2 — Cloudflare Pages: deploy the HTML pages
 
-Your existing site is on Hostinger. You'll add two new pages to the `public_html` upload.
+The static site (including the thank-you and confirmation pages) is auto-deployed by Cloudflare Pages on every push to `main`. There is no manual upload step.
 
 **2.1 Build the pages locally**
 
@@ -107,15 +103,21 @@ cd src/
 python3 build_all.py
 ```
 
-This generates `public/thank-you/index.html` and `public/confirmation/index.html` (and refreshes all the other pages while it's at it).
+This generates `public/thank-you/index.html` and `public/confirmation/index.html` (and refreshes all the other pages while it's at it). Build output goes into the `public/` folder.
 
-**2.2 Upload to Hostinger**
+**2.2 Commit and push**
 
-Hostinger hPanel → File Manager → `public_html/`
+```bash
+cd ..
+git status
+git add public/ src/
+git commit -m "Update thank-you and confirmation pages"
+git push origin main
+```
 
-Drag and drop the `thank-you/` and `confirmation/` folders (from `public/`) into `public_html/`. Hostinger File Manager preserves the folder structure — you'll end up with `public_html/thank-you/index.html` and `public_html/confirmation/index.html`.
+Cloudflare Pages picks up the push and deploys within 30–60 seconds. Watch the build at:
 
-If you're doing a full redeploy, just drag the contents of `public/` into `public_html/` (overwriting existing files). The `.htaccess` and `_headers` files are also part of `public/`.
+<https://dash.cloudflare.com/a18b9bc7aad669c66aad28fc193338f2/pages/view/roguenight-website>
 
 **2.3 Verify**
 
@@ -123,7 +125,7 @@ Visit:
 - `https://roguenight.com.au/thank-you/?email=test@example.com&name=Sample%20Owner&ref=abc123` — branded thank-you page with personalised lede.
 - `https://roguenight.com.au/confirmation/` — branded confirmation page.
 
-The Pay Later button won't work yet (Worker not deployed). The Pay Now button will fail because the Payment Link slug (`/dhc-350`) might not match your real Stripe Payment Link — update `src/build_thank_you.py` (`PAYMENT_LINK_BASE` constant) and re-run `build_all.py` once you've created the real link.
+The Pay Later button won't work yet (Worker not deployed). The Pay Now button is wired to the real Stripe Payment Link `https://buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03` — see `src/build_thank_you.py` (`PAYMENT_LINK_BASE` constant) if you ever need to swap it.
 
 ---
 
@@ -131,11 +133,11 @@ The Pay Later button won't work yet (Worker not deployed). The Pay Now button wi
 
 See [`cloudflare-worker/README.md`](../cloudflare-worker/README.md) for the full Worker deployment walkthrough. Quick summary:
 
-1. Cloudflare Dashboard → Workers & Pages → Create → Worker, name `rogue-night-pay-later`
+1. Cloudflare Dashboard → Workers & Pages → Create → Worker (auto-named, currently `snowy-salad-ba26`; can be renamed via Settings → General if you want a friendlier slug)
 2. Paste the contents of `cloudflare-worker/worker-pay-later.js` into the editor, Save and Deploy
 3. Settings → Variables, set secrets: `STRIPE_SECRET_KEY` (sk_test_... to start), `ALLOWED_ORIGIN` (`https://roguenight.com.au`)
-4. Settings → Variables, set env vars: `PRODUCT_NAME`, `AMOUNT_CENTS=35000`, `CURRENCY=aud`, `DAYS_UNTIL_DUE=14`
-5. Triggers → Routes → Add route: `roguenight.com.au/api/*` → Worker `rogue-night-pay-later`
+4. Settings → Variables, set env vars: `PRODUCT_NAME="AI Automation Strategy"`, `AMOUNT_CENTS=88000`, `CURRENCY=aud`, `DAYS_UNTIL_DUE=14`
+5. Triggers → Routes → Add route: `roguenight.com.au/api/*` → the Worker
 
 **Test the Worker:**
 
@@ -196,7 +198,7 @@ Once all four pieces are deployed, run a full test in Stripe **test mode** (sk_t
 
 1. Fill the live Tally form with a real email.
 2. Land on `https://roguenight.com.au/thank-you/?email=...`. See your details pre-populated.
-3. Click Pay Now → land on `https://pay.roguenight.com.au/dhc-350?prefilled_email=...` (Payment Link with your email pre-filled).
+3. Click Pay Now → land on `https://buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03?prefilled_email=...` (Payment Link with your email pre-filled).
 4. Use Stripe test card `4242 4242 4242 4242`, any future expiry, any CVC.
 5. After payment, redirect to `https://roguenight.com.au/confirmation/` with the success message.
 6. Check your inbox: Stripe should email a receipt.
@@ -208,7 +210,7 @@ Once all four pieces are deployed, run a full test in Stripe **test mode** (sk_t
 3. Click "Send me an invoice".
 4. Within 1-3 seconds, the inline confirmation should appear ("Invoice on the way").
 5. Check that inbox: you should receive a Stripe invoice email from `noreply@stripe.com` with subject "Invoice from Rogue Night PTY LTD".
-6. Email contains a link to the Hosted Invoice Page. Click it — page should be Rogue Night branded with the A$350 amount and payment buttons.
+6. Email contains a link to the Hosted Invoice Page. Click it — page should be Rogue Night branded with the A$880 amount and payment buttons.
 7. Pay using the test card. Invoice marks as paid in your Stripe dashboard.
 
 ### Test 3: Error handling
@@ -247,7 +249,7 @@ Expected: `{"error":"A valid email is required."}` with status 400. This confirm
 **Costs:**
 
 - Cloudflare Workers free tier: 100,000 requests/day. You'll send dozens per month at most.
-- Cloudflare Pages free tier: not applicable (site is on Hostinger).
+- Cloudflare Pages free tier: unlimited bandwidth, 500 builds/month — well within range for this site.
 - Stripe: 1.75% + A$0.30 per AU card transaction. International cards 2.9% + A$0.30. No monthly fee.
 
 **Customer support scripts:**
@@ -263,7 +265,7 @@ Expected: `{"error":"A valid email is required."}` with status 400. This confirm
 - No "SME" or "SMEs" — "small to medium businesses" or "small business"
 - No "AI-generated" — "specially curated"
 - No founder name on customer-facing pages
-- "Australia" not "Australian" in metadata
+- "Australian small to medium businesses" in body copy; "Australian businesses" tighter in the hero only
 - Delivery promise is 48 hours (not 24, not 2 business days)
 - Phase 1 colour palette and typography throughout
 

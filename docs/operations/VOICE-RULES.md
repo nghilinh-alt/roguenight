@@ -1,8 +1,8 @@
 # Voice Rules — Phase 1 Locked
 
-These are the brand voice rules locked at Phase 1. They apply to every customer-facing surface (landing page, privacy policy, terms, thank-you page, confirmation page, Stripe-hosted pages, DHC reports, emails Lois drafts).
+These are the brand voice rules locked at Phase 1. They apply to every customer-facing surface (landing page, privacy policy, terms, thank-you page, confirmation page, Stripe-hosted pages, strategy reports, emails Lois drafts).
 
-They are also enforced in the build scripts and the agent system prompts (Lois, DHC Report Writer, Stack.md Maintainer). Violating them generally requires a Phase 2 decision — don't break them on a whim.
+They are also enforced in the build scripts and the agent system prompts (Lois, AI Automation Strategy Writer, Stack.md Maintainer). Violating them generally requires a Phase 2 decision — don't break them on a whim.
 
 ---
 
@@ -16,7 +16,7 @@ They are also enforced in the build scripts and the agent system prompts (Lois, 
 ### Product description
 
 - **Never write "AI-generated report".** Always "specially curated".
-- Acceptable variants: "specially curated for your business", "your specially curated Digital Health Check".
+- Acceptable variants: "specially curated for your business", "your specially curated AI & Automation Strategy".
 
 ### Identity
 
@@ -45,8 +45,8 @@ They are also enforced in the build scripts and the agent system prompts (Lois, 
 
 ### Scope clarity
 
-- **Digital Health Check is advisory only.** The report is the deliverable. Agent / digital-employee implementation is a **separate, quoted engagement**.
-- Never imply implementation is included in the A$350.
+- **AI & Automation Strategy is advisory only.** The report is the deliverable. Agent / digital-employee implementation is a **separate, quoted engagement**.
+- Never imply implementation is included in the A$880.
 
 ### Honesty rule
 
@@ -75,7 +75,7 @@ The accent word is the emotional punch. The first half sets context, the accent 
 - Don't pad with corporate filler.
 - Show the work — when you make a claim, name the phrase from the customer's own questionnaire that backs it up.
 - Use ranges over point estimates when discussing impact (hours saved, dollars captured).
-- Quote the customer's words back to them in DHC reports. Their phrasing is the strongest evidence.
+- Quote the customer's words back to them in strategy reports. Their phrasing is the strongest evidence.
 
 ---
 

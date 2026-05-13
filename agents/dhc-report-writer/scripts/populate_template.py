@@ -1,4 +1,4 @@
-"""Populate the v5 Digital Health Check template with a client's data.
+"""Populate the v5 AI & Automation Strategy template with a client's data.
 
 UPDATED 2026-05-11: now builds the complete v5-quality report from scratch using v5's
 CSS verbatim and v5's class structure. Previously, this script did targeted Find &
@@ -28,7 +28,7 @@ Workflow context (Lois agent calling this script):
   * Industry-fit nuance the matcher can miss (e.g. Xero Cashbook for tight-budget
     healthcare admin instead of Xero Grow)
 - Lois drafts per-client copy for each tool's "Why this for you" and "Why not the
-  alternatives" — these are the high-judgement bits that justify the A$350 fee
+  alternatives" — these are the high-judgement bits that justify the A$880 fee
 - Lois assembles vars.json and calls this script to generate the HTML
 """
 import json
@@ -226,7 +226,7 @@ def main():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Health Check — {client}</title>
+<title>AI & Automation Strategy — {client}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -243,7 +243,7 @@ def main():
       <img class="cover-logo" src="data:image/png;base64,{logo_b64}" alt="Rogue Night">
     </div>
     <div class="cover-title-block">
-      <div class="cover-eyebrow">Digital Health Check · Specially curated</div>
+      <div class="cover-eyebrow">AI & Automation Strategy · Specially curated</div>
       <h1 class="cover-title">{cover_title}<br><span class="accent">{cover_accent}</span></h1>
       <p class="cover-subtitle">{cover_subtitle}</p>
     </div>
@@ -411,7 +411,7 @@ def main():
     </div>
     <div style="margin-top: 32px;">
       <p class="body-lede" style="font-size: 20px;">01. Feel strongly about something? We'll amend the report.</p>
-      <p style="margin-top: 8px;">This report is yours. If something doesn't fit your business — a tool you've already tried, a phase that doesn't make sense, a number that feels off — tell us, and we'll revise. Free of charge. The A$350 covers the work, including refinement.</p>
+      <p style="margin-top: 8px;">This report is yours. If something doesn't fit your business — a tool you've already tried, a phase that doesn't make sense, a number that feels off — tell us, and we'll revise. Free of charge. The A$880 covers the work, including refinement.</p>
     </div>
     <div style="margin-top: 32px;">
       <p class="body-lede" style="font-size: 20px;">02. Engage Rogue Night for the implementation.</p>
@@ -419,7 +419,7 @@ def main():
     </div>
     <div style="margin-top: 32px;">
       <p class="body-lede" style="font-size: 20px;">03. Take the report and run it yourself.</p>
-      <p style="margin-top: 8px;">The recommendations are vendor-neutral. The A$350 has covered the work.</p>
+      <p style="margin-top: 8px;">The recommendations are vendor-neutral. The A$880 has covered the work.</p>
     </div>
     <p class="meta" style="margin-top: 64px; text-align: center;">Rogue Night PTY LTD · ABN 31 633 650 334 · Australia · Prepared {today}</p>
   </div>

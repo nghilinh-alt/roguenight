@@ -169,4 +169,4 @@ python3 ../../dhc-report-writer/scripts/fetch_tools.py > /tmp/tools-live.json
 python3 audit_stack.py ../../../catalogue/stack.md /tmp/tools-live.json
 ```
 
-(In production: Lois runs this after every DHC report, and the Stack.md Maintainer skill surfaces any drift to Linh for review.)
+(In production: Lois runs this after every strategy report, and the Stack.md Maintainer skill surfaces any drift to Linh for review.)

@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
-"""Build the Rogue Night landing page (v9) with photographic logo lockups."""
+"""Build the Rogue Night landing page (v10) — AI & Automation Strategy rebrand.
+
+Voice rules:
+- Hero uses 'Australian businesses' (tighter)
+- Body copy uses 'Australian small to medium businesses' (lowercase, written out)
+- No 'SME' / 'SMEs'
+- No 'AI-generated' (use 'specially curated')
+- No founder name on the page
+- 'within 48 hours' (NOT 24, NOT business days)
+- No strategy call or calendar booking promise — infra not live yet
+"""
 import os
 
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -14,21 +24,22 @@ with open(os.path.join(_DATA, 'horizontal_sm-b64.txt')) as f:
 
 TALLY_URL = 'https://tally.so/r/xX4YaG'
 PDF_PAGES = 23
-SAMPLE_CLIENT = "Cindy's Cakes"
 SITE_URL = 'https://roguenight.com.au'
 ABN = '31 633 650 334'
+PRICE = '880'
+PRICE_DISPLAY = 'A$880'
 
-# MODE: 'staging' (default — links go to hyperagent artifacts so the in-thread
-# preview works) or 'production' (relative paths for live Hostinger deploy).
+# MODE: 'staging' (default — absolute URLs to the live site so the in-thread
+# preview works inside an iframe) or 'production' (same-origin relative paths
+# for the Cloudflare Pages build).
 # Switch via: STAGING_MODE=false python3 build_landing.py
 STAGING_MODE = os.environ.get('STAGING_MODE', 'true').lower() != 'false'
 
 if STAGING_MODE:
-    PDF_URL = 'https://pub.hyperagent.com/api/published/pbf01KRB9E02V_D20BQGPH4K87GXSK/rogue-night-sample-report-v3.pdf'
-    PRIVACY_URL = 'https://hyperagent.com/api/files/usergenerated/threads/cmp0ar2ld0z7u07ad51te2m1a/artifacts/4199c54e-4981-4e05-892d-d4d1507df31a.html'
-    TERMS_URL = 'https://hyperagent.com/api/files/usergenerated/threads/cmp11nt330hkq07ad6ehn9pxd/artifacts/f8837a40-77a5-4cf0-b05f-ac0c0d03a6f6.html'
+    PDF_URL = 'https://roguenight.com.au/health-check-sample.pdf'
+    PRIVACY_URL = 'https://roguenight.com.au/privacy/'
+    TERMS_URL = 'https://roguenight.com.au/terms/'
 else:
-    # Production paths — PDF and sub-pages all live at roguenight.com.au after deploy
     PDF_URL = '/health-check-sample.pdf'
     PRIVACY_URL = '/privacy/'
     TERMS_URL = '/terms/'
@@ -40,9 +51,9 @@ HTML = f"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Primary meta -->
-<title>Rogue Night — Digital transformation for Australian small to medium businesses</title>
-<meta name="description" content="Rogue Night helps Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. Specially curated Digital Health Check, $350 flat, in your inbox within 48 hours.">
-<meta name="keywords" content="digital transformation Australia, AI agents small business, digital employees, small to medium business consulting, Australian AI consultant, business automation, AI implementation, tool stack audit, digital health check">
+<title>Rogue Night — AI &amp; Automation Strategy for Australian small to medium businesses</title>
+<meta name="description" content="Rogue Night helps Australian small to medium businesses identify the right tools, eliminate wasted effort, and design AI-powered systems. AI &amp; Automation Strategy, A$880 flat, in your inbox within 48 hours.">
+<meta name="keywords" content="AI automation strategy Australia, AI agents small business, digital employees, small to medium business consulting, Australian AI consultant, business automation, AI implementation, tool stack audit, business optimisation plan">
 <meta name="author" content="Rogue Night PTY LTD">
 <meta name="theme-color" content="#0A0E1A">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -54,22 +65,22 @@ HTML = f"""<!DOCTYPE html>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A0E1A'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%23050608'/%3E%3Ccircle cx='32' cy='32' r='16' fill='none' stroke='%23C9A961' stroke-width='1.5' opacity='0.9'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23C9A961' stroke-width='0.8' opacity='0.4'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="{SITE_URL}/apple-touch-icon.png">
 
-<!-- Open Graph — LinkedIn, Facebook, Slack, WhatsApp, iMessage -->
+<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rogue Night">
-<meta property="og:title" content="Rogue Night — The work that runs while you sleep">
-<meta property="og:description" content="We help Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. Digital Health Check, $350 flat, within 48 hours.">
+<meta property="og:title" content="Rogue Night — Run your business smarter">
+<meta property="og:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. A custom plan to identify the right tools, eliminate wasted effort, and design AI-powered systems. A$880, within 48 hours.">
 <meta property="og:url" content="{SITE_URL}/">
 <meta property="og:image" content="{SITE_URL}/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Rogue Night — digital transformation, AI-amplified, priced for small business">
+<meta property="og:image:alt" content="Rogue Night — AI &amp; Automation Strategy for Australian small to medium businesses">
 <meta property="og:locale" content="en_AU">
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Rogue Night — The work that runs while you sleep">
-<meta name="twitter:description" content="We help Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. Digital Health Check, $350 flat, within 48 hours.">
+<meta name="twitter:title" content="Rogue Night — Run your business smarter">
+<meta name="twitter:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. A$880, within 48 hours.">
 <meta name="twitter:image" content="{SITE_URL}/og-image.png">
 <meta name="twitter:image:alt" content="Rogue Night logo on Ink background with editorial headline">
 
@@ -77,7 +88,7 @@ HTML = f"""<!DOCTYPE html>
 <meta name="geo.region" content="AU">
 <meta name="geo.placename" content="Australia">
 
-<!-- JSON-LD structured data — helps Google understand the business -->
+<!-- JSON-LD structured data -->
 <script type="application/ld+json">
 {{
   "@context": "https://schema.org",
@@ -87,7 +98,7 @@ HTML = f"""<!DOCTYPE html>
   "url": "{SITE_URL}/",
   "logo": "{SITE_URL}/logo-stacked.png",
   "image": "{SITE_URL}/og-image.png",
-  "description": "Digital transformation consulting, AI agent and digital employee deployment, and vetted tool advisory for Australian small to medium businesses.",
+  "description": "AI & Automation Strategy and tool advisory for Australian small to medium businesses. Custom business optimisation plans, AI agent and digital employee design and implementation.",
   "slogan": "The work that runs while you sleep.",
   "email": "hello@roguenight.com.au",
   "identifier": [
@@ -101,22 +112,22 @@ HTML = f"""<!DOCTYPE html>
     "@type": "Country",
     "name": "Australia"
   }},
-  "priceRange": "A$350",
+  "priceRange": "{PRICE_DISPLAY}",
   "knowsAbout": [
-    "Digital transformation",
+    "AI automation strategy",
     "AI agents",
     "Digital employees",
-    "Business automation",
+    "Business optimisation",
     "Tool stack advisory",
     "Small business consulting"
   ],
   "makesOffer": {{
     "@type": "Offer",
-    "name": "Digital Health Check",
-    "price": "350",
+    "name": "AI & Automation Strategy",
+    "price": "{PRICE}",
     "priceCurrency": "AUD",
     "availability": "https://schema.org/InStock",
-    "description": "Specially curated digital health check for small business — tool snapshot, recommended stack, AI agent ideas, phased rollout. Delivered to your inbox within 48 hours.",
+    "description": "A custom business optimisation plan for small to medium businesses — assessment, tool stack redesign, priority action plan, 12-week implementation roadmap, and AI opportunity blueprint. Delivered to your inbox within 48 hours.",
     "url": "{TALLY_URL}"
   }}
 }}
@@ -176,7 +187,7 @@ HTML = f"""<!DOCTYPE html>
   section {{ padding: 8rem 0; }}
   @media (max-width: 720px) {{ section {{ padding: 5rem 0; }} }}
 
-  /* Brand bar (top) */
+  /* Brand bar */
   .brand-bar {{
     position: relative;
     padding: 1.5rem 6% 0;
@@ -185,23 +196,19 @@ HTML = f"""<!DOCTYPE html>
     justify-content: space-between;
   }}
   .brand-bar a {{ text-decoration: none; }}
-  .brand-logo {{
-    display: block;
-    height: 56px;
-    width: auto;
-  }}
+  .brand-logo {{ display: block; height: 56px; width: auto; }}
   .brand-bar .cta-ghost {{ font-size: 0.95rem; }}
 
   /* Hero */
   .hero {{
-    padding: 5rem 6% 9rem;
+    padding: 5rem 6% 7rem;
     max-width: 1200px;
     margin: 0 auto;
   }}
   .hero h1 {{ margin: 1.5rem 0 2rem; max-width: 18ch; }}
   .hero .subhead {{ font-size: 1.3rem; max-width: 56ch; margin-bottom: 3rem; }}
 
-  /* CTA buttons */
+  /* Buttons */
   .cta-primary {{
     display: inline-flex;
     align-items: center;
@@ -236,22 +243,79 @@ HTML = f"""<!DOCTYPE html>
     border-bottom: 1px solid rgba(201, 169, 97, 0.3);
     transition: all 0.2s ease;
   }}
-  .cta-ghost:hover {{
-    color: var(--parchment);
-    border-bottom-color: var(--gold);
-  }}
-  .cta-arrow {{
-    display: inline-block;
-    transition: transform 0.2s ease;
-  }}
-  .cta-primary:hover .cta-arrow,
-  .cta-ghost:hover .cta-arrow {{ transform: translateX(4px); }}
-
+  .cta-ghost:hover {{ color: var(--parchment); border-bottom-color: var(--gold); }}
+  .cta-arrow {{ display: inline-block; transition: transform 0.2s ease; }}
+  .cta-primary:hover .cta-arrow, .cta-ghost:hover .cta-arrow {{ transform: translateX(4px); }}
   .cta-support {{
     font-size: 0.92rem;
     color: var(--slate);
     margin-top: 1rem;
     letter-spacing: 0.02em;
+  }}
+
+  /* Value strip — sits between hero and trust pillars */
+  .value-strip {{
+    padding: 5rem 6% 5rem;
+    border-top: 1px solid rgba(201, 169, 97, 0.12);
+    border-bottom: 1px solid rgba(201, 169, 97, 0.12);
+    background:
+      radial-gradient(ellipse at 70% 50%, rgba(201, 169, 97, 0.05), transparent 65%),
+      var(--obsidian);
+  }}
+  .value-strip .container {{ display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }}
+  .value-headline {{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--parchment);
+    margin-bottom: 1.2rem;
+  }}
+  .value-headline em {{ color: var(--gold); }}
+  .value-sub {{
+    color: var(--parchment);
+    opacity: 0.8;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    max-width: 40ch;
+    margin-bottom: 0;
+  }}
+  .value-unlocks {{ list-style: none; padding: 0; margin: 0; }}
+  .value-unlocks li {{
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(201, 169, 97, 0.12);
+    color: var(--parchment);
+    font-size: 1.02rem;
+    line-height: 1.4;
+    opacity: 0.92;
+  }}
+  .value-unlocks li:last-child {{ border-bottom: none; }}
+  .value-unlocks li::before {{
+    content: '→';
+    color: var(--gold);
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }}
+  .value-recovery {{
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(201, 169, 97, 0.12);
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(1.2rem, 2vw, 1.45rem);
+    color: var(--parchment);
+    opacity: 0.92;
+    letter-spacing: -0.005em;
+  }}
+  .value-recovery em {{ color: var(--gold); }}
+  @media (max-width: 880px) {{
+    .value-strip .container {{ grid-template-columns: 1fr; gap: 2rem; }}
   }}
 
   /* Trust pillars */
@@ -279,15 +343,8 @@ HTML = f"""<!DOCTYPE html>
     background: linear-gradient(to right, transparent, var(--gold), transparent);
     margin: 0 auto 1.8rem;
   }}
-  .pillars {{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-  }}
-  .pillar {{
-    border-left: 2px solid var(--gold);
-    padding-left: 1.5rem;
-  }}
+  .pillars {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }}
+  .pillar {{ border-left: 2px solid var(--gold); padding-left: 1.5rem; }}
   .pillar-num {{
     font-family: 'Instrument Serif', Georgia, serif;
     font-style: italic;
@@ -306,7 +363,7 @@ HTML = f"""<!DOCTYPE html>
     .pillars {{ grid-template-columns: 1fr; gap: 2rem; }}
   }}
 
-  /* Pain section */
+  /* Problem section */
   .pain h2 {{ margin-bottom: 4rem; max-width: 18ch; }}
   .pain-cards {{
     display: grid;
@@ -343,66 +400,105 @@ HTML = f"""<!DOCTYPE html>
     .pain-cards {{ grid-template-columns: 1fr; gap: 1.5rem; }}
   }}
 
-  /* Solution section */
-  .solution {{ background: var(--obsidian); }}
-  .solution h2 {{ max-width: 22ch; margin-bottom: 1.5rem; }}
-  .solution .subhead {{ margin-bottom: 4rem; }}
-  .solution-flow {{
+  /* What we do — 5-item editorial list */
+  .what-we-do {{ background: var(--obsidian); }}
+  .what-we-do h2 {{ max-width: 22ch; margin-bottom: 1.5rem; }}
+  .what-we-do .subhead {{ margin-bottom: 4rem; }}
+  .what-we-do-includes {{
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }}
+  .deliverables {{ display: flex; flex-direction: column; gap: 0; }}
+  .deliverable {{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    align-items: start;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    align-items: baseline;
+    padding: 1.8rem 0;
+    border-top: 1px solid rgba(201, 169, 97, 0.13);
   }}
-  .step {{
-    position: relative;
-  }}
-  .step:not(:last-child)::after {{
-    content: '';
-    position: absolute;
-    top: 1.5rem;
-    right: -1.7rem;
-    width: 1.4rem;
-    height: 1px;
-    background: linear-gradient(to right, var(--gold), transparent);
-  }}
-  .step-num {{
+  .deliverable:last-child {{ border-bottom: 1px solid rgba(201, 169, 97, 0.13); }}
+  .deliverable-num {{
     font-family: 'Instrument Serif', Georgia, serif;
     font-style: italic;
     color: var(--gold);
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    display: block;
+    font-size: 1.6rem;
     letter-spacing: 0.04em;
   }}
-  .step h3 {{ margin-bottom: 0.6rem; font-size: 1.5rem; }}
-  .step-tag {{
-    font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--slate);
-    margin-bottom: 1rem;
-    display: inline-block;
-    padding: 4px 10px;
-    border: 1px solid rgba(107, 114, 128, 0.3);
-    border-radius: 3px;
-  }}
-  .step-tag.included {{ color: var(--gold); border-color: rgba(201, 169, 97, 0.4); }}
-  .step-tag.separate {{ color: var(--ember); border-color: rgba(194, 65, 12, 0.45); }}
-  .step p {{
+  .deliverable-body h3 {{ font-size: 1.4rem; margin-bottom: 0.4rem; }}
+  .deliverable-body p {{
     color: var(--parchment);
     opacity: 0.78;
     line-height: 1.55;
     font-size: 0.98rem;
-    margin-bottom: 1.5rem;
   }}
-  @media (max-width: 880px) {{
-    .solution-flow {{ grid-template-columns: 1fr; gap: 2.5rem; }}
-    .step:not(:last-child)::after {{ display: none; }}
+  .plus-strip {{
+    margin-top: 3rem;
+    padding: 1.5rem 1.8rem;
+    border-left: 2px solid var(--gold);
+    background: rgba(201, 169, 97, 0.04);
+  }}
+  .plus-strip .eyebrow {{ margin-bottom: 0.6rem; }}
+  .plus-strip-body {{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: var(--parchment);
+    margin-bottom: 0.25rem;
+  }}
+  .plus-strip-body em {{ color: var(--gold); }}
+  .plus-strip-sub {{
+    color: var(--parchment);
+    opacity: 0.78;
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }}
+  @media (max-width: 720px) {{
+    .deliverable {{ grid-template-columns: 60px 1fr; gap: 1.2rem; }}
+    .deliverable-num {{ font-size: 1.3rem; }}
   }}
 
-  /* Sample report section — editorial document treatment */
+  /* Outcomes — 4-up grid */
+  .outcomes h2 {{ max-width: 16ch; margin-bottom: 1.5rem; }}
+  .outcomes .subhead {{ margin-bottom: 4rem; }}
+  .outcomes-grid {{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }}
+  .outcome {{
+    border-top: 2px solid var(--gold);
+    padding: 1.5rem 0 0;
+  }}
+  .outcome-arrow {{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+    display: block;
+    line-height: 1;
+  }}
+  .outcome-title {{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    color: var(--parchment);
+    letter-spacing: -0.005em;
+  }}
+  @media (max-width: 880px) {{
+    .outcomes-grid {{ grid-template-columns: repeat(2, 1fr); gap: 2rem; }}
+  }}
+  @media (max-width: 520px) {{
+    .outcomes-grid {{ grid-template-columns: 1fr; }}
+  }}
+
+  /* Sample report */
   .sample {{
     background:
       radial-gradient(ellipse at 30% 50%, rgba(201, 169, 97, 0.04), transparent 65%),
@@ -420,7 +516,6 @@ HTML = f"""<!DOCTYPE html>
     position: relative;
     padding: 2rem 1rem;
   }}
-  /* Page 2 peeking behind, slightly rotated */
   .sample-thumb-wrap::before {{
     content: '';
     position: absolute;
@@ -447,9 +542,7 @@ HTML = f"""<!DOCTYPE html>
       0 0 80px -10px rgba(201, 169, 97, 0.2),
       inset 0 1px 0 rgba(201, 169, 97, 0.08);
   }}
-  /* Gold corner accents */
-  .sample-thumb::before,
-  .sample-thumb::after {{
+  .sample-thumb::before, .sample-thumb::after {{
     content: '';
     position: absolute;
     width: 18px;
@@ -458,18 +551,8 @@ HTML = f"""<!DOCTYPE html>
     opacity: 0.7;
     pointer-events: none;
   }}
-  .sample-thumb::before {{
-    top: -4px;
-    left: -4px;
-    border-right: none;
-    border-bottom: none;
-  }}
-  .sample-thumb::after {{
-    bottom: -4px;
-    right: -4px;
-    border-left: none;
-    border-top: none;
-  }}
+  .sample-thumb::before {{ top: -4px; left: -4px; border-right: none; border-bottom: none; }}
+  .sample-thumb::after {{ bottom: -4px; right: -4px; border-left: none; border-top: none; }}
   .sample-thumb:hover {{
     border-color: var(--gold);
     transform: translateY(-4px);
@@ -504,15 +587,8 @@ HTML = f"""<!DOCTYPE html>
     border: 1px solid var(--gold);
     border-radius: 2px;
   }}
-  .sample-details {{
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }}
-  .sample-spec {{
-    border-left: 2px solid var(--gold);
-    padding-left: 1.25rem;
-  }}
+  .sample-details {{ display: flex; flex-direction: column; gap: 1.5rem; }}
+  .sample-spec {{ border-left: 2px solid var(--gold); padding-left: 1.25rem; }}
   .sample-spec-title {{
     font-family: 'Instrument Serif', Georgia, serif;
     font-style: italic;
@@ -530,19 +606,58 @@ HTML = f"""<!DOCTYPE html>
     .sample-layout {{ grid-template-columns: 1fr; gap: 2.5rem; }}
   }}
 
-  /* Final CTA section */
+  /* What happens next */
+  .next-steps {{ background: var(--obsidian); }}
+  .next-steps h2 {{ max-width: 18ch; margin-bottom: 4rem; }}
+  .next-grid {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+  }}
+  .next-step {{ position: relative; }}
+  .next-step:not(:last-child)::after {{
+    content: '';
+    position: absolute;
+    top: 1rem;
+    right: -1.9rem;
+    width: 1.5rem;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold), transparent);
+  }}
+  .next-step-num {{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+    display: block;
+  }}
+  .next-step h3 {{ margin-bottom: 0.6rem; font-size: 1.6rem; }}
+  .next-step p {{
+    color: var(--parchment);
+    opacity: 0.78;
+    line-height: 1.55;
+    font-size: 1rem;
+  }}
+  @media (max-width: 720px) {{
+    .next-grid {{ grid-template-columns: 1fr; gap: 2.5rem; }}
+    .next-step:not(:last-child)::after {{ display: none; }}
+  }}
+
+  /* Final CTA */
   .final-cta {{
-    background: var(--obsidian);
+    background: var(--ink);
     text-align: center;
     padding: 9rem 6%;
   }}
-  .final-cta h2 {{ max-width: 18ch; margin: 1rem auto 1.5rem; }}
+  .final-cta h2 {{ max-width: 22ch; margin: 1rem auto 1.5rem; }}
   .final-cta .subhead {{ margin: 0 auto 3rem; }}
   .final-cta .cta-support {{ margin-top: 1.25rem; }}
 
   /* Footer */
   footer {{
-    background: var(--ink);
+    background: var(--obsidian);
     padding: 4rem 6% 3rem;
     border-top: 1px solid rgba(201, 169, 97, 0.15);
   }}
@@ -604,10 +719,7 @@ HTML = f"""<!DOCTYPE html>
     transition: all 0.2s ease;
     padding-bottom: 1px;
   }}
-  .footer-meta a:hover {{
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-  }}
+  .footer-meta a:hover {{ color: var(--gold); border-bottom-color: var(--gold); }}
   .footer-meta-sep {{ margin: 0 0.8rem; opacity: 0.5; }}
   @media (max-width: 720px) {{
     .footer-grid {{ grid-template-columns: 1fr; gap: 2rem; }}
@@ -620,23 +732,40 @@ HTML = f"""<!DOCTYPE html>
 <!-- BRAND BAR -->
 <div class="brand-bar">
   <a href="/" aria-label="Rogue Night home">
-    <img class="brand-logo" src="data:image/png;base64,{LOGO_B64}" alt="Rogue Night — digital transformation consulting for Australian small to medium businesses">
+    <img class="brand-logo" src="data:image/png;base64,{LOGO_B64}" alt="Rogue Night — AI &amp; Automation Strategy for Australian small to medium businesses">
   </a>
   <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer" class="cta-ghost">
-    Start the Health Check <span class="cta-arrow">→</span>
+    Get started <span class="cta-arrow">→</span>
   </a>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <p class="eyebrow">Digital transformation, AI-amplified</p>
-  <h1>Run your business <em>smarter.</em><br>Day and night.</h1>
-  <p class="subhead">We help Australian small to medium businesses identify the right tools to run on, then deploy AI agents and digital employees that earn their keep. The work that used to slow you down — now running while you sleep.</p>
+  <p class="eyebrow">AI &amp; Automation Strategy</p>
+  <h1>Run your business <em>smarter.</em><br>With systems that work — even when you don't.</h1>
+  <p class="subhead">We help Australian businesses identify the right tools, eliminate wasted effort, and design AI-powered systems that reduce admin, improve conversion, and free up your time.</p>
   <div>
     <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer" class="cta-primary">
-      Book a Digital Health Check <span class="cta-arrow">→</span>
+      Get your AI &amp; Automation Strategy <span class="cta-arrow">→</span>
     </a>
-    <p class="cta-support">$350 flat · Delivered to your inbox in 48 hours · Yours to keep</p>
+    <p class="cta-support">{PRICE_DISPLAY} · Delivered to your inbox in 48 hours · Yours to keep</p>
+  </div>
+</section>
+
+<!-- VALUE STRIP -->
+<section class="value-strip">
+  <div class="container">
+    <div>
+      <p class="value-headline">What you're buying is not a <em>report</em>.</p>
+      <p class="value-sub">It's a clear plan to run your business with less effort and more leverage.</p>
+    </div>
+    <ul class="value-unlocks">
+      <li>20–30 hours saved per month</li>
+      <li>Less admin and manual work</li>
+      <li>Consistent lead flow without chasing</li>
+      <li>Systems that scale without extra staff</li>
+    </ul>
+    <p class="value-recovery">Most clients recover the cost within the first <em>30–60 days</em>.</p>
   </div>
 </section>
 
@@ -664,56 +793,105 @@ HTML = f"""<!DOCTYPE html>
   </div>
 </section>
 
-<!-- PAIN SECTION -->
+<!-- PROBLEM -->
 <section class="pain">
   <div class="container">
-    <p class="eyebrow">The pattern we see</p>
-    <h2>You're not slow.<br><em>You're under-tooled.</em></h2>
+    <p class="eyebrow">The problem we see</p>
+    <h2>You're not slow.<br><em>You're under-systemised.</em></h2>
     <div class="pain-cards">
       <div class="pain-card">
         <span class="pain-num">01</span>
-        <h3>Wrong tools.<br>Or not enough of them.</h3>
-        <p>You're paying for software you don't fully use, missing the tools that would save you days, or running the whole business on email and spreadsheets.</p>
+        <h3>Too many tools —<br>or the wrong ones.</h3>
+        <p>You're paying for software you don't use, missing tools you need, or relying on spreadsheets and inboxes to run everything.</p>
       </div>
       <div class="pain-card">
         <span class="pain-num">02</span>
-        <h3>Hours lost to admin every week.</h3>
-        <p>Quote chasing, invoice follow-ups, manual data re-typed between tools that don't talk to each other. Death by a thousand cuts.</p>
+        <h3>Time lost to admin.</h3>
+        <p>Manual quotes. Follow-ups. Data entry. Work that shouldn't exist — quietly eating the hours you should be spending on customers.</p>
       </div>
       <div class="pain-card">
         <span class="pain-num">03</span>
-        <h3>Each AI agent could save you tens of thousands.</h3>
-        <p>The businesses that deploy digital employees first capture the gain. The rest play catch-up at higher cost, with less leverage.</p>
+        <h3>No clear path into AI.</h3>
+        <p>You know AI matters — but you don't know where it actually fits in your business, or which agents would pay back fastest.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SOLUTION -->
-<section class="solution">
+<!-- WHAT WE DO -->
+<section class="what-we-do">
   <div class="container">
     <p class="eyebrow">What we do</p>
-    <h2>AI agents are the <em>next operating layer</em> of every business.</h2>
-    <p class="subhead">Same logic as the cloud, same logic as the internet — except this time, you get to be early. Start with a Digital Health Check. When you're ready to build the agents we recommend, that's a separate engagement.</p>
-    <div class="solution-flow">
-      <div class="step">
-        <span class="step-num"><em>01 — Diagnose</em></span>
-        <h3>Digital Health Check</h3>
-        <span class="step-tag included">$350 · Health Check</span>
-        <p>A 5-7 minute form. We map your current stack, the tools we'd swap in, and the AI agents that would pay back fastest. A report specially curated for your business — in your inbox within 48 hours.</p>
-        <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer" class="cta-ghost">Start now <span class="cta-arrow">→</span></a>
+    <h2>We give you a practical, step-by-step plan to <em>fix all of it.</em></h2>
+    <p class="subhead">Your AI &amp; Automation Strategy is a custom business optimisation plan — specially curated for small to medium businesses like yours, delivered to your inbox within 48 hours.</p>
+    <div class="what-we-do-includes">Your strategy includes</div>
+    <div class="deliverables">
+      <div class="deliverable">
+        <div class="deliverable-num"><em>01</em></div>
+        <div class="deliverable-body">
+          <h3>Business assessment</h3>
+          <p>Where you are now — and what's slowing you down. The honest read on your current setup, in plain language.</p>
+        </div>
       </div>
-      <div class="step">
-        <span class="step-num"><em>02 — Recommend</em></span>
-        <h3>Vetted tool library</h3>
-        <span class="step-tag">Inside the report</span>
-        <p>The tools we'd recommend for businesses like yours — researched in depth, costed honestly, and matched to your size, sector, and budget. Vendor-neutral by design. Yours to act on with us or without us.</p>
+      <div class="deliverable">
+        <div class="deliverable-num"><em>02</em></div>
+        <div class="deliverable-body">
+          <h3>Tool stack redesign</h3>
+          <p>What to keep, what to replace, what to add — with full pricing tiers and the tradeoffs each option carries. Vendor-neutral by design.</p>
+        </div>
       </div>
-      <div class="step">
-        <span class="step-num"><em>03 — Deploy</em></span>
-        <h3>AI agents and digital employees</h3>
-        <span class="step-tag separate">Scoped separately</span>
-        <p>Once you've seen the roadmap and picked the agents that fit, we design, build, and embed them — handling the repetitive, the after-hours, and the high-volume work. Quoted per scope, not part of the Health Check.</p>
+      <div class="deliverable">
+        <div class="deliverable-num"><em>03</em></div>
+        <div class="deliverable-body">
+          <h3>Priority action plan</h3>
+          <p>Exactly what to do first, second, third. The five changes that deliver the fastest return with the least effort — and how to actually do them.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-num"><em>04</em></div>
+        <div class="deliverable-body">
+          <h3>12-week implementation roadmap</h3>
+          <p>Week-by-week tasks for the first three months. Plain language, real provider names, no jargon. Clear steps you can run yourself — or have us run.</p>
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-num"><em>05</em></div>
+        <div class="deliverable-body">
+          <h3>AI opportunity blueprint</h3>
+          <p>Where AI can save time or increase output — and how. A roadmap of the digital employees we'd build for your business, what each one would save, and when.</p>
+        </div>
+      </div>
+    </div>
+    <div class="plus-strip">
+      <p class="eyebrow">Plus</p>
+      <p class="plus-strip-body"><em>Quantified ROI</em></p>
+      <p class="plus-strip-sub">Clear estimates of the time and money you'll recover — line-by-line, no inflated numbers, sourced from current Australian rates.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="outcomes">
+  <div class="container">
+    <p class="eyebrow">The outcome</p>
+    <h2>You walk away with <em>real clarity.</em></h2>
+    <p class="subhead">Not a vague audit. Not another consultant's framework. A specific plan, in your hands, ready to act on.</p>
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <span class="outcome-arrow"><em>→</em></span>
+        <div class="outcome-title">Clarity on <em>what to fix</em></div>
+      </div>
+      <div class="outcome">
+        <span class="outcome-arrow"><em>→</em></span>
+        <div class="outcome-title">Confidence in <em>what tools to use</em></div>
+      </div>
+      <div class="outcome">
+        <span class="outcome-arrow"><em>→</em></span>
+        <div class="outcome-title">A roadmap to <em>implement</em></div>
+      </div>
+      <div class="outcome">
+        <span class="outcome-arrow"><em>→</em></span>
+        <div class="outcome-title">A foundation for <em>AI</em></div>
       </div>
     </div>
   </div>
@@ -723,13 +901,13 @@ HTML = f"""<!DOCTYPE html>
 <section class="sample">
   <div class="container">
     <p class="eyebrow">What you get</p>
-    <h2>A report <em>specially curated</em><br>for your business.</h2>
-    <p class="subhead">Inside the Digital Health Check: a diagnostic of where your stack is now, the tools we'd swap in, a phased rollout with step-by-step guidance, and a roadmap of the AI agents we'd build next — what each one would do, what it would save, and when. The report is yours. Implementing the tools and building the agents are separate engagements, available when you're ready.</p>
+    <h2>A strategy <em>specially curated</em><br>for your business.</h2>
+    <p class="subhead">Inside your AI &amp; Automation Strategy: a diagnostic of where your stack is now, the tools we'd recommend next, a phased rollout with implementation guidance, and a roadmap of the AI agents that would pay back fastest. Yours to act on, with us or without us.</p>
     <div class="sample-layout">
       <div class="sample-thumb-wrap">
         <a href="{PDF_URL}" target="_blank" rel="noopener noreferrer" class="sample-thumb">
           <span class="sample-thumb-label">Sample · {PDF_PAGES} pages</span>
-          <img src="data:image/jpeg;base64,{THUMB_B64}" alt="Cover of a sample Digital Health Check report for {SAMPLE_CLIENT}.">
+          <img src="data:image/jpeg;base64,{THUMB_B64}" alt="Cover of a sample strategy report.">
         </a>
       </div>
       <div class="sample-details">
@@ -739,7 +917,7 @@ HTML = f"""<!DOCTYPE html>
         </div>
         <div class="sample-spec">
           <div class="sample-spec-title"><em>Recommended stack</em></div>
-          <div class="sample-spec-body">Five categories, priority badges, full pricing tiers, recommended starting plan. Plus what we deliberately left out, and why.</div>
+          <div class="sample-spec-body">Priority badges, full pricing tiers, recommended starting plan. The honest tradeoffs, not the sales pitch.</div>
         </div>
         <div class="sample-spec">
           <div class="sample-spec-title"><em>Phased rollout</em></div>
@@ -747,7 +925,7 @@ HTML = f"""<!DOCTYPE html>
         </div>
         <div class="sample-spec">
           <div class="sample-spec-title"><em>Your future digital employees</em></div>
-          <div class="sample-spec-body">A roadmap of AI agents specially designed for your business — what we'd build, when, and what each one would save you. The roadmap is yours; implementation is a separate engagement.</div>
+          <div class="sample-spec-body">Agents specially designed for your business, phased over time as you're ready for them. Hours saved and dollars captured for each. The roadmap nobody else is giving you.</div>
         </div>
         <a href="{PDF_URL}" target="_blank" rel="noopener noreferrer" class="cta-ghost" style="margin-top: 0.5rem;">
           Download the sample (PDF, {PDF_PAGES} pages) <span class="cta-arrow">→</span>
@@ -757,15 +935,35 @@ HTML = f"""<!DOCTYPE html>
   </div>
 </section>
 
+<!-- WHAT HAPPENS NEXT -->
+<section class="next-steps">
+  <div class="container">
+    <p class="eyebrow">What happens next</p>
+    <h2>Two steps. <em>Forty-eight hours.</em></h2>
+    <div class="next-grid">
+      <div class="next-step">
+        <span class="next-step-num"><em>01</em></span>
+        <h3>Complete a 5–7 minute form</h3>
+        <p>We assess your business and your current systems. Quick, structured questions — no pre-call required, no homework, no follow-up calls to coordinate.</p>
+      </div>
+      <div class="next-step">
+        <span class="next-step-num"><em>02</em></span>
+        <h3>Receive your strategy</h3>
+        <p>Detailed, tailored, and ready to act on. In your inbox within 48 hours of payment, yours to keep — whatever you decide to do next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FINAL CTA -->
 <section class="final-cta">
   <p class="eyebrow">Start here</p>
-  <h2>Book your <em>Digital Health Check.</em></h2>
-  <p class="subhead">A 5-7 minute form. $350 flat. A report specially curated for your business, in your inbox within 48 hours, yours to keep — whatever you do next.</p>
+  <h2>Get your <em>AI &amp; Automation Strategy.</em></h2>
+  <p class="subhead">A 5–7 minute form. {PRICE_DISPLAY} flat. A custom plan in your inbox within 48 hours, yours to keep — whatever you do next.</p>
   <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer" class="cta-primary">
-    Start the Health Check <span class="cta-arrow">→</span>
+    Get started <span class="cta-arrow">→</span>
   </a>
-  <p class="cta-support">$350 flat · Delivered to your inbox in 48 hours · Yours to keep</p>
+  <p class="cta-support">{PRICE_DISPLAY} · Delivered to your inbox in 48 hours · Yours to keep</p>
 </section>
 
 <!-- FOOTER -->
@@ -783,8 +981,8 @@ HTML = f"""<!DOCTYPE html>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">Get started</div>
-      <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer">Book a Health Check</a>
-      <a href="{PDF_URL}" target="_blank" rel="noopener noreferrer">Sample report (PDF)</a>
+      <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer">Get your AI &amp; Automation Strategy</a>
+      <a href="{PDF_URL}" target="_blank" rel="noopener noreferrer">Sample strategy (PDF)</a>
     </div>
   </div>
   <div class="footer-meta">
@@ -800,6 +998,6 @@ _OUT = os.path.join(_SCRIPT_DIR, 'rogue-night-landing.html')
 with open(_OUT, 'w') as f:
     f.write(HTML)
 
-import os
 size_kb = os.path.getsize(_OUT) / 1024
-print(f"Landing page v9 written: {size_kb:.1f} KB")
+mode_label = 'staging' if STAGING_MODE else 'production'
+print(f"Landing page v10 (AI & Automation Strategy rebrand) written: {size_kb:.1f} KB · mode={mode_label}")

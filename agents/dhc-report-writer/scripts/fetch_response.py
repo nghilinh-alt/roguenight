@@ -5,7 +5,7 @@ Usage:
 
 Required environment variables:
     AIRTABLE_API_KEY  Airtable Personal Access Token (PAT)
-    AIRTABLE_BASE_ID  The Rogue Night DHC base id (e.g. appXXXXXXXXXXXXXX)
+    AIRTABLE_BASE_ID  The Rogue Night AI & Automation Strategy base id (e.g. appXXXXXXXXXXXXXX)
 
 Output:
     JSON written to stdout. Shape: { "id": ..., "fields": { ... } }

@@ -2,7 +2,7 @@
 
 The full source-of-truth repository for **Rogue Night PTY LTD** (ABN 31 633 650 334) — an Australian consulting practice that helps small to medium businesses identify the right tools and deploy AI agents and digital employees.
 
-Live: [roguenight.com.au](https://roguenight.com.au) (hosted on Hostinger, with Cloudflare in front for DNS and `/api/*` Worker routes).
+Live: [roguenight.com.au](https://roguenight.com.au) (hosted on Cloudflare Pages, auto-deployed from this repo's `main` branch; the same Cloudflare account routes `/api/*` to a Worker for the Pay-Later flow).
 
 ---
 
@@ -10,7 +10,7 @@ Live: [roguenight.com.au](https://roguenight.com.au) (hosted on Hostinger, with 
 
 ```
 roguenight/
-├── public/              # Production-ready website files. Upload to Hostinger public_html.
+├── public/              # Production-ready website files. Auto-deployed by Cloudflare Pages on every push to main.
 │   ├── index.html             # Landing page
 │   ├── privacy/index.html     # /privacy
 │   ├── terms/index.html       # /terms
@@ -35,8 +35,8 @@ roguenight/
 │
 ├── agents/              # Agents, skills, system prompts (source of truth)
 │   ├── README.md              # How agents and skills relate to Hyperagent
-│   ├── lois/                  # The named DHC report-writing agent
-│   ├── dhc-report-writer/     # Skill — drafts a DHC report from one Airtable Response
+│   ├── lois/                  # The named strategy report-writing agent
+│   ├── dhc-report-writer/     # Skill — drafts a strategy report from one Airtable Response
 │   └── stack-md-maintainer/   # Skill — keeps stack.md and Airtable Tools in sync
 │
 ├── catalogue/           # The vetted tool catalogue
@@ -44,7 +44,7 @@ roguenight/
 │
 ├── docs/                # Operations and architecture documentation
 │   ├── BRAND-KIT.md           # Phase 1 colours, type, voice
-│   ├── DEPLOYMENT-GUIDE.md    # Hostinger upload + Cloudflare Worker setup
+│   ├── DEPLOYMENT-GUIDE.md    # Cloudflare Pages auto-deploy + Cloudflare Worker setup
 │   ├── EMAIL-TEMPLATES.md     # Standard customer email bodies
 │   ├── OG-METADATA.md         # Open Graph spec
 │   ├── PAYMENT-FLOW.md        # Tally → Stripe architecture + walkthrough
@@ -74,9 +74,9 @@ cd src/
 python3 build_all.py
 ```
 
-`build_all.py` builds the OG image, apple-touch-icon, all six HTML pages (production mode), and stages everything into `public/`. You re-upload `public/` to Hostinger after every change.
+`build_all.py` builds the OG image, apple-touch-icon, all six HTML pages (production mode), and stages everything into `public/`. Commit and push `public/` to `main` — Cloudflare Pages auto-builds and deploys within 30-60 seconds.
 
-See [`docs/DEPLOYMENT-GUIDE.md`](docs/DEPLOYMENT-GUIDE.md) for the upload flow.
+See [`docs/DEPLOYMENT-GUIDE.md`](docs/DEPLOYMENT-GUIDE.md) for the deploy flow.
 
 ### Sample report PDF swap
 
@@ -90,8 +90,8 @@ Tally → Stripe payment flow architecture is documented in [`docs/PAYMENT-FLOW.
 
 Quick summary:
 
-1. **Stripe Dashboard** — brand it, create Payment Link for A$350, add custom domain `pay.roguenight.com.au`, configure Invoicing reminders
-2. **Hostinger** — upload `public/thank-you/` and `public/confirmation/` (drag-and-drop via hPanel File Manager)
+1. **Stripe Dashboard** — brand it, create Payment Link for A$880, configure Invoicing reminders (custom domain `pay.roguenight.com.au` skipped — `buy.stripe.com` URL is fine)
+2. **Cloudflare Pages** — auto-deploys `public/` from `main`. No manual upload step.
 3. **Cloudflare Worker** — deploy `cloudflare-worker/worker-pay-later.js`, set Stripe secrets, wire `roguenight.com.au/api/*` route
 4. **Tally** — configure redirect with `@variable` params (email, name, business, ref)
 5. **End-to-end test** in Stripe test mode (3 scenarios in PAYMENT-FLOW.md)
@@ -104,11 +104,11 @@ This repo holds the **source of truth** for Rogue Night's named agent (Lois) and
 
 ### Agents
 
-- **[`agents/lois/`](agents/lois/)** — Lois, the DHC report-writing agent. Calm, exact, editorial. Drafts reports from Airtable Responses; never auto-sends.
+- **[`agents/lois/`](agents/lois/)** — Lois, the strategy report-writing agent. Calm, exact, editorial. Drafts reports from Airtable Responses; never auto-sends.
 
 ### Skills
 
-- **[`agents/dhc-report-writer/`](agents/dhc-report-writer/)** — Methodology + scripts for turning one Airtable Response into a populated DHC report (HTML + PDF). Mirrors the v5 HTML template and v1.3 Airtable schema.
+- **[`agents/dhc-report-writer/`](agents/dhc-report-writer/)** — Methodology + scripts for turning one Airtable Response into a populated strategy report (HTML + PDF). Mirrors the v5 HTML template and v1.3 Airtable schema.
 - **[`agents/stack-md-maintainer/`](agents/stack-md-maintainer/)** — Keeps `catalogue/stack.md` and the Airtable Tools table in sync. Proposes patches after each report.
 
 See [`agents/README.md`](agents/README.md) for the relationship between this repo and Hyperagent.
@@ -119,7 +119,7 @@ See [`agents/README.md`](agents/README.md) for the relationship between this rep
 
 [`catalogue/stack.md`](catalogue/stack.md) is the canonical source of the 48-row vetted tool list. The Airtable Tools table (`appCLdTCbJ5zGe9fo/tblNDMmrH2zS8JR5K`) mirrors this file.
 
-After every DHC report, [`agents/stack-md-maintainer/`](agents/stack-md-maintainer/) proposes additions for any tool that was recommended but isn't yet catalogued. New entries default to `Linh-vetted: Pending` — promotion to `Yes` is always a human decision.
+After every strategy report, [`agents/stack-md-maintainer/`](agents/stack-md-maintainer/) proposes additions for any tool that was recommended but isn't yet catalogued. New entries default to `Linh-vetted: Pending` — promotion to `Yes` is always a human decision.
 
 ---
 
@@ -148,7 +148,7 @@ These are baked into the build scripts. Don't violate them when editing copy.
 - Never include "Book a free 45-minute walkthrough call"
 - Always lead with cheapest credible tier when discussing recommendations
 - Delivery promise is "within 48 hours" (NOT 24 hours, NOT 2 business days)
-- Digital Health Check is **advisory only** — agent implementation is a **separate, quoted engagement**
+- AI & Automation Strategy is **advisory only** — agent implementation is a **separate, quoted engagement**
 
 ### Cover title pattern
 Italic gold accent on the punch word of every page hero. Don't break this pattern when adding new pages.
@@ -159,14 +159,14 @@ See [`docs/operations/VOICE-RULES.md`](docs/operations/VOICE-RULES.md) for the f
 
 ## Architecture context
 
-The website is one piece of a larger Digital Health Check pipeline. Everything else (Tally form, Airtable base, Lois, email) is documented in this repo too, under `docs/operations/`.
+The website is one piece of a larger AI & Automation Strategy pipeline. Everything else (Tally form, Airtable base, Lois, email) is documented in this repo too, under `docs/operations/`.
 
 The pipeline:
 
 1. Customer fills the **Tally form** at `https://tally.so/r/xX4YaG` (5-7 minute questionnaire).
 2. Tally redirects to `roguenight.com.au/thank-you/?email=...&name=...&ref=...` and writes the response to the **Airtable base** `appCLdTCbJ5zGe9fo` via native integration.
 3. Customer chooses **Pay Now** or **Pay Later** on the thank-you page.
-4. **Lois** (the agent) drafts the DHC report from the Airtable Response using the [`dhc-report-writer`](agents/dhc-report-writer/) skill.
+4. **Lois** (the agent) drafts the strategy report from the Airtable Response using the [`dhc-report-writer`](agents/dhc-report-writer/) skill.
 5. After Linh approves the draft, the report PDF is generated and Linh sends it manually from Hostinger webmail (`hello@roguenight.com.au`).
 6. After each report, [`stack-md-maintainer`](agents/stack-md-maintainer/) proposes any new catalogue entries for Linh's review.
 
