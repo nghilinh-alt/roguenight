@@ -23,7 +23,7 @@ with open(os.path.join(_DATA, 'horizontal_sm-b64.txt')) as f:
     LOGO_SM_B64 = f.read().strip()
 
 TALLY_URL = 'https://tally.so/r/xX4YaG'
-PDF_PAGES = 13
+PDF_PAGES = 18
 SITE_URL = 'https://roguenight.com.au'
 ABN = '31 633 650 334'
 PRICE = '880'
