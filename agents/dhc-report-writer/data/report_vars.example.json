@@ -1,0 +1,206 @@
+{
+  "_comment": "Example vars.json shape for populate_template.py. The example below illustrates a complete report for Pacific Coast Plumbing (mock_response.json). Replace per-client. Section 08 now uses a 3-batch structure; the legacy flat 'employees' array still works (it auto-wraps as Batch 01).",
+
+  "delivered_date": "12 May 2026",
+  "cover_title": "Run smarter.",
+  "cover_accent": "Day and night.",
+  "cover_subtitle": "Six tools, phased over twelve weeks, get you your evenings back — and put the books, the quotes, and the receivables on a tight loop without you typing a single line.",
+
+  "exec_summary_lede": "You told us you want to grow to fifteen staff without you being the bottleneck on every job. You also told us, plainly, that you're doing books at the kitchen table on Sunday night. This report is about closing the gap between those two sentences.",
+  "exec_summary_para_2": "<p>Six tools, phased over twelve weeks, do most of the work. We've leaned toward provider-vetted defaults and integrations that don't need glue layers — your tech appetite is medium and we respect that.</p>",
+  "exec_summary_para_3": "<p>The numbers on the next page are conservative ranges based on Fair Work AU 2026 rates. The point is not that you'll hit every dollar, every month — it's that the headroom is real, and the path to capturing it is clear.</p>",
+
+  "key_benefits": [
+    { "title": "12-15 hours back, monthly", "body": "Re-typing job sheets into MYOB on Sunday night disappears. Apprentices stop losing notes. Worth A$600-1200 to you at owner-operator rates." },
+    { "title": "Receivables tightened to 14 days", "body": "Chaser automates the polite-but-firm payment follow-ups. Industry average for trades drops 30 days when this is wired right. That's A$30-45K of working capital unlocked on a A$1M turnover." },
+    { "title": "A$184/month total software cost", "body": "Lean stack — each tool earns its keep. Detail in section 07. No spend until a tool's first job is queued up." }
+  ],
+
+  "q_benefits_h2": "What each move is worth, in hours and dollars.",
+  "q_benefits_lede": "Conservative ranges. Owner-operator at A$60-120/hr, qualified tradesperson at A$50-80/hr, apprentice at A$25-40/hr.",
+  "benefits": [
+    { "change": "Paper job sheets → ServiceM8 digital", "sub": "Apprentices stop losing notes", "hours": "8-12", "dollar": "A$400-960" },
+    { "change": "Manual re-typing → ServiceM8 → MYOB sync", "sub": "Sunday-night books retired", "hours": "12-15", "dollar": "A$720-1800" },
+    { "change": "Email chase → Chaser automation", "sub": "Plus 30-day receivables reduction", "hours": "3-5", "dollar": "A$30-45K WC freed once" }
+  ],
+  "benefits_subtotal_hrs": "23-32",
+  "benefits_subtotal_dollar": "A$1,150-2,800/mo + A$30-45K once",
+  "benefits_basis_note": "Hours estimated from your D-Manual self-report (12 hrs/wk re-typing) and AU industry benchmarks. Dollar values use Fair Work AU 2026 hourly rate bands. Working capital release assumes a A$1M annual turnover with trade-average 45-day to 14-day receivables shift.",
+
+  "recs_h2": "The minimum credible foundation.",
+  "recs_lede": "Six tools, ordered by phase. Each one earns its keep against a specific phrase in your questionnaire.",
+  "recs": [],
+  "cull_num": "4.7",
+  "cull": [
+    ["No CRM (yet)", "ServiceM8 holds customer history — a dedicated CRM is wasted spend at your volume."],
+    ["No e-sign tool", "Quotes go through ServiceM8 ‘Approve’ button. DocuSign is overkill until you're contracting on retainer."],
+    ["No marketing automation", "Word-of-mouth is your engine. Mailchimp can come later when you have 200+ customers to email."]
+  ],
+
+  "stack_glance_h2": "How the tools work together.",
+  "stack_glance_body": "<p>Each block hands off to the next. ServiceM8 captures the job, Xero handles the books, Stripe handles the card, Chaser does the chase, Calendly opens the booking door. Workspace is the spine.</p>",
+
+  "phases_h2": "Twelve weeks, in phases.",
+  "phases_lede": "Each phase ends with one capability fully live before the next is touched. No big-bang switch-overs.",
+  "phases": [
+    { "week": "Week 1", "headline": "Foundations — Workspace and Xero", "tasks": ["Sign up for Google Workspace Business Starter at workspace.google.com", "Configure hello@pacificcoastplumbing.com.au, set up email signatures with logo", "Migrate from MYOB to Xero — import last 12 months of transactions", "Set up the chart of accounts to match your job types"] },
+    { "week": "Week 2", "headline": "ServiceM8 live and apprentices on it", "tasks": ["Sign up for ServiceM8 Growing plan at servicem8.com", "Add 5 staff licences and load the team", "Walk Friday morning toolbox meeting through the app — first jobs entered live", "Wire ServiceM8 ↔ Xero native integration; first invoices syncing"] },
+    { "week": "Week 4", "headline": "Stripe and Chaser — receivables on autopilot", "tasks": ["Connect Stripe to Xero — card payments accepted from invoices", "Configure Chaser Starter — three-touch reminder cadence at 7, 14, 30 days", "Set up branded Calendly link for quote-walk bookings", "Standardise quote templates in ServiceM8 with your top 10 job types"] },
+    { "week": "Week 6", "headline": "Stability check — paper retired, books reconciled", "tasks": ["Last paper job sheet entered; legacy MYOB read-only", "60-day Xero reconciliation — books match bank, every transaction coded", "First Chaser cycle complete — measure days-to-pay vs baseline", "Apprentice retrospective: what's working, what isn't, what we missed"] },
+    { "week": "Week 12", "headline": "90-day review and prep for Batch 01 digital employees", "tasks": ["Pull the 90-day numbers: hours saved, dollars captured, days-to-pay", "Scope Batch 01 of digital employees (see section 08) — pick the first one to build", "Tighten the rough edges — quote templates, Chaser tone, ServiceM8 categories", "Decide which Batch 01 agent goes first; book the discovery session"] }
+  ],
+
+  "cost_h2": "What the recommended stack costs.",
+  "cost_recurring": [
+    { "tool": "Google Workspace Business Starter", "tier": "x6 users", "cost": "A$60/mo" },
+    { "tool": "Xero", "tier": "Grow", "cost": "A$70/mo" },
+    { "tool": "ServiceM8", "tier": "Growing (5 staff)", "cost": "A$95/mo" },
+    { "tool": "Chaser", "tier": "Starter", "cost": "A$50/mo" },
+    { "tool": "Stripe", "tier": "Per-transaction", "cost": "Variable" },
+    { "tool": "Calendly", "tier": "Free", "cost": "A$0" }
+  ],
+  "cost_total": "A$275/mo + Stripe variable",
+  "cost_growth": [
+    { "trigger": "15+ staff", "next": "ServiceM8 Premium", "extra": "A$175/mo (+A$80)" },
+    { "trigger": "Adding a second branch", "next": "Xero Comprehensive", "extra": "A$135/mo (+A$65)" }
+  ],
+
+  "employees_h2": "Three batches, scored on impact and readiness.",
+  "employees_lede": "Nine agents, picked from a wider library and ordered into three phases. Batch 01 deploys on the Week 12 stack with no further foundation. Batch 02 needs the stack mature and a few months of history. Batch 03 is emerging upside — high ceiling, more setup.",
+  "employees_outro": "Hours and dollars shown are conservative starting estimates — actual numbers depend on how each agent is used once live. We review every agent at the end of its batch before starting the next; if one isn't earning its keep, we stop and rethink rather than compound the spend.",
+
+  "batches": [
+    {
+      "number": "01",
+      "day": "Day 90",
+      "title": "High impact, ready now.",
+      "description": "These agents are designed to deploy on the Week 12 stack. They don't need months of accumulated history or new infrastructure beyond what the rollout has put in place. Discovery, build, and supervised deployment still happen — but pay-back is measured in months, not years.",
+      "agents": [
+        {
+          "name": "Data-Sync Specialist",
+          "pain_match": "Manual data entry",
+          "pain_tier": "Primary",
+          "replaces": "Re-typing job sheets into MYOB",
+          "hours": "12-15 hrs/mo",
+          "dollar": "A$720-1,800/mo",
+          "readiness": "Week 12 stack — ready",
+          "description": "Watches your ServiceM8 jobs and your Xero accounts; pushes line items from one into the other the moment a job is marked complete. No more Sunday-night re-typing. No more apprentices forgetting to file a docket.",
+          "ties_to": "Re-entering Friday's job sheets into MYOB on Sunday night",
+          "ties_label": "your hated weekly task"
+        },
+        {
+          "name": "Receivables Specialist",
+          "pain_match": "Invoicing",
+          "pain_tier": "Secondary",
+          "replaces": "Manual chase emails on overdue invoices",
+          "hours": "3-5 hrs/mo + cash recovered",
+          "dollar": "A$30-45K WC freed",
+          "readiness": "Xero + Chaser live (Week 6)",
+          "description": "Pairs with Chaser. Drafts the polite-but-firm follow-up, escalates the tone on schedule, posts the matched payment back to Xero when it lands. Average receivables window drops from 45 days to 14 in trades.",
+          "ties_to": "Receivables stretching to 45 days",
+          "ties_label": "your pain narrative"
+        },
+        {
+          "name": "Quote Builder",
+          "pain_match": "Lead tracking",
+          "pain_tier": "Secondary",
+          "replaces": "Three-day quote turnaround",
+          "hours": "4-6 hrs/mo",
+          "dollar": "A$240-720/mo + win-rate uplift",
+          "readiness": "ServiceM8 templates live (Week 4)",
+          "description": "Pre-fills ServiceM8 quotes from site-visit notes and your standard line items. You scan, adjust, send — typically within the hour the apprentice gets back to the depot.",
+          "ties_to": "We've started losing quote competitions to faster competitors",
+          "ties_label": "your pain narrative"
+        }
+      ]
+    },
+    {
+      "number": "02",
+      "day": "Day 180",
+      "title": "High impact, foundation needed.",
+      "description": "These agents need the Week 12 stack to mature — a few months of customer history, a phone line connected, or a second tool wired in. High-impact when ready, but ship them too early and they don't have enough to work with.",
+      "agents": [
+        {
+          "name": "Lead Follow-up Specialist",
+          "pain_match": "Lead tracking",
+          "pain_tier": "Primary",
+          "replaces": "Quotes that go cold after no reply",
+          "hours": "6-8 hrs/mo",
+          "dollar": "A$300-600/mo + 10-15% quote win uplift",
+          "readiness": "3+ months of CRM history",
+          "description": "Knows which quotes haven't converted. Drafts the soft nudge at 7 days, the comparison-prompt at 14, the price-walk at 30. You stay in the conversation without remembering every name.",
+          "ties_to": "Quotes go out three days later",
+          "ties_label": "your future state vision"
+        },
+        {
+          "name": "Phone Reception Specialist",
+          "pain_match": "Owner bottleneck",
+          "pain_tier": "Primary",
+          "replaces": "Calls you miss because you're on a job or after hours",
+          "hours": "8-12 hrs/mo of your time + revenue from missed calls",
+          "dollar": "A$400-1,200/mo + recovered revenue",
+          "readiness": "Voice platform wired, FAQ knowledge base curated, ServiceM8 booking integration",
+          "description": "Takes inbound calls when your line is busy or after hours. Answers the standard questions from your curated FAQ, books emergency callouts straight into ServiceM8, and routes anything it can't handle to your mobile with the full call context already typed up. You stop missing calls. You stop being on call.",
+          "ties_to": "After hours",
+          "ties_label": "your preferred call time, which tells us your phone is always on"
+        },
+        {
+          "name": "Review-Request Specialist",
+          "pain_match": "Reputation",
+          "pain_tier": "Emerging opportunity",
+          "replaces": "Word-of-mouth left to chance",
+          "hours": "2-3 hrs/mo",
+          "dollar": "A$200-500/mo from increased lead flow",
+          "readiness": "ServiceM8 customer history mature",
+          "description": "Fires a Google review request 24 hours after a job is marked paid. Personalises by job type. Industry-average for plumbing trades is 3% conversion — once you have 150 jobs/quarter, that's 4-5 new five-star reviews a month, compounding the next quarter's leads.",
+          "ties_to": "Grow to fifteen staff",
+          "ties_label": "your stated goal"
+        }
+      ]
+    },
+    {
+      "number": "03",
+      "day": "Day 270",
+      "title": "Emerging upside.",
+      "description": "Higher ceiling, more setup. These agents either need the full stack mature plus six months of data, or they unlock strategic decisions rather than weekly time savings. Worth keeping on the horizon — not worth rushing.",
+      "agents": [
+        {
+          "name": "Profitability Analyst",
+          "pain_match": "Owner bottleneck",
+          "pain_tier": "Emerging opportunity",
+          "replaces": "Gut-feel pricing decisions",
+          "hours": "Strategic insight, not direct hours",
+          "dollar": "A$2,000-5,000/mo in margin from better pricing",
+          "readiness": "6+ months Xero + ServiceM8 history",
+          "description": "Reads every closed job in ServiceM8 against the Xero line items and tells you which jobs, which customers, which suburbs, which job types are actually paying your bills. Your gut probably knows; this gives you the receipts.",
+          "ties_to": "Without me being the bottleneck on every job",
+          "ties_label": "your stated goal"
+        },
+        {
+          "name": "Pricing Optimiser",
+          "pain_match": "Lead tracking",
+          "pain_tier": "Emerging opportunity",
+          "replaces": "Stuck-pricing on competitive quotes",
+          "hours": "Strategic insight, not direct hours",
+          "dollar": "A$1,000-3,000/mo in margin lift",
+          "readiness": "12 months of won/lost quote data",
+          "description": "Tells you, by job type and customer profile, where you have pricing power and where you're leaving money on the table. The Quote Builder shapes the input; the Pricing Optimiser shapes the rate card.",
+          "ties_to": "Losing quote competitions to faster competitors",
+          "ties_label": "your pain narrative"
+        },
+        {
+          "name": "Phone Agent Swarm",
+          "pain_match": "Owner bottleneck",
+          "pain_tier": "Emerging opportunity",
+          "replaces": "A single phone agent that's hit its complexity ceiling",
+          "hours": "16-24 hrs/mo of owner and team phone time",
+          "dollar": "A$1,000-3,000/mo + faster routing means more revenue captured",
+          "readiness": "Phone Reception Specialist proven, call-type segmentation captured, CRM mature enough to support routing",
+          "description": "Specialised siblings take different call types — emergency dispatch, scheduling, billing inquiries, quote follow-up. Each one knows its lane. They route to each other when a caller needs a different lane, and they only hand a call to a human when context demands it. Worth doing once the single Phone Reception Specialist has proven the pattern and you can see exactly where the call volume splits.",
+          "ties_to": "Grow to fifteen staff without me being the bottleneck on every job",
+          "ties_label": "your stated goal"
+        }
+      ]
+    }
+  ]
+}
