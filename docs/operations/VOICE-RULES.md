@@ -46,7 +46,7 @@ They are also enforced in the build scripts and the agent system prompts (Lois, 
 ### Scope clarity
 
 - **AI & Automation Strategy is advisory only.** The report is the deliverable. Agent / digital-employee implementation is a **separate, quoted engagement**.
-- Never imply implementation is included in the A$880.
+- Never imply implementation is included in the $880.
 
 ### Honesty rule
 

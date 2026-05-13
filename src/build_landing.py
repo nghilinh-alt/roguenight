@@ -27,7 +27,7 @@ PDF_PAGES = 18
 SITE_URL = 'https://roguenight.com.au'
 ABN = '31 633 650 334'
 PRICE = '880'
-PRICE_DISPLAY = 'A$880'
+PRICE_DISPLAY = '$880'
 
 # MODE: 'staging' (default — absolute URLs to the live site so the in-thread
 # preview works inside an iframe) or 'production' (same-origin relative paths
@@ -52,7 +52,7 @@ HTML = f"""<!DOCTYPE html>
 
 <!-- Primary meta -->
 <title>Rogue Night — AI &amp; Automation Strategy for Australian small to medium businesses</title>
-<meta name="description" content="Rogue Night helps Australian small to medium businesses identify the right tools, eliminate wasted effort, and design AI-powered systems. AI &amp; Automation Strategy, A$880 flat, in your inbox within 48 hours.">
+<meta name="description" content="Rogue Night helps Australian small to medium businesses identify the right tools, eliminate wasted effort, and design AI-powered systems. AI &amp; Automation Strategy, $880 flat, in your inbox within 48 hours.">
 <meta name="keywords" content="AI automation strategy Australia, AI agents small business, digital employees, small to medium business consulting, Australian AI consultant, business automation, AI implementation, tool stack audit, business optimisation plan">
 <meta name="author" content="Rogue Night PTY LTD">
 <meta name="theme-color" content="#0A0E1A">
@@ -69,7 +69,7 @@ HTML = f"""<!DOCTYPE html>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rogue Night">
 <meta property="og:title" content="Rogue Night — Run your business smarter">
-<meta property="og:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. A custom plan to identify the right tools, eliminate wasted effort, and design AI-powered systems. A$880, within 48 hours.">
+<meta property="og:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. A custom plan to identify the right tools, eliminate wasted effort, and design AI-powered systems. $880, within 48 hours.">
 <meta property="og:url" content="{SITE_URL}/">
 <meta property="og:image" content="{SITE_URL}/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -80,7 +80,7 @@ HTML = f"""<!DOCTYPE html>
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rogue Night — Run your business smarter">
-<meta name="twitter:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. A$880, within 48 hours.">
+<meta name="twitter:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. $880, within 48 hours.">
 <meta name="twitter:image" content="{SITE_URL}/og-image.png">
 <meta name="twitter:image:alt" content="Rogue Night logo on Ink background with editorial headline">
 

@@ -35,7 +35,7 @@ Customer journey                         Where it lives
 | Domain | `roguenight.com.au` (Hostinger registrar) | Pointed at Cloudflare nameservers (`adrian.ns.cloudflare.com`, `cullen.ns.cloudflare.com`) |
 | DNS | Cloudflare (full zone) | Records managed in the Cloudflare dashboard |
 | Static site host | Cloudflare Pages — project `roguenight-website` | Auto-deploys from this repo's `main` branch within 30–60 seconds of every push |
-| Custom payment domain | None (skipped — saved A$180/year) | Stripe Payment Link uses default `buy.stripe.com/...` URL |
+| Custom payment domain | None (skipped — saved $180/year) | Stripe Payment Link uses default `buy.stripe.com/...` URL |
 | Worker host | Cloudflare Workers | Worker name `snowy-salad-ba26`. Route: `roguenight.com.au/api/*`. Manual paste-and-deploy (not auto). |
 | Form builder | Tally.so (free plan) | Form id `xX4YaG`. URL `https://tally.so/r/xX4YaG` |
 | Database | Airtable (free plan) | Base `appCLdTCbJ5zGe9fo` ("Rogue Night — AI & Automation Strategy") |

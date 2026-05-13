@@ -82,7 +82,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <div class="eyebrow">Step 03 &middot; Confirmed</div>
   <h1>Payment received. <span class="accent">We start tonight.</span></h1>
   <p class="lede">
-    Thanks &mdash; your A$880 has landed. Stripe has emailed you a receipt for your records. We'll begin your specially curated strategy within 48 hours.
+    Thanks &mdash; your $880 has landed. Stripe has emailed you a receipt for your records. We'll begin your specially curated strategy within 48 hours.
   </p>
   <div class="next-steps">
     <div class="next-steps-label">What happens from here</div>

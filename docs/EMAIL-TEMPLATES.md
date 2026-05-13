@@ -188,7 +188,7 @@ If you'd still like the report, here's the direct link:
 
   [Stripe Payment Link URL]
 
-Once the A$880 lands, your report goes into the build queue and lands 
+Once the $880 lands, your report goes into the build queue and lands 
 in your inbox within 48 hours.
 
 If you've changed your mind, no need to reply — I'll close the request 

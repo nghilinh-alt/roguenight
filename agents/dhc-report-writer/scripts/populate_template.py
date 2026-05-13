@@ -28,7 +28,7 @@ Workflow context (Lois agent calling this script):
   * Industry-fit nuance the matcher can miss (e.g. Xero Cashbook for tight-budget
     healthcare admin instead of Xero Grow)
 - Lois drafts per-client copy for each tool's "Why this for you" and "Why not the
-  alternatives" — these are the high-judgement bits that justify the A$880 fee
+  alternatives" — these are the high-judgement bits that justify the $880 fee
 - Lois assembles vars.json and calls this script to generate the HTML
 """
 import json
@@ -61,7 +61,7 @@ def render_tool_card(r):
     badge_class = "priority-high" if r["priority"] == "High" else (
         "priority-med" if r["priority"] == "Medium" else "priority-low"
     )
-    tiers = r.get("tiers", [{"name": r.get("tier", ""), "price": f"A${r.get('cost', 0)}/mo", "recommended": True}])
+    tiers = r.get("tiers", [{"name": r.get("tier", ""), "price": f"${r.get('cost', 0)}/mo", "recommended": True}])
     tier_rows = "".join(
         f'<div class="tier-row{" recommended" if t.get("recommended") else ""}">'
         f'<span class="tier-name">{t["name"]}</span>'
@@ -279,7 +279,7 @@ def main():
         "More inbound enquiries",
         "Less reliance on cold outreach",
     ])
-    roi_value_amount = v.get("roi_value_amount", "A$1,900 – A$5,700+")
+    roi_value_amount = v.get("roi_value_amount", "$1,900 – $5,700+")
     roi_value_period = v.get("roi_value_period", "per month")
     roi_value_note = v.get("roi_value_note",
         "Most clients recover the cost of this engagement within the first 30 days through improved efficiency alone.")
@@ -540,7 +540,7 @@ def main():
     </ul>
     <div class="exec-callout">
       <div class="lede-label">In practical terms</div>
-      <p class="lede-body">Most businesses at your stage unlock A$1,900–A$5,700 per month in time value within the first 30–60 days.</p>
+      <p class="lede-body">Most businesses at your stage unlock $1,900–$5,700 per month in time value within the first 30–60 days.</p>
     </div>
     <p class="exec-closing">This is not a generic audit. This is a clear, step-by-step plan for running your business with better systems, better tools, and AI support that earns its place.</p>
     {v.get('exec_summary_para_2', '')}
@@ -729,7 +729,7 @@ def main():
     </div>
     <div style="margin-top: 32px;">
       <p class="body-lede" style="font-size: 20px;">01. Feel strongly about something? We'll amend the report.</p>
-      <p style="margin-top: 8px;">This report is yours. If something doesn't fit your business — a tool you've already tried, a phase that doesn't make sense, a number that feels off — tell us, and we'll revise. Free of charge. The A$880 covers the work, including refinement.</p>
+      <p style="margin-top: 8px;">This report is yours. If something doesn't fit your business — a tool you've already tried, a phase that doesn't make sense, a number that feels off — tell us, and we'll revise. Free of charge. The $880 covers the work, including refinement.</p>
     </div>
     <div style="margin-top: 32px;">
       <p class="body-lede" style="font-size: 20px;">02. Engage Rogue Night for the implementation.</p>
@@ -737,7 +737,7 @@ def main():
     </div>
     <div style="margin-top: 32px;">
       <p class="body-lede" style="font-size: 20px;">03. Take the report and run it yourself.</p>
-      <p style="margin-top: 8px;">The recommendations are vendor-neutral. The A$880 has covered the work.</p>
+      <p style="margin-top: 8px;">The recommendations are vendor-neutral. The $880 has covered the work.</p>
     </div>
     <p class="meta" style="margin-top: 64px; text-align: center;">Rogue Night PTY LTD · ABN 31 633 650 334 · Australia · Prepared {today}</p>
   </div>
