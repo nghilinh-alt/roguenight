@@ -1,0 +1,34 @@
+# Cloudflare Worker config for the Rogue Night Pay-Later API.
+#
+# Deploy with:
+#   wrangler deploy
+#
+# Or copy worker-pay-later.js into the Cloudflare Dashboard's online editor
+# if you prefer the click-and-paste path (no Node/wrangler install required).
+#
+# Secrets are set out-of-band via Dashboard → Settings → Variables, or via:
+#   wrangler secret put STRIPE_SECRET_KEY
+#   wrangler secret put ALLOWED_ORIGIN
+
+name = "rogue-night-pay-later"
+main = "worker-pay-later.js"
+compatibility_date = "2026-05-13"
+
+# Plain-text environment variables (visible in Dashboard).
+# Override per environment if you set up staging/production separately.
+[vars]
+PRODUCT_NAME = "Digital Health Check"
+AMOUNT_CENTS = "35000"
+CURRENCY = "aud"
+DAYS_UNTIL_DUE = "14"
+
+# Route binding: any request to roguenight.com.au/api/* hits this Worker.
+# Everything else falls through to Hostinger (via Cloudflare proxy).
+[[routes]]
+pattern = "roguenight.com.au/api/*"
+zone_name = "roguenight.com.au"
+
+# Optional: also bind www. variant if you want both hosts to work.
+# [[routes]]
+# pattern = "www.roguenight.com.au/api/*"
+# zone_name = "roguenight.com.au"
