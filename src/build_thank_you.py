@@ -137,23 +137,24 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <div class="eyebrow">Step 02 · Payment</div>
   <h1>Your questionnaire is in. <span class="accent">Now, the work begins.</span></h1>
   <p class="lede" id="lede-text">
-    Thanks <span class="you" id="customer-name">for completing the questionnaire</span> &mdash; we have everything we need to start building your strategy. Two ways to settle the $880 fee, your call.
+    Thanks <span class="you" id="customer-name">for completing the questionnaire</span> &mdash; we have everything we need to start building your strategy. Pay below to settle the $880 fee.
   </p>
   <div class="next-steps">
     <div class="next-steps-label">What happens next</div>
     <ol>
-      <li>You pay (or schedule payment) using one of the two paths below.</li>
+      <li>You pay through the secure Stripe link below.</li>
       <li>We draft your AI &amp; Automation Strategy within 48 hours, specially curated for your business.</li>
       <li>It lands in your inbox as a PDF, yours to keep. We'll be available for questions for 30 days.</li>
     </ol>
   </div>
-  <div class="pay-section-eyebrow">Choose your payment path</div>
+  <div class="pay-section-eyebrow">Pay now</div>
   <div class="pay-buttons">
     <a class="pay-btn primary" id="pay-now-link" href="#">
       <span class="title">Pay now</span>
       <span class="sub">Card, Apple Pay, Google Pay &mdash; secured by Stripe. We start tonight.</span>
     </a>
-    <button class="pay-btn secondary" id="pay-later-btn" type="button">
+    <!-- Pay Later disabled v6.1 (2026-05-13) — Worker's /api/pay-later creates draft invoices that never finalize/email. Re-enable by removing display:none AND restoring "two paths" copy above (see git history for original copy). Worker fix: call invoices.finalizeInvoice() after create. -->
+    <button class="pay-btn secondary" id="pay-later-btn" type="button" style="display: none;">
       <span class="title">Send me an invoice</span>
       <span class="sub">Pay whenever you're ready. We hold off building until the invoice is paid.</span>
     </button>
