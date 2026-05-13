@@ -25,7 +25,7 @@ Required env vars:
 
 Notes:
     - This script is a v1 sketch. The exact Airtable field names must match the v1.2
-      schema documented in `Rogue Night — Airtable Base Schema (Digital Health Check)`.
+      schema documented in `Rogue Night — Airtable Base Schema (AI & Automation Strategy)`.
     - Run this only after Linh approves the draft. Never auto-run.
 """
 import json

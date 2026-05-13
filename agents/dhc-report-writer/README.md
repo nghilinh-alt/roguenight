@@ -1,11 +1,11 @@
-# Rogue Night Digital Health Check Report Writer
+# Rogue Night AI Automation Strategy Writer
 
-The methodology Lois follows to turn one Airtable Response row into a populated, voice-compliant Digital Health Check report — HTML and PDF — that she drafts and Linh approves before sending.
+The methodology Lois follows to turn one Airtable Response row into a populated, voice-compliant AI & Automation Strategy report — HTML and PDF — that she drafts and Linh approves before sending.
 
 ## What this skill encodes
 
 - The Phase 1 brand voice rules (locked, non-negotiable)
-- The Airtable schema for the live Rogue Night DHC base (`appCLdTCbJ5zGe9fo`)
+- The Airtable schema for the live Rogue Night AI & Automation Strategy base (`appCLdTCbJ5zGe9fo`)
 - The multi-pain matching algorithm against the Tools catalogue
 - The v5 template's CSS and section structure (lifted verbatim into `v5-style-block.txt` for fidelity)
 - The cost-sensitivity narrative pattern (when "I have no money" or similar signal appears)
@@ -16,7 +16,7 @@ The methodology Lois follows to turn one Airtable Response row into a populated,
 
 ## Live infrastructure
 
-- **Airtable base:** `appCLdTCbJ5zGe9fo` (Rogue Night — Digital Health Check)
+- **Airtable base:** `appCLdTCbJ5zGe9fo` (Rogue Night — AI & Automation Strategy)
 - **Tables:** `Tools` (`tblNDMmrH2zS8JR5K`) · `Responses` (`tblpgzWG5Kslm4AKv`) · `Recommendations` (`tblZyroUIcAZvjouY`) · `Reports` (`tblozeWaPiqdA7FkC`)
 - **Tally form:** https://tally.so/r/xX4YaG (source of all Response rows)
 - **Email:** hello@roguenight.com.au via Hostinger (NOT Google Workspace — no API integration). Lois drafts the email body as TEXT for Linh to copy-paste into Hostinger webmail and attach the PDF manually.
@@ -200,9 +200,9 @@ End with the **Implementation · optional** dark callout box for digital employe
 
 Three doors. The v5 template's exact copy is the locked default:
 
-1. **Feel strongly about something? We'll amend the report.** Free of charge. The A$350 covers the work, including refinement.
+1. **Feel strongly about something? We'll amend the report.** Free of charge. The A$880 covers the work, including refinement.
 2. **Engage Rogue Night for the implementation.** Fixed-fee, fixed-scope. Quote after a scoping call.
-3. **Take the report and run it yourself.** The recommendations are vendor-neutral. The A$350 has covered the work.
+3. **Take the report and run it yourself.** The recommendations are vendor-neutral. The A$880 has covered the work.
 
 **Locked instruction (per Linh, 2026-05-11):** do NOT include "Book a free 45-minute walkthrough call" copy in the email body or in section 09. Walkthroughs happen organically; don't prompt for them in the canonical send.
 
@@ -354,7 +354,7 @@ Drop any agent that doesn't make sense for the client's industry:
    - Primary pain (first tag in `Pain tag (derived)`) gets priority weighting
    - Cost-sensitivity: if "I have no money" appears in Anything else notes, lead with cheapest credible tiers
    - Drop any tool the matcher recommended that doesn't fit the client's specific situation
-5. **Draft per-client copy** for each tool's "Why this for you" and "Why not the alternatives". These are the high-judgement bits that justify the A$350 fee — don't template them.
+5. **Draft per-client copy** for each tool's "Why this for you" and "Why not the alternatives". These are the high-judgement bits that justify the A$880 fee — don't template them.
 6. **Score the digital employees** against the impact / readiness / pain-match rubric. Pick 3 per batch. Draft each card with pain_match, pain_tier, readiness, ties_to, ties_label.
 7. **Assemble `vars.json`** (see `report_vars.example.json` for shape). Include narrative copy for sections 01, 02, 04, 05, 06, 08. Section 06 phases array MUST span Week 1 → Week 12.
 8. **Run `populate_template.py`** → produces `report.html` using v5 CSS + client content.
@@ -369,7 +369,7 @@ Drop any agent that doesn't make sense for the client's industry:
     - `AIRTABLE_UPDATE_MULTIPLE_RECORDS` for the Response — Status: "Has reports"
 14. **Draft the email body for Linh's manual send** (Hostinger workflow):
     - Output in the chat
-    - Format: "Hi [Contact name], Thanks for completing the Digital Health Check for [Business name]. Your report is attached..."
+    - Format: "Hi [Contact name], Thanks for completing the AI & Automation Strategy for [Business name]. Your report is attached..."
     - Include the locked next-steps copy WITHOUT the "Book a free 45-minute call" sentence
     - End with "— Rogue Night"
 15. **If email integration becomes available later** (Workspace + Gmail OAuth), step 14 becomes a `GMAIL_CREATE_DRAFT` call that drops the body + PDF attachment into the connected hello@ inbox's Drafts folder.

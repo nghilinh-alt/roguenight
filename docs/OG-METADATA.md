@@ -18,7 +18,7 @@ Replace these placeholder values:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rogue Night — Enterprise-grade digital transformation, AI-amplified, priced for small business</title>
-<meta name="description" content="Rogue Night helps Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. Specially curated Digital Health Check, $350 flat, in your inbox within 48 hours.">
+<meta name="description" content="Rogue Night helps Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. Specially curated AI & Automation Strategy, $880 flat, in your inbox within 48 hours.">
 <meta name="author" content="Rogue Night PTY LTD">
 <meta name="theme-color" content="#0A0E1A">
 
@@ -33,7 +33,7 @@ Replace these placeholder values:
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rogue Night">
 <meta property="og:title" content="Rogue Night — The work that runs while you sleep">
-<meta property="og:description" content="We help Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. Digital Health Check, $350 flat, within 48 hours.">
+<meta property="og:description" content="We help Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. AI & Automation Strategy, $880 flat, within 48 hours.">
 <meta property="og:url" content="https://roguenight.com.au/">
 <meta property="og:image" content="https://roguenight.com.au/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -44,7 +44,7 @@ Replace these placeholder values:
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rogue Night — The work that runs while you sleep">
-<meta name="twitter:description" content="We help Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. Digital Health Check, $350 flat, within 48 hours.">
+<meta name="twitter:description" content="We help Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. AI & Automation Strategy, $880 flat, within 48 hours.">
 <meta name="twitter:image" content="https://roguenight.com.au/og-image.png">
 <meta name="twitter:image:alt" content="Rogue Night logo on Ink background with editorial headline">
 
@@ -73,11 +73,11 @@ Replace these placeholder values:
     "@type": "Country",
     "name": "Australia"
   },
-  "priceRange": "A$350",
+  "priceRange": "A$880",
   "offers": {
     "@type": "Offer",
-    "name": "Digital Health Check",
-    "price": "350",
+    "name": "AI & Automation Strategy",
+    "price": "880",
     "priceCurrency": "AUD",
     "description": "Specially curated digital health check for small business — tool snapshot, six tool recommendations, three AI agent ideas, and a cull list. Delivered to your inbox within 48 hours."
   }

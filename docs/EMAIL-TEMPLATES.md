@@ -13,7 +13,7 @@ All copy follows the locked Phase 1 voice rules. Never paste these without first
 **Subject:**
 
 ```
-Your Digital Health Check — [Business name]
+Your AI & Automation Strategy — [Business name]
 ```
 
 **Body:**
@@ -21,7 +21,7 @@ Your Digital Health Check — [Business name]
 ```
 Hi [First name],
 
-Your Digital Health Check is attached.
+Your AI & Automation Strategy is attached.
 
 Inside you'll find a snapshot of where [Business name] sits today, six 
 specifically curated tool recommendations across foundation and core 
@@ -42,7 +42,7 @@ hello@roguenight.com.au
 ABN 31 633 650 334
 ```
 
-**Attachment:** `[Business-name]-digital-health-check.pdf` (rename the file from Lois's output before attaching)
+**Attachment:** `[Business-name]-ai-automation-strategy.pdf` (rename the file from Lois's output before attaching)
 
 **Voice check before sending:**
 - [ ] No "SME"
@@ -62,7 +62,7 @@ ABN 31 633 650 334
 **Subject:**
 
 ```
-Your Digital Health Check — second attempt
+Your AI & Automation Strategy — second attempt
 ```
 
 **Body:**
@@ -70,7 +70,7 @@ Your Digital Health Check — second attempt
 ```
 Hi [First name],
 
-Apologies — my first attempt to send your Digital Health Check bounced 
+Apologies — my first attempt to send your AI & Automation Strategy bounced 
 from [original email address]. This is the working copy, attached.
 
 Same report as ordered: tool snapshot, six curated recommendations, 
@@ -92,7 +92,7 @@ hello@roguenight.com.au
 **Subject:**
 
 ```
-Quick note on your Digital Health Check — [Business name]
+Quick note on your AI & Automation Strategy — [Business name]
 ```
 
 **Body:**
@@ -100,7 +100,7 @@ Quick note on your Digital Health Check — [Business name]
 ```
 Hi [First name],
 
-Quick note: your Digital Health Check is taking a touch longer than 
+Quick note: your AI & Automation Strategy is taking a touch longer than 
 the 48 hours promised. New ETA is [day, date — be specific, 
 e.g. "Thursday morning"].
 
@@ -126,7 +126,7 @@ The Rogue Night team
 **Subject:**
 
 ```
-Re: Your Digital Health Check — implementation scope
+Re: Your AI & Automation Strategy — implementation scope
 ```
 
 **Body:**
@@ -172,7 +172,7 @@ The Rogue Night team
 **Subject:**
 
 ```
-Saw your Digital Health Check request — [Business name]
+Saw your AI & Automation Strategy request — [Business name]
 ```
 
 **Body:**
@@ -180,7 +180,7 @@ Saw your Digital Health Check request — [Business name]
 ```
 Hi [First name],
 
-Saw your request come through for a Digital Health Check on 
+Saw your request come through for an AI & Automation Strategy on 
 [Business name] — looks like the payment step didn't complete. 
 Happens sometimes (card declines, browser hiccup, distraction).
 
@@ -188,7 +188,7 @@ If you'd still like the report, here's the direct link:
 
   [Stripe Payment Link URL]
 
-Once the A$350 lands, your report goes into the build queue and lands 
+Once the A$880 lands, your report goes into the build queue and lands 
 in your inbox within 48 hours.
 
 If you've changed your mind, no need to reply — I'll close the request 
@@ -262,7 +262,7 @@ For replies that are clearly from the founder voice, swap "The Rogue Night team"
 - "Brisbane" — say "Australian"
 - "SME" — say "small to medium business"
 - "Sole director" — say "Founder" if attribution needed
-- Discount language ("$350 normally, $250 for you")
+- Discount language ("$880 normally, $700 for you")
 - "Synergy" / "leverage" / "holistic" / "premier" / "world-class"
 
 ---
@@ -273,5 +273,5 @@ For replies that are clearly from the founder voice, swap "The Rogue Night team"
 - Reply-To header stays `hello@roguenight.com.au`
 - Plain text + simple HTML signature is fine — don't paste branded HTML email templates, they trigger spam filters more than they help at this volume
 - Attach the PDF directly (Hostinger webmail handles up to 25 MB attachments, our reports are ~1-2 MB)
-- File-name the PDF `[Business-name]-digital-health-check.pdf` before attaching — looks better in the customer's inbox than `report-output.pdf`
+- File-name the PDF `[Business-name]-ai-automation-strategy.pdf` before attaching — looks better in the customer's inbox than `report-output.pdf`
 - BCC `hello@roguenight.com.au` on every report send so you have a sent-record visible in the inbox folder

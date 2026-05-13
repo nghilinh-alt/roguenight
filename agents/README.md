@@ -4,8 +4,8 @@ This directory holds the **source-of-truth** for Rogue Night's named agents and 
 
 ## What's here
 
-- **[`lois/`](lois/)** — Lois, the named Digital Health Check report-writing agent
-- **[`dhc-report-writer/`](dhc-report-writer/)** — Skill that turns one Airtable Response into a populated DHC report
+- **[`lois/`](lois/)** — Lois, the named AI & Automation Strategy report-writing agent
+- **[`dhc-report-writer/`](dhc-report-writer/)** — Skill that turns one Airtable Response into a populated strategy report
 - **[`stack-md-maintainer/`](stack-md-maintainer/)** — Skill that keeps `catalogue/stack.md` and the Airtable Tools table in sync
 
 ## Relationship between this repo and Hyperagent
@@ -19,7 +19,7 @@ This directory holds the **source-of-truth** for Rogue Night's named agents and 
 
 1. Edit the file here (e.g., `agents/dhc-report-writer/scripts/match_recommendations.py`).
 2. Commit and push.
-3. In a Hyperagent thread, run `FetchSkillScripts({skillName: "Rogue Night DHC Report Writer", force: true})` to overwrite the workspace copy with the new version, then `UpdateSkillAndScripts` to save it back to the skill DB.
+3. In a Hyperagent thread, run `FetchSkillScripts({skillName: "Rogue Night AI Automation Strategy Writer", force: true})` to overwrite the workspace copy with the new version, then `UpdateSkillAndScripts` to save it back to the skill DB.
 
 Or skip the round-trip and:
 
@@ -39,4 +39,4 @@ Resolution: run `UpdateSkillAndScripts` manually with each script's path until t
 
 Same as the rest of the repo. See [`docs/operations/VOICE-RULES.md`](../docs/operations/VOICE-RULES.md).
 
-The DHC Report Writer skill bakes the voice rules into its drafting methodology (Phase 1 brand non-negotiables, locked). The Stack.md Maintainer skill auto-cleans SME → small business in any field it writes.
+The AI Automation Strategy Writer skill bakes the voice rules into its drafting methodology (Phase 1 brand non-negotiables, locked). The Stack.md Maintainer skill auto-cleans SME → small business in any field it writes.

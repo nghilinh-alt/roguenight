@@ -1,4 +1,4 @@
-"""Propose a stack.md patch after a Digital Health Check report has been drafted.
+"""Propose a stack.md patch after a AI & Automation Strategy report has been drafted.
 
 Given:
 - The current stack.md (Linh's local file, fetched from chat upload)
@@ -23,7 +23,7 @@ Where recommended_tools.json is a list of:
    ...]
 
 Run this script:
-- After every DHC report draft (post-recommendation, pre-send)
+- After every strategy report draft (post-recommendation, pre-send)
 - The output is a markdown patch the maintainer agent shows Linh for confirmation
 - Linh applies the patch to her local stack.md manually OR confirms an Airtable sync
 

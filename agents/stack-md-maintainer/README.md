@@ -1,6 +1,6 @@
 # Stack.md Maintainer
 
-Keeps the canonical vetted tool catalogue (`stack.md`, Linh's local file) and the live Airtable Tools table in sync, and proposes patches whenever a new Digital Health Check report surfaces tools or categories not yet in the catalogue.
+Keeps the canonical vetted tool catalogue (`stack.md`, Linh's local file) and the live Airtable Tools table in sync, and proposes patches whenever a new AI & Automation Strategy report surfaces tools or categories not yet in the catalogue.
 
 ## What this skill encodes
 
@@ -17,7 +17,7 @@ Production:
 - `AIRTABLE_API_KEY` (skill credential, password) — Personal Access Token with data.records:read, data.records:write, schema.bases:read scopes
 - `AIRTABLE_BASE_ID` (skill credential, text) — `appCLdTCbJ5zGe9fo`
 - `stack.md` (uploaded by Linh into the active thread — fetched via `FetchStoredFile` if attached, or asked for if missing)
-- The list of tools recommended in the most recent DHC report (passed from Lois, or extracted from the report HTML)
+- The list of tools recommended in the most recent strategy report (passed from Lois, or extracted from the report HTML)
 
 ## Outputs
 
@@ -36,7 +36,7 @@ Production:
 
 ### A. Post-report scan (most common)
 
-Triggered automatically by Lois after a DHC report is drafted and approved.
+Triggered automatically by Lois after a strategy report is drafted and approved.
 
 1. Lois passes the list of tools recommended in the report (with category and per-client notes).
 2. Run `propose_patch.py <stack.md> <recommended_tools.json>` to identify any tool not in stack.md.
@@ -52,7 +52,7 @@ Triggered automatically by Lois after a DHC report is drafted and approved.
 Triggered by Linh saying "run a stack audit" or similar.
 
 1. Linh uploads the current `stack.md` into the thread.
-2. Run `python3 fetch_tools.py > tools-live.json` (script lives in the DHC Report Writer skill).
+2. Run `python3 fetch_tools.py > tools-live.json` (script lives in the AI Automation Strategy Writer skill).
 3. Run `audit_stack.py <stack.md> <tools-live.json>` to produce a full diff report.
 4. Surface findings to Linh in a project document. Include sections for: stack-only tools, Airtable-only tools, field drift, vetting status drift, SME usage in stack.md.
 5. Linh confirms a reconciliation plan (which source is canonical per dimension).
@@ -104,12 +104,12 @@ When adding a tool to stack.md or Airtable, every field below should be populate
 
 - Audit findings 2026-05-13: project document (Stack.md Audit — 2026-05-13)
 - Live Airtable base: https://airtable.com/appCLdTCbJ5zGe9fo
-- Companion skill: Rogue Night DHC Report Writer (drafts the reports that trigger workflow A)
+- Companion skill: Rogue Night AI Automation Strategy Writer (drafts the reports that trigger workflow A)
 - Original stack.md categorisation logic: `src/services/vetted-stack/README.md` (in Linh's local repo, referenced by stack.md's memory pointer)
 
 ## Working principle (carried from project doc)
 
-After every Digital Health Check report, audit stack.md for two things:
+After every AI & Automation Strategy report, audit stack.md for two things:
 
 1. **Tools recommended in the report that aren't in the catalogue.** Each one is a candidate for addition, with full schema and Linh-vetted: Pending default.
 2. **Categories that the report exposed as missing.** New industries (hospitality, healthcare, retail, fitness) will surface category gaps before they surface tool gaps.

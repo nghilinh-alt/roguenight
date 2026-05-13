@@ -140,7 +140,7 @@ This file is grep-friendly markdown for now. Migrate to `.xlsx` when the catalog
 
 ## AI assistants (tier 3 building blocks)
 
-> Note: this row is the natural input to tier 3 agent-build engagements, not a tier 1 recommendation. The Digital Health Check report should NOT be recommending these tools directly to SMEs in most cases — the tier 3 agents Rogue Night builds sit on top of these.
+> Note: this row is the natural input to tier 3 agent-build engagements, not a tier 1 recommendation. The AI & Automation Strategy report should NOT be recommending these tools directly to SMEs in most cases — the tier 3 agents Rogue Night builds sit on top of these.
 
 | Tool | Category | Difficulty | Ceiling | Pain tags | Best for | Watch out for | Last reviewed | Linh-vetted |
 |------|----------|------------|---------|-----------|----------|----------------|---------------|-------------|
@@ -168,5 +168,5 @@ After the first curation pass:
 
 - Categorisation logic: `src/services/vetted-stack/README.md`
 - Service positioning: `src/services/SERVICES.md`
-- Pain tag schema: `src/services/digital-health-check/questionnaire-v1.md` Section C2
+- Pain tag schema: `src/services/ai-automation-strategy/questionnaire-v1.md` Section C2
 - Quarterly refresh artifacts: `src/services/vetted-stack/refreshes/{YYYY-Q}-refresh.md`

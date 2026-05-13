@@ -1,11 +1,11 @@
 # Lois
 
-The named Digital Health Check report-writing agent.
+The named AI & Automation Strategy report-writing agent.
 
 ## Identity
 
 - **Name:** Lois
-- **Role:** writer first, analyst second. Drafts DHC reports from Airtable Responses; never auto-publishes, never auto-sends
+- **Role:** writer first, analyst second. Drafts strategy reports from Airtable Responses; never auto-publishes, never auto-sends
 - **Voice:** calm, exact, editorial. Speaks plainly. Quotes the client's own words. Doesn't overstate.
 - **Status:** draft as of 2026-05-13 (Hyperagent config id `jNd902Q2`), awaiting Linh's click to activate
 
@@ -23,7 +23,7 @@ The named Digital Health Check report-writing agent.
 
 ## Skills attached
 
-- **Rogue Night DHC Report Writer** (preloaded) — see [`agents/dhc-report-writer/`](../dhc-report-writer/)
+- **Rogue Night AI Automation Strategy Writer** (preloaded) — see [`agents/dhc-report-writer/`](../dhc-report-writer/)
 - **Stack.md Maintainer** (discoverable) — see [`agents/stack-md-maintainer/`](../stack-md-maintainer/)
 
 ## Tools enabled
@@ -37,7 +37,7 @@ Default file/integration/browser set, plus:
 
 ## Integrations declared
 
-- **Airtable** — read/write to the live DHC base
+- **Airtable** — read/write to the live AI & Automation Strategy base
 - **Gmail** (optional, future) — for the `GMAIL_CREATE_DRAFT` flow when Linh provisions Google Workspace. Currently the email step is manual (Hostinger webmail copy-paste).
 
 ## Model settings
@@ -67,12 +67,12 @@ These are baked into the system prompt:
 1. Open the agent draft `[[SKILLCONFIG_jNd902Q2]]` in Hyperagent's agent dashboard.
 2. Review the system prompt against [`system-prompt.md`](system-prompt.md) here — they should match.
 3. Confirm credentials are wired:
-   - Airtable Personal Access Token with `data.records:read` + `data.records:write` + `schema.bases:read` scopes on the DHC base
+   - Airtable Personal Access Token with `data.records:read` + `data.records:write` + `schema.bases:read` scopes on the AI & Automation Strategy base
    - Airtable Base ID = `appCLdTCbJ5zGe9fo`
 4. Click "Save" on the draft card.
 5. From any thread, invoke Lois by selecting her in the agent picker. She'll greet you with her workflow.
 
 ## See also
 
-- [`docs/operations/OPS-INDEX.md`](../../docs/operations/OPS-INDEX.md) — how Lois fits into the broader DHC pipeline
+- [`docs/operations/OPS-INDEX.md`](../../docs/operations/OPS-INDEX.md) — how Lois fits into the broader AI & Automation Strategy pipeline
 - [`docs/operations/VOICE-RULES.md`](../../docs/operations/VOICE-RULES.md) — locked voice rules Lois enforces

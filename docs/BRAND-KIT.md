@@ -143,7 +143,7 @@ Short. Then medium. Then occasionally longer for the rhythm break — like this.
 
 ## Pricing language
 
-The Digital Health Check is **$350 flat**. Always pair with:
+The AI & Automation Strategy is **$880 flat**. Always pair with:
 
 - "delivered to your inbox in 48 hours" OR
 - "in your inbox within 48 hours" OR
@@ -158,9 +158,9 @@ Never:
 
 ## CTA pattern (locked)
 
-Primary button reads **"Book a Digital Health Check"** with supporting text:
+Primary button reads **"Get your AI & Automation Strategy"** with supporting text:
 
-> $350 flat · Delivered to your inbox in 48 hours · Yours to keep
+> $880 flat · Delivered to your inbox in 48 hours · Yours to keep
 
 The button click goes **directly to the Tally form**: `https://tally.so/r/xX4YaG` (target="_blank")
 
