@@ -2,7 +2,7 @@
 
 Handles the **Pay Later** path of the Tally → Stripe payment flow.
 
-When a customer clicks "Send me an invoice" on `roguenight.com.au/thank-you/`, the page POSTs to `/api/pay-later`. Cloudflare proxying intercepts that path and routes it to this Worker. The Worker calls the Stripe Invoicing API to (1) create a Customer, (2) attach an Invoice Item, (3) create the Invoice in draft state, and (4) **explicitly finalize the invoice** via `POST /v1/invoices/:id/finalize`. The finalization step is what triggers Stripe to email the customer the Hosted Invoice Page link — without it, the invoice sits in draft and no email is ever sent (the silent failure we saw in v1).
+When a customer clicks "Send me an invoice" on `roguenight.com.au/thank-you/`, the page POSTs to `/api/pay-later`. Cloudflare proxying intercepts that path and routes it to this Worker. The Worker calls the Stripe Invoicing API to (1) create a Customer, (2) attach an Invoice Item, (3) create the Invoice in draft state, (4) **explicitly finalize** the invoice via `POST /v1/invoices/:id/finalize` so it moves to `status: open` with a populated `hosted_invoice_url`, and (5) **explicitly send** the invoice email via `POST /v1/invoices/:id/send`. The explicit send removes the brittle dependency on Stripe Dashboard's Customer Emails settings (which are disabled in test mode and inconsistent across live-mode accounts).
 
 ## Files
 
