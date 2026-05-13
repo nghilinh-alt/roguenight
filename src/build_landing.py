@@ -23,7 +23,7 @@ with open(os.path.join(_DATA, 'horizontal_sm-b64.txt')) as f:
     LOGO_SM_B64 = f.read().strip()
 
 TALLY_URL = 'https://tally.so/r/xX4YaG'
-PDF_PAGES = 23
+PDF_PAGES = 13
 SITE_URL = 'https://roguenight.com.au'
 ABN = '31 633 650 334'
 PRICE = '880'
@@ -36,11 +36,11 @@ PRICE_DISPLAY = 'A$880'
 STAGING_MODE = os.environ.get('STAGING_MODE', 'true').lower() != 'false'
 
 if STAGING_MODE:
-    PDF_URL = 'https://roguenight.com.au/health-check-sample.pdf'
+    PDF_URL = 'https://roguenight.com.au/sample-strategy.pdf'
     PRIVACY_URL = 'https://roguenight.com.au/privacy/'
     TERMS_URL = 'https://roguenight.com.au/terms/'
 else:
-    PDF_URL = '/health-check-sample.pdf'
+    PDF_URL = '/sample-strategy.pdf'
     PRIVACY_URL = '/privacy/'
     TERMS_URL = '/terms/'
 

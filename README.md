@@ -18,7 +18,7 @@ roguenight/
 │   ├── confirmation/index.html # /confirmation — post-Stripe-success
 │   ├── 404.html
 │   ├── og-image.png · favicon.svg · apple-touch-icon.png · logo-stacked.png
-│   ├── health-check-sample.pdf
+│   ├── sample-strategy.pdf
 │   ├── robots.txt · sitemap.xml · .htaccess
 │
 ├── src/                 # Python build scripts (Pillow + numpy)

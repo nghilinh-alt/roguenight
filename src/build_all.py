@@ -78,7 +78,7 @@ def main():
     print("\n[supporting files]")
     files_to_ensure = [
         (os.path.join(ASSETS_RAW, 'logo-stacked.png'),  os.path.join(PUBLIC, 'logo-stacked.png')),
-        (os.path.join(ASSETS_RAW, 'health-check-sample.pdf'), os.path.join(PUBLIC, 'health-check-sample.pdf')),
+        (os.path.join(ASSETS_RAW, 'sample-strategy.pdf'), os.path.join(PUBLIC, 'sample-strategy.pdf')),
     ]
     for src, dest in files_to_ensure:
         if os.path.abspath(src) == os.path.abspath(dest):
