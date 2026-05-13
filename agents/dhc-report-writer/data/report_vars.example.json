@@ -10,6 +10,41 @@
   "exec_summary_para_2": "<p>Six tools, phased over twelve weeks, do most of the work. We've leaned toward provider-vetted defaults and integrations that don't need glue layers — your tech appetite is medium and we respect that.</p>",
   "exec_summary_para_3": "<p>The numbers on the next page are conservative ranges based on Fair Work AU 2026 rates. The point is not that you'll hit every dollar, every month — it's that the headroom is real, and the path to capturing it is clear.</p>",
 
+  "_priority_actions_note": "Five priority actions for section 02. If omitted, the template derives them from the top 5 recs[]. Each item: action (title with tool name), fix (one-line pain description), outcome (the win after doing it).",
+  "priority_actions": [
+    {
+      "action": "Move to ServiceM8 for job and dispatch management",
+      "fix": "Stop losing job sheets to the back of the ute",
+      "outcome": "Every job tracked from quote to invoice in one place"
+    },
+    {
+      "action": "Migrate from MYOB to Xero",
+      "fix": "End Sunday-night re-typing at the kitchen table",
+      "outcome": "Books reconcile automatically, weekends back"
+    },
+    {
+      "action": "Move to professional email on Google Workspace",
+      "fix": "Stop sending quotes from a gmail.com address",
+      "outcome": "Higher quote-to-close conversion, instant credibility"
+    },
+    {
+      "action": "Connect Stripe for card payments",
+      "fix": "Stop chasing payment by phone for two weeks",
+      "outcome": "Customers pay the invoice the same day"
+    },
+    {
+      "action": "Automate receivables with Chaser",
+      "fix": "Stop being the bad guy chasing overdue invoices",
+      "outcome": "Average days-to-pay drops from 45 to 14"
+    }
+  ],
+
+  "_roi_note": "Section 03 Expected Outcomes uses sensible defaults; override per-client only where you need to. Common override: roi_value_amount to match the client's actual benefits subtotal.",
+  "roi_value_amount": "A$1,150 – A$2,800",
+  "roi_value_period": "per month, plus A$30-45K of working capital released in the first year",
+  "roi_value_note": "Most clients at your stage recover the A$880 engagement fee within the first 30 days through admin time saved alone — receivables compression is upside on top.",
+
+
   "key_benefits": [
     { "title": "12-15 hours back, monthly", "body": "Re-typing job sheets into MYOB on Sunday night disappears. Apprentices stop losing notes. Worth A$600-1200 to you at owner-operator rates." },
     { "title": "Receivables tightened to 14 days", "body": "Chaser automates the polite-but-firm payment follow-ups. Industry average for trades drops 30 days when this is wired right. That's A$30-45K of working capital unlocked on a A$1M turnover." },
