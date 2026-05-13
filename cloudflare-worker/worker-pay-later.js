@@ -16,16 +16,17 @@
  *   CURRENCY              — default "aud"
  *   DAYS_UNTIL_DUE        — default 14
  *
- * Why we finalize explicitly (v2 — 2026-05-14):
- *   The earlier version set auto_advance=true and returned the invoice
- *   straight after creation. Stripe is supposed to finalize and email in
- *   the background, but in practice the response often returns with
- *   status="draft" and hosted_invoice_url=null. Customers see a "success"
- *   message on the thank-you page but the invoice email never arrives.
- *   Explicit finalization (POST /v1/invoices/:id/finalize) moves the
- *   invoice to status="open" synchronously and triggers the email
- *   immediately. We return the finalized invoice in the response so the
- *   front-end can confirm hosted_invoice_url is populated.
+ * Why we finalize AND send explicitly (v3 — 2026-05-14):
+ *   v1 set auto_advance=true and relied on Stripe's background finalize.
+ *   In practice that returned status="draft" / hosted_invoice_url=null.
+ *   v2 added an explicit POST /v1/invoices/:id/finalize, which fixed the
+ *   draft state — but in test mode Stripe still doesn't auto-send the
+ *   email (test mode customer emails are disabled by default and can
+ *   only be edited in live mode, per the Dashboard settings page).
+ *   v3 ALSO calls POST /v1/invoices/:id/send after finalizing, which
+ *   guarantees the customer gets the email regardless of the Dashboard's
+ *   "Customer Emails" toggles. This removes the brittle dependency on
+ *   per-account email settings.
  *
  * Voice rules baked in:
  *   - Customer description uses "small to medium businesses" voice (no SME)
@@ -166,17 +167,30 @@ async function handlePayLater(request, env) {
     });
     const invoiceDraft = await stripeCall(env, "/invoices", invoiceBody, `${idemKey}-invoice`);
 
-    // 4. Finalize the invoice synchronously. This moves status draft -> open,
-    //    populates hosted_invoice_url, and triggers Stripe's customer email
-    //    (because collection_method=send_invoice). Without this step the
-    //    invoice sits as draft, hosted_invoice_url is null, and no email
-    //    is ever sent — the silent failure we saw in production prior to
-    //    v2 of this Worker.
-    const invoice = await stripeCall(
+    // 4. Finalize the invoice synchronously. This moves status draft -> open
+    //    and populates hosted_invoice_url. In v2 we relied on finalization
+    //    to auto-trigger the customer email, but Stripe test-mode disables
+    //    auto-send (and live-mode behaviour depends on Dashboard settings).
+    //    v3 finalizes first, then explicitly sends in step 5.
+    const finalized = await stripeCall(
       env,
       `/invoices/${invoiceDraft.id}/finalize`,
       "",
       `${idemKey}-finalize`,
+    );
+
+    // 5. Explicitly send the invoice email. POST /invoices/:id/send works on
+    //    any open invoice and triggers a fresh email regardless of Dashboard
+    //    Customer Email toggles. This removes the brittle dependency on
+    //    Stripe Dashboard settings (test mode disables auto-send entirely;
+    //    live mode auto-send depends on per-account config that has been
+    //    inconsistent in our testing). The send call is idempotent by key,
+    //    so accidental double-clicks within the same day don't double-email.
+    const invoice = await stripeCall(
+      env,
+      `/invoices/${finalized.id}/send`,
+      "",
+      `${idemKey}-send`,
     );
 
     return json({
