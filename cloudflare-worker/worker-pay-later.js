@@ -2,24 +2,34 @@
  * Rogue Night — Pay Later Worker
  *
  * Receives POST /api/pay-later with { email, name, business, ref }
- * Creates a Stripe customer + $350 invoice with collection_method=send_invoice
- * Stripe automatically emails the customer the Hosted Invoice Page link.
+ * Creates a Stripe customer + $880 invoice with collection_method=send_invoice,
+ * then EXPLICITLY finalizes the invoice so Stripe emails the customer the
+ * Hosted Invoice Page link straight away.
  *
  * Required Worker secrets:
  *   STRIPE_SECRET_KEY     — Stripe live (sk_live_...) or test (sk_test_...) secret
  *   ALLOWED_ORIGIN        — e.g. "https://roguenight.com.au" (single origin)
  *
  * Required env (vars, plain text):
- *   PRODUCT_NAME          — default "Digital Health Check"
- *   AMOUNT_CENTS          — default 35000 (A$350.00)
+ *   PRODUCT_NAME          — default "AI & Automation Strategy"
+ *   AMOUNT_CENTS          — default 88000 (A$880.00)
  *   CURRENCY              — default "aud"
  *   DAYS_UNTIL_DUE        — default 14
  *
- * Deploy: see /agent/workspace/cloudflare-worker-setup.md (walkthrough)
+ * Why we finalize explicitly (v2 — 2026-05-14):
+ *   The earlier version set auto_advance=true and returned the invoice
+ *   straight after creation. Stripe is supposed to finalize and email in
+ *   the background, but in practice the response often returns with
+ *   status="draft" and hosted_invoice_url=null. Customers see a "success"
+ *   message on the thank-you page but the invoice email never arrives.
+ *   Explicit finalization (POST /v1/invoices/:id/finalize) moves the
+ *   invoice to status="open" synchronously and triggers the email
+ *   immediately. We return the finalized invoice in the response so the
+ *   front-end can confirm hosted_invoice_url is populated.
  *
  * Voice rules baked in:
  *   - Customer description uses "small to medium businesses" voice (no SME)
- *   - Invoice description: "Digital Health Check — specially curated report"
+ *   - Invoice description uses productName + "specially curated"
  */
 
 const ALLOWED_METHODS = "POST, OPTIONS";
@@ -105,15 +115,15 @@ async function handlePayLater(request, env) {
     return json({ error: "A valid email is required." }, 400, origin);
   }
 
-  const productName = env.PRODUCT_NAME || "Digital Health Check";
-  const amountCents = parseInt(env.AMOUNT_CENTS || "35000", 10);
+  const productName = env.PRODUCT_NAME || "AI & Automation Strategy";
+  const amountCents = parseInt(env.AMOUNT_CENTS || "88000", 10);
   const currency = (env.CURRENCY || "aud").toLowerCase();
   const daysUntilDue = parseInt(env.DAYS_UNTIL_DUE || "14", 10);
 
   // Idempotency key derived from Tally submission ref (if provided) + email + day.
   // Prevents accidental double-clicks creating duplicate invoices.
   const dayBucket = new Date().toISOString().slice(0, 10);
-  const idemKey = `dhc-${ref || email}-${dayBucket}`;
+  const idemKey = `aas-${ref || email}-${dayBucket}`;
 
   try {
     // 1. Create or update customer (Stripe upserts by email when using a known ID is impractical;
@@ -122,8 +132,8 @@ async function handlePayLater(request, env) {
       email,
       name: name || business || email,
       description: business
-        ? `${business} — Digital Health Check customer (small to medium business)`
-        : "Digital Health Check customer (small to medium business)",
+        ? `${business} — ${productName} customer (small to medium business)`
+        : `${productName} customer (small to medium business)`,
       "metadata[tally_ref]": ref || "",
       "metadata[business]": business || "",
       "metadata[source]": "thank-you-page-pay-later",
@@ -139,22 +149,35 @@ async function handlePayLater(request, env) {
     });
     await stripeCall(env, "/invoiceitems", itemBody, `${idemKey}-item`);
 
-    // 3. Create the invoice. collection_method=send_invoice + auto_advance=true
-    //    tells Stripe to finalize and email the Hosted Invoice Page link automatically.
-    //    pending_invoice_items_behavior=include pulls the pending invoice item we just
-    //    created in step 2 into this invoice. Stripe's default is `exclude` (since 2024),
-    //    which would create an empty $0 invoice. Always set this explicitly.
+    // 3. Create the invoice in draft state. We deliberately set auto_advance=false
+    //    so we control progression explicitly in step 4. pending_invoice_items_behavior
+    //    pulls the pending invoice item we just created in step 2 into this invoice
+    //    (Stripe's default since 2024 is `exclude`, which would create an empty $0
+    //    invoice — always set this explicitly).
     const invoiceBody = form({
       customer: customer.id,
       collection_method: "send_invoice",
       days_until_due: daysUntilDue,
-      auto_advance: "true",
+      auto_advance: "false",
       pending_invoice_items_behavior: "include",
-      description: `Digital Health Check — your specially curated report. Pay any time within ${daysUntilDue} days. Report begins once invoice is paid.`,
+      description: `${productName} — your specially curated report. Pay any time within ${daysUntilDue} days. Report begins once invoice is paid.`,
       "metadata[tally_ref]": ref || "",
       "metadata[source]": "thank-you-page-pay-later",
     });
-    const invoice = await stripeCall(env, "/invoices", invoiceBody, `${idemKey}-invoice`);
+    const invoiceDraft = await stripeCall(env, "/invoices", invoiceBody, `${idemKey}-invoice`);
+
+    // 4. Finalize the invoice synchronously. This moves status draft -> open,
+    //    populates hosted_invoice_url, and triggers Stripe's customer email
+    //    (because collection_method=send_invoice). Without this step the
+    //    invoice sits as draft, hosted_invoice_url is null, and no email
+    //    is ever sent — the silent failure we saw in production prior to
+    //    v2 of this Worker.
+    const invoice = await stripeCall(
+      env,
+      `/invoices/${invoiceDraft.id}/finalize`,
+      "",
+      `${idemKey}-finalize`,
+    );
 
     return json({
       ok: true,
