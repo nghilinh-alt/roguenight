@@ -1,9 +1,111 @@
 {
-  "client_name": "Pacific Coast Plumbing",
-  "delivery_date": "12 May 2026",
-  "reference": "DHC-2026-0044",
-  "region": "Greater Brisbane",
-  "industry_short": "Plumbing trade",
-  "client_calendar_url": "cal.pacificcoastplumbing.com.au",
-  "client_email_example": "owner@pacificcoastplumbing.com.au"
+  "delivered_date": "14 May 2026",
+  "cover_title": "Less admin. More jobs.",
+  "cover_accent": "Day and night.",
+  "cover_subtitle": "Six tools and nine digital employees, phased over twelve weeks, to get Pacific Coast Plumbing from reactive admin to a scalable, automated business.",
+  "exec_summary_h2": "Where you are. Where this report takes you.",
+  "exec_summary_lede": "You said your goal is to 'stop drowning in paperwork and start growing the business.'",
+  "exec_summary_para_2": "<p>This report maps six tools across twelve weeks — each one chosen for your trade, your budget, and your team's comfort level.</p>",
+  "exec_summary_para_3": "<p>The future you described — 'a business that runs whether I'm on a job or not' — is the benchmark we're building toward.</p>",
+  "key_benefits": [
+    {"title": "20–35 hours back", "body": "Monthly time recovered from manual invoicing, scheduling, and follow-up — worth $1,200–$2,800 at your billing rate."},
+    {"title": "Faster payments", "body": "Automated reminders chase overdue invoices within 48 hours. No awkward phone calls."},
+    {"title": "$144/month total", "body": "All six tools at recommended tiers. No surprise bills — every subscription is listed in Section 07."}
+  ],
+  "q_benefits_h2": "What each move is worth, in hours and dollars.",
+  "q_benefits_lede": "Conservative estimates based on a qualified tradesperson at $50–$80/hr and an admin at $28–$35/hr.",
+  "benefits": [
+    {"change": "Paper invoicing → Xero Cashbook", "sub": "Automated bank feeds, receipt scanning", "hours": "6–10", "dollar": "$300–$600"},
+    {"change": "Manual scheduling → ServiceM8", "sub": "Job cards, dispatch, client notifications", "hours": "8–12", "dollar": "$400–$720"},
+    {"change": "Chasing payments by phone → Chaser", "sub": "Automated payment reminders", "hours": "3–5", "dollar": "$150–$300"}
+  ],
+  "benefits_subtotal_hrs": "17–27",
+  "benefits_subtotal_dollar": "$850–$1,620",
+  "benefits_basis_note": "Estimates based on AU 2026 hourly rate ranges. Actual savings depend on current workflow efficiency and adoption speed.",
+  "recs_h2": "The minimum credible foundation.",
+  "recs_lede": "Five tools, ordered by when they go live. Each one earns its place against your specific pain points.",
+  "recs": [
+    {
+      "name": "Xero",
+      "subtitle": "Cloud accounting — invoicing, bank feeds, GST",
+      "priority": "High",
+      "phase": "Day 1",
+      "why": "You said your biggest frustration is paperwork. Xero replaces the paper trail with automated bank feeds and one-click invoicing.",
+      "alt_skipped": "MYOB is the other major player in AU trades accounting. We chose Xero for its stronger ServiceM8 integration — job data flows straight into invoices without re-keying.",
+      "watch": "Bank feed categorisation needs training in the first 2 weeks. Set aside 15 minutes daily to review and correct until Xero learns your patterns.",
+      "integrations": "ServiceM8 (native), Chaser (native), Stripe (native)",
+      "tiers": [
+        {"name": "Cashbook", "price": "$15/mo", "recommended": false},
+        {"name": "Starter", "price": "$29/mo", "recommended": true},
+        {"name": "Standard", "price": "$49/mo", "recommended": false}
+      ],
+      "upgrade_trigger": "Move to Standard when you add a bookkeeper or need multi-currency.",
+      "evidence": "A café owner using Xero Cashbook cut their weekly bookkeeping from 6 hours to under 45 minutes — most of it now automated bank feeds."
+    }
+  ],
+  "cull_num": "4.6",
+  "cull": [
+    ["CRM software", "Your customer relationships are job-based, not pipeline-based. ServiceM8 handles the customer record you need."],
+    ["Email marketing", "With fewer than 50 active customers, personal follow-up beats bulk campaigns. Revisit at 200+ customers."]
+  ],
+  "stack_glance_h2": "How the tools work together.",
+  "stack_glance_body": "<p>Placeholder — assemble manually per client.</p>",
+  "phases_h2": "Twelve weeks, in phases.",
+  "phases_lede": "Each phase builds on the last. Nothing goes live until the previous phase is stable.",
+  "phases": [
+    {"week": "Week 1", "headline": "Foundations", "tasks": ["Sign up for Xero Starter at xero.com", "Connect your business bank account to Xero bank feeds", "Install ServiceM8 on your phone and create your first job template"]},
+    {"week": "Week 2", "headline": "Customer-facing", "tasks": ["Create 3 standard job templates in ServiceM8", "Set up Xero → ServiceM8 sync", "Send your first invoice through Xero"]},
+    {"week": "Week 4", "headline": "Payments and reminders", "tasks": ["Connect Chaser to Xero", "Set up 3-step payment reminder cadence", "Enable Stripe payment links on invoices"]},
+    {"week": "Week 6", "headline": "Stability check", "tasks": ["Review bank feed accuracy — correct any mis-categorised transactions", "Check Chaser recovery rate", "Retire paper invoice book"]},
+    {"week": "Week 12", "headline": "Review and plan", "tasks": ["Measure hours saved vs baseline", "Review Chaser recovery stats", "Scope Batch 01 digital employees with Rogue Night"]}
+  ],
+  "cost_recurring": [
+    {"tool": "Xero", "tier": "Starter", "cost": "$29"},
+    {"tool": "ServiceM8", "tier": "Starter", "cost": "$29"},
+    {"tool": "Chaser", "tier": "Starter", "cost": "$35"}
+  ],
+  "cost_total": "$93/mo",
+  "cost_growth": [
+    {"trigger": "Add a bookkeeper", "next": "Xero Standard", "extra": "+$20/mo"},
+    {"trigger": "3+ technicians dispatching", "next": "ServiceM8 Growing", "extra": "+$20/mo"}
+  ],
+  "employees_h2": "Three batches, scored on impact and readiness.",
+  "employees_lede": "Nine digital employees, picked from a wider library and ordered into three phases. Batch 01 deploys on the Week 12 stack with no further foundation. Batch 02 needs the stack mature and a few months of history. Batch 03 is emerging upside — high ceiling, more setup.",
+  "employees_outro": "Hours and dollars shown are conservative starting estimates — actual numbers depend on how each agent is used once live. We review every digital employee at the end of its batch before starting the next; if one isn't earning its keep, we stop and rethink rather than compound the spend.",
+  "batches": [
+    {
+      "number": "01",
+      "day": "Week 14",
+      "title": "High impact, ready now.",
+      "description": "These digital employees are designed to deploy on the Week 12 stack. They don't need months of accumulated history or new infrastructure. Discovery, build, and supervised deployment still happen — but payback is measured in months, not years.",
+      "agents": [
+        {
+          "name": "Receivables Specialist",
+          "pain_match": "Manual invoicing",
+          "pain_tier": "Primary",
+          "replaces": "Manually chasing overdue invoices by phone",
+          "hours": "3–5 hrs/mo",
+          "dollar": "$150–$300/mo",
+          "description": "Watches your Xero accounts receivable and triggers Chaser reminders for overdue invoices. Escalates to you only when a customer disputes or ignores three reminders.",
+          "readiness": "Week 12 stack — ready",
+          "workflow": [
+            {"step": "Detects overdue invoice in Xero", "who": "agent"},
+            {"step": "Sends reminder via Chaser", "who": "agent"},
+            {"step": "After 3 reminders, flags to you", "who": "agent"},
+            {"step": "You decide: call the customer or write off", "who": "human"}
+          ],
+          "ties_to": "stop drowning in paperwork",
+          "ties_label": "your stated goal"
+        }
+      ]
+    }
+  ],
+  "security_h2": "Your data. Your control. Our commitment.",
+  "security_lede": "Every tool we recommend is a reputable, Australian-accessible SaaS platform. Here is how your data stays safe — and what happens if something breaks.",
+  "security_data_residency": "Each tool stores your data on its own secure servers — most with Australian or Asia-Pacific data centres. Nothing is stored on Rogue Night infrastructure. You own every account and every login.",
+  "security_ai_privacy": "Digital employees use the OpenAI API, which does not use your data to train its models. Your invoices, emails, and customer records stay private — they are processed and forgotten, not learned from.",
+  "security_access_control": "Every digital employee only accesses what you grant it. Read access to your accounting tool does not mean it can authorise payments. Read access to your job management system does not mean it can accept bookings. You set the boundaries.",
+  "security_human_loop": "Every digital employee in this report is designed with a human approval step. Nothing gets sent to a customer, posted to your accounts, or committed to your calendar without someone on your team reviewing and approving it first.",
+  "security_rn_access": "During the first 90 days after deployment, we monitor agent logs and error rates to catch issues early. After handoff, we have no standing access to your accounts unless you grant it for a specific support request.",
+  "security_support": "The tools in this report are maintained by their vendors — updates, security patches, and uptime are their responsibility. If an integration breaks or a digital employee misbehaves, reach out to us. First 90 days of monitoring are included with implementation. After that, we are a call away — diagnosis and fixes quoted per incident."
 }
