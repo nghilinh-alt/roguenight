@@ -170,57 +170,43 @@ def main():
         pain = a.get("pain_match", "")
         tier = a.get("pain_tier", "")
         if pain and tier:
-            eyebrow = (
-                f'<div style="font-family: \'Inter\', sans-serif; font-size: 11px; '
-                f'font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; '
-                f'color: var(--gold); margin-bottom: 10px;">Pain match · {pain} · {tier}</div>'
-            )
+            eyebrow = f'<div class="agent-eyebrow">{pain} · {tier}</div>'
         elif pain:
-            eyebrow = (
-                f'<div style="font-family: \'Inter\', sans-serif; font-size: 11px; '
-                f'font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; '
-                f'color: var(--gold); margin-bottom: 10px;">Pain match · {pain}</div>'
-            )
+            eyebrow = f'<div class="agent-eyebrow">{pain}</div>'
         else:
             eyebrow = ""
         readiness = a.get("readiness", "")
-        ready_str = f' · Ready · {readiness}' if readiness else ""
+        readiness_str = f'<div class="agent-readiness">Readiness: {readiness}</div>' if readiness else ""
         ties = a.get("ties_to", "")
         ties_label = a.get("ties_label", "")
         if ties:
             ties_str = (
-                f'<p style="margin-top: 14px; font-family: \'Instrument Serif\', Georgia, serif; '
-                f'font-style: italic; font-size: 15.5px; line-height: 1.5; color: var(--slate);">'
-                f'Ties to: &ldquo;{ties}&rdquo;{(" &mdash; " + ties_label) if ties_label else ""}</p>'
+                f'<div class="agent-ties">'
+                f'Ties to: &ldquo;{ties}&rdquo;{(" &mdash; " + ties_label) if ties_label else ""}</div>'
             )
         else:
             ties_str = ""
         return (
-            '<div style="margin-top: 22px; padding: 22px 24px; background: var(--gold-soft); '
-            'border-left: 2px solid var(--gold); border-radius: 3px;">'
+            f'<div class="agent-card">'
             f'{eyebrow}'
-            f'<p class="body-lede" style="font-size: 19px; margin: 0;">{a["name"]}</p>'
-            f'<p class="meta" style="margin-top: 8px;">Replaces: {a["replaces"]} '
-            f'· Saves ~{a["hours"]} · Worth {a["dollar"]}{ready_str}</p>'
-            f'<p style="margin-top: 12px;">{a["description"]}</p>'
+            f'<div class="agent-name">{a["name"]}</div>'
+            f'<div class="agent-meta">Replaces: {a["replaces"]} &nbsp;·&nbsp; '
+            f'Saves ~{a["hours"]} &nbsp;·&nbsp; Worth {a["dollar"]}</div>'
+            f'<div class="agent-desc">{a["description"]}</div>'
+            f'{readiness_str}'
             f'{ties_str}'
-            '</div>'
+            f'</div>'
         )
 
     def _batch_block(b):
         agents = "".join(_agent_card(a) for a in b.get("agents", []))
         return (
-            '<div style="margin-top: 56px;">'
-            '<div style="padding-top: 28px; border-top: 1px solid var(--rule);">'
-            f'<div style="font-family: \'Inter\', sans-serif; font-size: 11.5px; '
-            f'font-weight: 600; letter-spacing: 0.20em; text-transform: uppercase; '
-            f'color: var(--slate); margin-bottom: 12px;">Batch {b["number"]} · {b["day"]}</div>'
-            f'<h3 style="font-family: \'Instrument Serif\', Georgia, serif; font-size: 30px; '
-            f'line-height: 1.18; letter-spacing: -0.01em; color: var(--ink); margin: 0;">{b["title"]}</h3>'
-            f'<p class="lede" style="margin-top: 14px; max-width: 680px;">{b.get("description", "")}</p>'
-            '</div>'
+            f'<div class="batch-header">'
+            f'<div class="batch-subtitle">Batch {b["number"]} · {b["day"]}</div>'
+            f'<div class="batch-title">{b["title"]}</div>'
+            f'<div class="batch-desc">{b.get("description", "")}</div>'
+            f'</div>'
             f'{agents}'
-            '</div>'
         )
 
     employees_html = "".join(_batch_block(b) for b in batches)
@@ -228,7 +214,7 @@ def main():
     for p in v.get("phases", []):
         tasks_html = "".join(f"<li>{t}</li>" for t in p.get("tasks", []))
         phases_html += f"""
-            <h3 style="margin-top: 24px;">{p['week']} — {p['headline']}</h3>
+            <div class="phase-heading"><span class="phase-week">{p['week']}</span>{p['headline']}</div>
             <ul style="margin-top: 8px; padding-left: 20px; font-size: 15px; line-height: 1.7;">
               {tasks_html}
             </ul>"""
@@ -253,6 +239,125 @@ def main():
 {style}
 <style>
   .cover-logo {{ height: 56px; width: auto; }}
+
+  /* ---------- Phase headings (Section 06) ---------- */
+  .phase-heading {{
+    margin-top: 40px;
+    padding: 16px 20px;
+    background: rgba(201, 169, 97, 0.08);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }}
+  .phase-heading .phase-week {{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 4px;
+  }}
+
+  /* ---------- Batch headers (Section 08) ---------- */
+  .batch-header {{
+    margin-top: 48px;
+    padding: 20px 24px;
+    background: rgba(201, 169, 97, 0.22);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    color: var(--ink);
+  }}
+  .batch-header:first-of-type {{ margin-top: 24px; }}
+  .batch-header .batch-title {{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 24px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }}
+  .batch-header .batch-subtitle {{
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }}
+  .batch-header .batch-desc {{
+    font-size: 15px;
+    color: var(--slate);
+    margin-top: 10px;
+    line-height: 1.65;
+    font-style: italic;
+  }}
+
+  /* ---------- Agent cards (Section 08) ---------- */
+  .agent-card {{
+    margin-top: 20px;
+    padding: 24px 28px;
+    background: rgba(201, 169, 97, 0.06);
+    border: 1px solid var(--gold-line);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+  }}
+  .agent-card .agent-eyebrow {{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }}
+  .agent-card .agent-name {{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }}
+  .agent-card .agent-meta {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--slate);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }}
+  .agent-card .agent-desc {{
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink);
+  }}
+  .agent-card .agent-readiness {{
+    font-size: 13px;
+    color: var(--slate);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule);
+  }}
+  .agent-card .agent-ties {{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--slate);
+    margin-top: 12px;
+    padding-left: 16px;
+    border-left: 2px solid var(--gold-line);
+  }}
+
+  /* ---------- Section headings: h3 inside .page (cost, growth tables) ---------- */
+  .page > h3 {{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 20px;
+    color: var(--ink);
+    margin-top: 36px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }}
 </style>
 </head>
 <body>
@@ -427,21 +532,28 @@ def main():
   <div class="page">
     <div class="section-head">
       <div class="number">09 · Next steps</div>
-      <h2>Three doors.</h2>
+      <h2>Where to from here.</h2>
     </div>
-    <div style="margin-top: 32px;">
-      <p class="body-lede" style="font-size: 20px;">01. Feel strongly about something? We'll amend the report.</p>
-      <p style="margin-top: 8px;">This report is yours. If something doesn't fit your business — a tool you've already tried, a phase that doesn't make sense, a number that feels off — tell us, and we'll revise. Free of charge. The $880 covers the work, including refinement.</p>
+    <div style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 32px;">
+      <div style="background: rgba(201, 169, 97, 0.06); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 28px 32px;">
+        <div style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px;">Option 01 · Refine</div>
+        <p class="body-lede" style="font-size: 19px; margin-bottom: 10px;">Feel strongly about something? We'll amend the report.</p>
+        <p style="font-size: 15px; line-height: 1.7;">This report is yours. If something doesn't fit your business — a tool you've already tried, a phase that doesn't make sense, a number that feels off — tell us, and we'll revise. Free of charge. The $880 covers the work, including refinement.</p>
+      </div>
+      <div style="background: rgba(201, 169, 97, 0.06); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 28px 32px;">
+        <div style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px;">Option 02 · Implement</div>
+        <p class="body-lede" style="font-size: 19px; margin-bottom: 10px;">Engage Rogue Night for the implementation.</p>
+        <p style="font-size: 15px; line-height: 1.7;">Fixed-fee, fixed-scope. Quote provided after a scoping call. We handle setup, configuration, and integration; you keep the customers, the calls, and the cash.</p>
+      </div>
+      <div style="background: rgba(201, 169, 97, 0.06); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 28px 32px;">
+        <div style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px;">Option 03 · Self-serve</div>
+        <p class="body-lede" style="font-size: 19px; margin-bottom: 10px;">Take the report and run it yourself.</p>
+        <p style="font-size: 15px; line-height: 1.7;">The recommendations are vendor-neutral. The $880 has covered the work.</p>
+      </div>
     </div>
-    <div style="margin-top: 32px;">
-      <p class="body-lede" style="font-size: 20px;">02. Engage Rogue Night for the implementation.</p>
-      <p style="margin-top: 8px;">Fixed-fee, fixed-scope. Quote provided after a scoping call. We handle setup, configuration, and integration; you keep the customers, the calls, and the cash.</p>
+    <div style="border-top: 1px solid var(--rule-strong); padding-top: 24px; text-align: center; margin-top: 64px;">
+      <p class="meta" style="margin-bottom: 0;">Rogue Night PTY LTD · ABN 31 633 650 334 · Australia · Prepared {today}</p>
     </div>
-    <div style="margin-top: 32px;">
-      <p class="body-lede" style="font-size: 20px;">03. Take the report and run it yourself.</p>
-      <p style="margin-top: 8px;">The recommendations are vendor-neutral. The $880 has covered the work.</p>
-    </div>
-    <p class="meta" style="margin-top: 64px; text-align: center;">Rogue Night PTY LTD · ABN 31 633 650 334 · Australia · Prepared {today}</p>
   </div>
 </section>
 
