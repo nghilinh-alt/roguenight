@@ -4,20 +4,27 @@ Usage:
     python3 render_pdf.py <input.html> <output.pdf>
 
 Strategy:
-    Tries Playwright (headless Chromium) first — best fidelity, matches what Linh would
-    get from Cmd+P → Save as PDF in Chrome. Falls back to WeasyPrint if Playwright isn't
-    available. Last-resort: documents the manual export path.
+    Tries Playwright (headless Chromium) first — best fidelity for CSS grid, page
+    breaks, backgrounds, and @page rules. Falls back to WeasyPrint if Playwright
+    isn't available. Last-resort: documents the manual export path.
+
+IMPORTANT — Playwright margin handling (2026-05-14):
+    CSS handles all page margins via @page rules:
+      @page { size: A4; margin: 18mm 16mm; }
+      @page:first { margin: 0; } — full-bleed cover page
+
+    Playwright is called WITHOUT margin params and WITH prefer_css_page_size=True
+    so the CSS @page rules take precedence. Do NOT pass margin={} to page.pdf() —
+    it overrides @page:first and breaks the full-bleed cover.
+
+    WeasyPrint respects @page rules natively, no special handling needed.
 
 Sandbox notes:
-    - Playwright needs `pip install playwright && playwright install chromium`. The Chromium
-      install is ~150MB; first run is slow. Subsequent runs are fast.
-    - WeasyPrint needs `pip install weasyprint`. It handles most CSS but has flexbox quirks
-      and can struggle with Google Fonts. For our v5 template (which uses Instrument Serif
-      + Instrument Sans + JetBrains Mono via Google Fonts), Playwright produces noticeably
-      better output.
-
-The HTML template already has @media print CSS — A4 page size, page breaks at section
-boundaries, hidden editor cheat sheet. Both engines will respect this.
+    - Playwright needs `pip install playwright && python3 -m playwright install chromium`.
+      Chromium install is ~150MB; first run is slow, subsequent runs are fast.
+    - WeasyPrint: `pip install weasyprint`. Handles most CSS but struggles with CSS
+      grid across page breaks (white background boxes stretch across pages). Use
+      Playwright for production renders.
 """
 import os
 import sys
@@ -26,26 +33,28 @@ import sys
 def render_with_playwright(html_path: str, pdf_path: str) -> bool:
     """Returns True on success, False if Playwright unavailable."""
     try:
-        from playwright.sync_api import sync_playwright
+        import asyncio
+        from playwright.async_api import async_playwright
     except ImportError:
         return False
 
     abs_html = os.path.abspath(html_path)
     file_url = f"file://{abs_html}"
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
-        page.goto(file_url, wait_until="networkidle")
-        # Give Google Fonts a beat to load
-        page.wait_for_timeout(2000)
-        page.pdf(
-            path=pdf_path,
-            format="A4",
-            margin={"top": "18mm", "bottom": "18mm", "left": "16mm", "right": "16mm"},
-            print_background=True,
-        )
-        browser.close()
+    async def _render():
+        async with async_playwright() as p:
+            browser = await p.chromium.launch()
+            page = await browser.new_page()
+            await page.goto(file_url, wait_until="networkidle")
+            # Let CSS @page handle all margins (including @page:first margin:0 for cover)
+            await page.pdf(
+                path=pdf_path,
+                print_background=True,
+                prefer_css_page_size=True,
+            )
+            await browser.close()
+
+    asyncio.run(_render())
     return True
 
 
@@ -71,24 +80,26 @@ def main():
         print(f"HTML file not found: {html_path}", file=sys.stderr)
         sys.exit(1)
 
-    # Try Playwright first
+    # Try Playwright first (preferred — handles CSS grid, @page:first, backgrounds)
     print("Attempting Playwright render...", file=sys.stderr)
     if render_with_playwright(html_path, pdf_path):
-        print(f"PDF written via Playwright: {pdf_path}")
+        size = os.path.getsize(pdf_path)
+        print(f"PDF rendered via Playwright: {size:,} bytes -> {pdf_path}")
         return
 
     print("Playwright unavailable, trying WeasyPrint...", file=sys.stderr)
     if render_with_weasyprint(html_path, pdf_path):
-        print(f"PDF written via WeasyPrint: {pdf_path}")
+        size = os.path.getsize(pdf_path)
+        print(f"PDF rendered via WeasyPrint: {size:,} bytes -> {pdf_path}")
         return
 
     print(
         "Neither Playwright nor WeasyPrint is installed.\n"
         "Install one:\n"
-        "  pip install playwright && playwright install chromium\n"
+        "  pip install playwright && python3 -m playwright install chromium\n"
         "  pip install weasyprint\n"
         "Or render manually:\n"
-        "  Open the HTML in Chrome → Cmd+P → Save as PDF (A4)\n",
+        "  Open the HTML in Chrome -> Cmd+P -> Save as PDF (A4, background graphics on)\n",
         file=sys.stderr,
     )
     sys.exit(2)
