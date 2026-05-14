@@ -63,7 +63,7 @@ def render_tool_card(r):
     )
     tiers = r.get("tiers", [{"name": r.get("tier", ""), "price": f"${r.get('cost', 0)}/mo", "recommended": True}])
     tier_rows = "".join(
-        f'<div class="tier-row{" recommended" if t.get("recommended") else ""}">'
+        f'<div class="tier-row{" recommended" if t.get("recommended") else ""}">'  
         f'<span class="tier-name">{t["name"]}</span>'
         f'<span class="tier-price">{t["price"]}</span></div>'
         for t in tiers
@@ -240,6 +240,11 @@ def main():
 <style>
   .cover-logo {{ height: 56px; width: auto; }}
 
+  /* ---------- Page breaks: every section starts on a new page ---------- */
+  section.block {{
+    page-break-before: always;
+  }}
+
   /* ---------- Phase headings (Section 06) ---------- */
   .phase-heading {{
     margin-top: 40px;
@@ -349,6 +354,11 @@ def main():
     border-left: 2px solid var(--gold-line);
   }}
 
+  /* ---------- "What we left out" starts on own page ---------- */
+  .stack-category {{
+    page-break-before: always;
+  }}
+
   /* ---------- Section headings: h3 inside .page (cost, growth tables) ---------- */
   .page > h3 {{
     font-family: 'Instrument Serif', Georgia, serif;
@@ -435,10 +445,10 @@ def main():
       <div class="snapshot-row"><div class="snapshot-label">Headcount</div><div class="snapshot-value">{headcount}</div></div>
       <div class="snapshot-row"><div class="snapshot-label">Years operating</div><div class="snapshot-value">{years}</div></div>
       <div class="snapshot-row"><div class="snapshot-label">Customers per week</div><div class="snapshot-value">~{cpw}</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Stated goal</div><div class="snapshot-value serif">"{goal}"</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Pain narrative</div><div class="snapshot-value serif">"{pain_narr}"</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Hated weekly task</div><div class="snapshot-value serif">"{hated}"</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Future state vision</div><div class="snapshot-value serif">"{future}"</div></div>
+      <div class="snapshot-row"><div class="snapshot-label">Stated goal</div><div class="snapshot-value" style="font-style: italic;">"{goal}"</div></div>
+      <div class="snapshot-row"><div class="snapshot-label">Pain narrative</div><div class="snapshot-value" style="font-style: italic;">"{pain_narr}"</div></div>
+      <div class="snapshot-row"><div class="snapshot-label">Hated weekly task</div><div class="snapshot-value" style="font-style: italic;">"{hated}"</div></div>
+      <div class="snapshot-row"><div class="snapshot-label">Future state vision</div><div class="snapshot-value" style="font-style: italic;">"{future}"</div></div>
       <div class="snapshot-row"><div class="snapshot-label">Tech comfort</div><div class="snapshot-value">{tech}</div></div>
       <div class="snapshot-row"><div class="snapshot-label">AI readiness</div><div class="snapshot-value">{ai_appetite}</div></div>
     </div>
