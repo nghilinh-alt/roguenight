@@ -1,0 +1,40 @@
+{
+  "id": "recMOCK0000000001",
+  "fields": {
+    "Client name": "Pacific Coast Plumbing",
+    "Reference": "DHC-2026-0044",
+    "Submitted": "2026-05-10T09:00:00.000Z",
+    "Status": "In analysis",
+    "Industry": "Construction / trades",
+    "Headcount": "2–10",
+    "Decision maker": "That's me",
+    "YoY direction": "Growing steadily — ticking up",
+    "Stated goal": "Grow to fifteen staff without me being the bottleneck on every job. Stop doing books at the kitchen table at night.",
+    "Customers per week": 30,
+    "Tool stack": [
+      "Xero / MYOB / QuickBooks (accounting)",
+      "Outlook / Gmail (email)",
+      "Mostly paper / nothing digital — we run on email and spreadsheets"
+    ],
+    "File storage": "A mix of these — it depends who saved it",
+    "Top tool 1": "MYOB",
+    "Top tool 2": "Gmail",
+    "Top tool 3": "Paper job sheets",
+    "Pain narrative": "Owner doing books at night. Apprentices losing job notes. Receivables stretching to 45 days. We've started losing quote competitions to faster competitors.",
+    "Biggest frustration": "Manual data entry — re-typing the same info between tools",
+    "Frustration other detail": "",
+    "D-Manual hours/week": 12,
+    "D-Manual source tool": "Paper job sheets",
+    "D-Manual destination tool": "MYOB Essentials",
+    "Hated weekly task": "Re-entering Friday's job sheets into MYOB on Sunday night.",
+    "AI appetite": "Open to it if you can show it works.",
+    "Future state vision": "I want my evenings back. I want apprentices to know what jobs they have tomorrow without asking me. I want quotes to go out the same day instead of three days later.",
+    "Tech appetite": "Medium - Some integrations/configuration/training required",
+    "Contact name": "Sample Owner",
+    "Business name": "Pacific Coast Plumbing",
+    "Contact phone": "+61 400 000 000",
+    "Contact email": "owner@pacificcoastplumbing.com.au",
+    "Best time to call": "After hours",
+    "Anything else notes": "Trial run only — this is mock data for testing the report writer skill."
+  }
+}
