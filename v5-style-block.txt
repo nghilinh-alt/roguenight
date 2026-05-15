@@ -242,6 +242,75 @@
   }
   .qb-assumptions strong { color: var(--ink); font-weight: 600; }
 
+  /* ---------- Stack at a glance (v6.4 — priority groups) ---------- */
+  .stack-section { margin-bottom: 48px; }
+  .stack-heading {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 22px; line-height: 1.25;
+    color: var(--ink); letter-spacing: -0.01em;
+    margin-bottom: 18px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .stack-group {
+    padding: 20px 22px; margin-bottom: 14px;
+    border-left: 3px solid var(--gold);
+    background: rgba(201, 169, 97, 0.06);
+  }
+  .stack-badge {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 2px;
+    margin-bottom: 12px;
+  }
+  .stack-badge.high { color: white; background: var(--ember); }
+  .stack-badge.medium { color: var(--ink); background: var(--gold); }
+  .stack-badge.low { color: var(--slate); background: white; border: 1px solid var(--rule-strong); }
+  .stack-flows {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+    counter-reset: flow-step;
+  }
+  .stack-flows li {
+    font-family: 'Source Serif 4', 'Instrument Serif', Georgia, serif;
+    font-size: 15px; line-height: 1.55; color: var(--ink);
+    padding-left: 28px; position: relative;
+    counter-increment: flow-step;
+  }
+  .stack-flows li::before {
+    content: counter(flow-step) '.';
+    position: absolute; left: 0;
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic; color: var(--gold); font-size: 14px;
+  }
+
+  /* Data flow cards (v6.4 — visual alternative to numbered list) */
+  .data-flow-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 16px;
+  }
+  .data-flow-card {
+    padding: 20px 22px;
+    background: var(--cloud);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .data-flow-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .data-flow-num {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic; font-size: 14px; color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .data-flow-title {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 18px; color: var(--ink); margin-bottom: 8px;
+    padding-bottom: 6px; border-bottom: 1px solid var(--gold-line);
+  }
+  .data-flow-desc {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 14px; line-height: 1.6; color: var(--slate);
+  }
+
   /* ---------- Stack category ---------- */
   .stack-category { margin-top: 56px; }
   .stack-category:first-of-type { margin-top: 0; }
@@ -721,6 +790,7 @@
     .benefit-title { font-size: 20px; }
     .benefit-body { font-size: 13px; }
     .stack-category { page-break-before: auto; }
+    .stack-section { page-break-before: auto; }
     .rn-implement { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .editor-cheat { display: none; }
     .doc-footer { page-break-before: avoid; }

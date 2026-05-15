@@ -741,22 +741,33 @@ def main():
       <p class="lede">{v.get('dil_lede', '')}</p>
     </div>
     {'<table class="dil-table"><thead><tr><th>Who</th><th>Task</th><th>Now</th><th>After</th></tr></thead><tbody>' + dil_rows_html + '</tbody></table>' if dil_rows_html else ''}
-    <h3 style="margin-top: 48px;">{v.get('q_benefits_h2', 'What each move is worth, in hours and dollars.')}</h3>
-    <p class="lede" style="margin-top: 8px; margin-bottom: 16px;">{v.get('q_benefits_lede', '')}</p>
-    <table class="qb-table">
-      <thead>
-        <tr><th>The change</th><th class="right">Hours saved · monthly</th><th class="right">Dollar value · monthly</th></tr>
-      </thead>
-      <tbody>
-        {benefits_html}
-        <tr class="subtotal"><td>Time and admin recovered, monthly</td><td class="right"><span class="num" style="font-style: italic;">{v.get('benefits_subtotal_hrs', '')}</span> hrs</td><td class="right"><em>{v.get('benefits_subtotal_dollar', '')}</em></td></tr>
-      </tbody>
-    </table>
+  </div>
+</section>
+
+<!-- 03 · Quantified benefits (standalone section with ink/gold styling) -->
+<section class="block">
+  <div class="page">
+    <div class="section-head">
+      <div class="number">03 · Quantified benefits</div>
+      <h2>{v.get('q_benefits_h2', 'What each move is worth, in hours and dollars.')}</h2>
+      <p class="lede">{v.get('q_benefits_lede', '')}</p>
+    </div>
+    <div style="background: rgba(201, 169, 97, 0.07); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 32px 36px; margin-top: 8px;">
+      <table class="qb-table" style="margin: 0;">
+        <thead>
+          <tr><th>The change</th><th class="right">Hours saved · monthly</th><th class="right">Dollar value · monthly</th></tr>
+        </thead>
+        <tbody>
+          {benefits_html}
+          <tr class="subtotal" style="border-top: 2px solid var(--gold);"><td><strong style="color: var(--ink);">Time and admin recovered, monthly</strong></td><td class="right"><strong><span class="num" style="font-style: italic;">{v.get('benefits_subtotal_hrs', '')}</span> hrs</strong></td><td class="right"><strong><em>{v.get('benefits_subtotal_dollar', '')}</em></strong></td></tr>
+        </tbody>
+      </table>
+    </div>
     <p class="meta" style="margin-top: 24px;">{v.get('benefits_basis_note', '')}</p>
   </div>
 </section>
 
-<!-- 03 · Current state -->
+<!-- 04 · Current state -->
 <section class="block">
   <div class="page">
     <div class="section-head">
@@ -778,11 +789,11 @@ def main():
   </div>
 </section>
 
-<!-- 04 · The roadmap (was 06 · Phased rollout) -->
+<!-- 05 · The roadmap (was 06 · Phased rollout) -->
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">04 · The roadmap</div>
+      <div class="number">05 · The roadmap</div>
       <h2>{v.get('phases_h2', 'Twelve weeks, in phases.')}</h2>
       <p class="lede">{v.get('phases_lede', '')}</p>
     </div>
@@ -790,18 +801,45 @@ def main():
   </div>
 </section>
 
-<!-- 05 · Recommended stack (was 04) -->
+<!-- 06 · Recommended stack (was 04) -->
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">05 · Recommended stack</div>
+      <div class="number">06 · Recommended stack</div>
       <h2>{v.get('recs_h2', 'The minimum credible foundation.')}</h2>
       <p class="lede">{v.get('recs_lede', '')}</p>
     </div>
     {recs_html}
-    <div class="stack-category">
+
+    <!-- 06.5 · What the stack costs (moved from Section 08) -->
+    <div class="stack-category" style="margin-top: 64px;">
       <div class="stack-category-head">
-        <div class="stack-category-num">{v.get('cull_num', '5.6')}</div>
+        <div class="stack-category-num">6.5</div>
+        <div class="stack-category-title">What your stack costs</div>
+      </div>
+      <div style="background: rgba(201, 169, 97, 0.07); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 28px 32px; margin-top: 18px;">
+        <h3 style="font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; color: var(--ink); margin-bottom: 16px;">Recurring software</h3>
+        <table class="qb-table" style="margin-top: 0;">
+          <thead><tr><th>Tool</th><th>Tier</th><th class="right">Monthly cost (AUD)</th></tr></thead>
+          <tbody>
+            {cost_recurring_html}
+            <tr class="subtotal" style="border-top: 2px solid var(--gold);"><td colspan="2"><strong>Total recurring</strong></td><td class="right"><strong><em>{v.get('cost_total', '')}</em></strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="background: rgba(201, 169, 97, 0.07); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 28px 32px; margin-top: 16px;">
+        <h3 style="font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; color: var(--ink); margin-bottom: 16px;">Where the stack grows once you're ready</h3>
+        <table class="qb-table" style="margin-top: 0;">
+          <thead><tr><th>Trigger</th><th>What comes next</th><th class="right">Additional cost</th></tr></thead>
+          <tbody>{cost_growth_html}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 6.7 · What we left out -->
+    <div class="stack-category" style="margin-top: 64px;">
+      <div class="stack-category-head">
+        <div class="stack-category-num">{v.get('cull_num', '5.7')}</div>
         <div class="stack-category-title">What we left out — and why</div>
       </div>
       <ul style="margin-top: 14px; padding-left: 20px; font-size: 15px; line-height: 1.7; font-family: 'Source Serif 4', Georgia, serif;">{cull_items}</ul>
@@ -809,22 +847,38 @@ def main():
   </div>
 </section>
 
-<!-- 06 · Stack at a glance (was 05) -->
+<!-- 07 · Stack at a glance (was 05) -->
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">06 · Stack at a glance</div>
+      <div class="number">07 · Stack at a glance</div>
       <h2>{v.get('stack_glance_h2', 'How the tools work together.')}</h2>
     </div>
     {v.get('stack_glance_body', '')}
   </div>
 </section>
 
-<!-- 07 · Your future digital employees (was 08) -->
+<!-- 08 · Tools implementation (moved here — between stack overview and digital employees) -->
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">07 · Your future digital employees</div>
+      <div class="number">08 · Tools implementation</div>
+      <h2>{v.get('cost_h2', 'From report to running.')}</h2>
+    </div>
+    <div style="background: var(--ink); color: var(--parchment); padding: 32px 36px; border-radius: 4px; margin-top: 12px;">
+      <h3 style="color: var(--gold); font-size: 22px;">Rogue Night can implement this for you</h3>
+      <p style="color: rgba(237, 232, 221, 0.85); margin-top: 12px;">Data migration, account setup, configuration, integrations, process design, scoping. <strong style="color: var(--parchment);">What we don't do:</strong> hands-on team training. We provide written guides and pointers to official video training, plus availability for questions during the first month at no extra cost.</p>
+      <p style="color: rgba(237, 232, 221, 0.85); margin-top: 12px;"><strong style="color: var(--gold);">Implementation quote provided on request — book a walkthrough to scope.</strong></p>
+    </div>
+    <p style="margin-top: 24px; color: var(--slate); font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.7;">First 30 days of monitoring included with implementation. After that, we are a call away — diagnosis and fixes quoted per incident.</p>
+  </div>
+</section>
+
+<!-- 09 · Your future digital employees (was 07) -->
+<section class="block">
+  <div class="page">
+    <div class="section-head">
+      <div class="number">09 · Your future digital employees</div>
       <h2>{v.get('employees_h2', 'Three batches, scored on impact and readiness.')}</h2>
       <p class="lede">{v.get('employees_lede', '')}</p>
     </div>
@@ -838,38 +892,10 @@ def main():
   </div>
 </section>
 
-<!-- 08 · Cost and investment (was 07) -->
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">08 · Cost and investment</div>
-      <h2>{v.get('cost_h2', 'What the recommended stack costs.')}</h2>
-    </div>
-    <h3>Recurring software</h3>
-    <table class="qb-table" style="margin-top: 12px;">
-      <thead><tr><th>Tool</th><th>Tier</th><th class="right">Monthly cost (AUD)</th></tr></thead>
-      <tbody>
-        {cost_recurring_html}
-        <tr class="subtotal"><td colspan="2">Total recurring</td><td class="right"><em>{v.get('cost_total', '')}</em></td></tr>
-      </tbody>
-    </table>
-    <h3 style="margin-top: 36px;">Where the stack grows once you're ready</h3>
-    <table class="qb-table" style="margin-top: 12px;">
-      <thead><tr><th>Trigger</th><th>What comes next</th><th class="right">Additional cost</th></tr></thead>
-      <tbody>{cost_growth_html}</tbody>
-    </table>
-    <div style="background: var(--ink); color: var(--parchment); padding: 32px 36px; border-radius: 4px; margin-top: 36px;">
-      <h3 style="color: var(--gold); font-size: 22px;">Rogue Night can implement this for you</h3>
-      <p style="color: rgba(237, 232, 221, 0.85); margin-top: 12px;">Data migration, account setup, configuration, integrations, process design, scoping. <strong style="color: var(--parchment);">What we don't do:</strong> hands-on team training. We provide written guides and pointers to official video training, plus availability for questions during the first month at no extra cost.</p>
-      <p style="color: rgba(237, 232, 221, 0.85); margin-top: 12px;"><strong style="color: var(--gold);">Implementation quote provided on request — book a walkthrough to scope.</strong></p>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="page">
-    <div class="section-head">
-      <div class="number">09 · Security and reliability</div>
+      <div class="number">10 · Security and reliability</div>
       <h2>{v.get('security_h2', 'Your data. Your control. Our commitment.')}</h2>
       <p class="lede">{v.get('security_lede', 'Every tool we recommend is a reputable, Australian-accessible SaaS platform. Here is how your data stays safe — and what happens if something breaks.')}</p>
     </div>
@@ -892,12 +918,16 @@ def main():
       </div>
       <div class="assurance-card">
         <div class="ac-title">What Rogue Night sees</div>
-        <div class="ac-body">{v.get('security_rn_access', 'During the first 90 days after deployment, we monitor agent logs and error rates to catch issues early. After handoff, we have no standing access to your accounts unless you grant it for a specific support request.')}</div>
+        <div class="ac-body">{v.get('security_rn_access', 'During the first 30 days after deployment, we monitor agent logs and error rates to catch issues early. After handoff, we have no standing access to your accounts unless you grant it for a specific support request.')}</div>
       </div>
       <div class="assurance-card">
         <div class="ac-title">What happens if something breaks</div>
-        <div class="ac-body">{v.get('security_support', 'The tools in this report are maintained by their vendors — updates, security patches, and uptime are their responsibility. If an integration breaks or an agent misbehaves, reach out to us. First 90 days of monitoring are included with implementation. After that, we are a call away — diagnosis and fixes quoted per incident.')}</div>
+        <div class="ac-body">{v.get('security_support', 'Post-deployment support includes 30 days of monitoring, defect fixes, and weekly check-ins. If an integration breaks or a digital employee misbehaves during that window, we fix it at no extra cost.')}</div>
       </div>
+    </div>
+    <div style="background: var(--ink); color: var(--parchment); padding: 28px 32px; border-radius: 4px; margin-top: 36px;">
+      <h3 style="color: var(--gold); font-size: 20px; margin-bottom: 10px;">After the 30-day window</h3>
+      <p style="color: rgba(237, 232, 221, 0.85); font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.7;">Rogue Night is available on retainer or quoted per incident. No lock-in — you engage us when you need us. Retainer clients get priority response and standing access to our support queue. One-off fixes are scoped and quoted before any work begins.</p>
     </div>
   </div>
 </section>
@@ -905,7 +935,7 @@ def main():
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">10 · Next steps</div>
+      <div class="number">11 · Next steps</div>
       <h2>Where to from here.</h2>
     </div>
     {_render_testimonial(v.get('testimonial'))}
