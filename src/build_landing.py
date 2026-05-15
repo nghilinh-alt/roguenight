@@ -39,10 +39,12 @@ if STAGING_MODE:
     PDF_URL = 'https://roguenight.com.au/sample-strategy.pdf'
     PRIVACY_URL = 'https://roguenight.com.au/privacy/'
     TERMS_URL = 'https://roguenight.com.au/terms/'
+    ASSET_BASE = 'https://roguenight.com.au'
 else:
     PDF_URL = '/sample-strategy.pdf'
     PRIVACY_URL = '/privacy/'
     TERMS_URL = '/terms/'
+    ASSET_BASE = ''
 
 HTML = f"""<!DOCTYPE html>
 <html lang="en-AU">
@@ -726,6 +728,145 @@ HTML = f"""<!DOCTYPE html>
     .brand-bar .brand-logo {{ height: 60px; }}
     .brand-bar {{ padding-top: 1.5rem; }}
   }}
+
+  /* ============================================================ */
+  /* IMAGE FRAMES — hero, pain, banner, final CTA background      */
+  /* ============================================================ */
+
+  .hero-flex {{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    align-items: center;
+  }}
+  .hero-text h1 {{ max-width: 18ch; }}
+  .hero-image {{ position: relative; }}
+  .hero-image img {{
+    width: 100%; height: auto; display: block;
+    border-radius: 4px;
+    box-shadow: 0 24px 60px -20px rgba(10, 14, 26, 0.18);
+  }}
+  .hero-image::after {{
+    content: "";
+    position: absolute;
+    inset: -16px -16px 16px 16px;
+    border-left: 1px solid rgba(201, 169, 97, 0.4);
+    border-bottom: 1px solid rgba(201, 169, 97, 0.4);
+    pointer-events: none;
+    z-index: -1;
+  }}
+
+  .pain-image {{
+    margin: 3rem auto 4rem;
+    max-width: 460px;
+  }}
+  .pain-image img {{
+    width: 100%; height: auto; display: block;
+    border-radius: 4px;
+    box-shadow: 0 16px 40px -12px rgba(10, 14, 26, 0.15);
+  }}
+
+  .banner-image {{
+    margin: 3rem auto 4rem;
+    max-width: 1200px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 18px 48px -16px rgba(10, 14, 26, 0.2);
+  }}
+  .banner-image img {{
+    width: 100%; height: auto; display: block;
+  }}
+
+  .final-cta {{
+    position: relative;
+    overflow: hidden;
+  }}
+  .final-cta .cta-bg {{
+    position: absolute; inset: 0; z-index: 0;
+  }}
+  .final-cta .cta-bg img {{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center right;
+    opacity: 0.45;
+  }}
+  .final-cta .cta-bg::after {{
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(5, 6, 8, 0.92) 0%, rgba(5, 6, 8, 0.55) 55%, rgba(5, 6, 8, 0.78) 100%);
+  }}
+  .final-cta > *:not(.cta-bg) {{ position: relative; z-index: 1; }}
+
+  @media (max-width: 900px) {{
+    .hero-flex {{ grid-template-columns: 1fr; gap: 2.5rem; }}
+    .hero-image {{ max-width: 480px; margin: 0 auto; }}
+  }}
+  @media (max-width: 720px) {{
+    .hero-image, .pain-image {{ display: none; }}
+    .banner-image {{ margin: 2rem auto 3rem; }}
+  }}
+
+  /* ============================================================ */
+  /* AI SENTINEL CURSOR                                           */
+  /* ============================================================ */
+  @media (hover: hover) {{
+    html, body, a, button {{ cursor: none; }}
+  }}
+  .cursor-trail, .cursor-inner {{
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    will-change: transform;
+    mix-blend-mode: difference;
+  }}
+  .cursor-trail {{
+    width: 40px; height: 40px;
+    border: 1px solid rgba(201, 169, 97, 0.4);
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(201, 169, 97, 0.18), transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.25s ease-out, height 0.25s ease-out, opacity 0.25s ease-out, border-color 0.25s ease-out;
+    opacity: 0.7;
+  }}
+  .cursor-inner {{
+    width: 28px; height: 28px;
+    background: transparent;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease;
+  }}
+  .cursor-inner svg {{ width: 100%; height: 100%; overflow: visible; }}
+  .cursor-inner .ring-outer {{ fill: none; stroke: #C9A961; stroke-width: 1.4; opacity: 0.95; }}
+  .cursor-inner .tick {{ stroke: #C9A961; stroke-width: 1.6; stroke-linecap: round; }}
+  .cursor-inner .iris-ring {{ fill: none; stroke: rgba(201, 169, 97, 0.7); stroke-width: 1; }}
+  .cursor-inner .iris-core {{
+    fill: #C9A961;
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: iris-pulse 2.2s ease-in-out infinite;
+  }}
+  .cursor-inner .scan {{
+    stroke: rgba(201, 169, 97, 0.55);
+    stroke-width: 0.9; stroke-linecap: round;
+    transform-origin: 12px 12px;
+    animation: scan-sweep 3s linear infinite;
+  }}
+  @keyframes iris-pulse {{
+    0%, 100% {{ transform: scale(1); opacity: 1; }}
+    50% {{ transform: scale(0.55); opacity: 0.75; }}
+  }}
+  @keyframes scan-sweep {{
+    from {{ transform: rotate(0deg); }}
+    to {{ transform: rotate(360deg); }}
+  }}
+  body.hover-cta .cursor-trail {{ width: 72px; height: 72px; opacity: 1; border-color: rgba(201, 169, 97, 0.7); }}
+  body.hover-cta .cursor-inner {{ transform: translate(-50%, -50%) scale(1.45); }}
+  body.hover-cta .cursor-inner .scan {{ animation-duration: 0.9s; }}
+  body.hover-cta .cursor-inner .iris-core {{ animation-duration: 0.6s; }}
+  body.hover-image .cursor-trail {{ width: 56px; height: 56px; border-color: rgba(201, 169, 97, 0.5); }}
+  body.hover-image .cursor-inner .scan {{ animation-duration: 0.6s; }}
+  @media (prefers-reduced-motion: reduce), (hover: none) {{
+    html, body, a, button {{ cursor: auto !important; }}
+    .cursor-inner, .cursor-trail {{ display: none !important; }}
+  }}
 </style>
 </head>
 <body>
@@ -742,14 +883,21 @@ HTML = f"""<!DOCTYPE html>
 
 <!-- HERO -->
 <section class="hero">
-  <p class="eyebrow">AI &amp; Automation Strategy</p>
-  <h1>Run your business <em>smarter.</em><br>With systems that work — even when you don't.</h1>
-  <p class="subhead">We help Australian businesses identify the right tools, eliminate wasted effort, and design AI-powered systems that reduce admin, improve conversion, and free up your time.</p>
-  <div>
-    <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer" class="cta-primary">
-      Get your AI &amp; Automation Strategy <span class="cta-arrow">→</span>
-    </a>
-    <p class="cta-support">{PRICE_DISPLAY} · Delivered to your inbox in 48 hours · Yours to keep</p>
+  <div class="hero-flex">
+    <div class="hero-text">
+      <p class="eyebrow">AI &amp; Automation Strategy</p>
+      <h1>Run your business <em>smarter.</em><br>With systems that work — even when you don't.</h1>
+      <p class="subhead">We help Australian businesses identify the right tools, eliminate wasted effort, and design AI-powered systems that reduce admin, improve conversion, and free up your time.</p>
+      <div>
+        <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer" class="cta-primary">
+          Get your AI &amp; Automation Strategy <span class="cta-arrow">→</span>
+        </a>
+        <p class="cta-support">{PRICE_DISPLAY} · Delivered to your inbox in 48 hours · Yours to keep</p>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="{ASSET_BASE}/images/hero-agent.jpg" alt="AI agent multitasking across business systems" loading="eager" width="960" height="1191">
+    </div>
   </div>
 </section>
 
@@ -799,6 +947,9 @@ HTML = f"""<!DOCTYPE html>
   <div class="container">
     <p class="eyebrow">The problem we see</p>
     <h2>You're not slow.<br><em>You're under-systemised.</em></h2>
+    <div class="pain-image">
+      <img src="{ASSET_BASE}/images/pain-overwhelm.jpg" alt="An agent surrounded by chaotic dashboards — the under-systemised state" loading="lazy" width="960" height="1191">
+    </div>
     <div class="pain-cards">
       <div class="pain-card">
         <span class="pain-num">01</span>
@@ -825,6 +976,9 @@ HTML = f"""<!DOCTYPE html>
     <p class="eyebrow">What we do</p>
     <h2>We give you a practical, step-by-step plan to <em>fix all of it.</em></h2>
     <p class="subhead">Your AI &amp; Automation Strategy is a custom business optimisation plan — specially curated for small to medium businesses like yours, delivered to your inbox within 48 hours.</p>
+    <div class="banner-image">
+      <img src="{ASSET_BASE}/images/system-build.jpg" alt="An AI agent arranging a clean business system architecture" loading="lazy" width="1600" height="893">
+    </div>
     <div class="what-we-do-includes">Your strategy includes</div>
     <div class="deliverables">
       <div class="deliverable">
@@ -877,6 +1031,9 @@ HTML = f"""<!DOCTYPE html>
     <p class="eyebrow">The outcome</p>
     <h2>You walk away with <em>real clarity.</em></h2>
     <p class="subhead">Not a vague audit. Not another consultant's framework. A specific plan, in your hands, ready to act on.</p>
+    <div class="banner-image">
+      <img src="{ASSET_BASE}/images/outcomes-relaxed.jpg" alt="A business owner relaxed while AI agents handle her work in the background" loading="lazy" width="1600" height="893">
+    </div>
     <div class="outcomes-grid">
       <div class="outcome">
         <span class="outcome-arrow"><em>→</em></span>
@@ -958,6 +1115,9 @@ HTML = f"""<!DOCTYPE html>
 
 <!-- FINAL CTA -->
 <section class="final-cta">
+  <div class="cta-bg" aria-hidden="true">
+    <img src="{ASSET_BASE}/images/cta-thinking.jpg" alt="" loading="lazy" width="1600" height="893">
+  </div>
   <p class="eyebrow">Start here</p>
   <h2>Get your <em>AI &amp; Automation Strategy.</em></h2>
   <p class="subhead">A 5–7 minute form. {PRICE_DISPLAY} flat. A custom plan in your inbox within 48 hours, yours to keep — whatever you do next.</p>
@@ -990,6 +1150,58 @@ HTML = f"""<!DOCTYPE html>
     Rogue Night PTY LTD<span class="footer-meta-sep">·</span>ABN {ABN}<span class="footer-meta-sep">·</span>Australia<span class="footer-meta-sep">·</span><a href="{PRIVACY_URL}">Privacy</a><span class="footer-meta-sep">·</span><a href="{TERMS_URL}">Terms</a>
   </div>
 </footer>
+
+<!-- AI Sentinel cursor — desktop only, respects prefers-reduced-motion -->
+<div class="cursor-trail" aria-hidden="true"></div>
+<div class="cursor-inner" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <circle class="ring-outer" cx="12" cy="12" r="9"></circle>
+    <line class="tick" x1="12" y1="0.6" x2="12" y2="2.6"></line>
+    <line class="tick" x1="12" y1="21.4" x2="12" y2="23.4"></line>
+    <line class="tick" x1="0.6" y1="12" x2="2.6" y2="12"></line>
+    <line class="tick" x1="21.4" y1="12" x2="23.4" y2="12"></line>
+    <circle class="iris-ring" cx="12" cy="12" r="4.2"></circle>
+    <circle class="iris-core" cx="12" cy="12" r="1.8"></circle>
+    <line class="scan" x1="12" y1="3.5" x2="12" y2="9.6"></line>
+  </svg>
+</div>
+<script>
+(function() {{
+  var trail = document.querySelector('.cursor-trail');
+  var inner = document.querySelector('.cursor-inner');
+  if (!trail || !inner) return;
+  // Gracefully disable on touch / reduced-motion
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) {{
+    trail.style.display = 'none';
+    inner.style.display = 'none';
+    return;
+  }}
+  var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  var tx = mx, ty = my;
+  window.addEventListener('mousemove', function(e) {{
+    mx = e.clientX; my = e.clientY;
+    inner.style.left = mx + 'px';
+    inner.style.top = my + 'px';
+  }});
+  function loop() {{
+    tx += (mx - tx) * 0.18;
+    ty += (my - ty) * 0.18;
+    trail.style.left = tx + 'px';
+    trail.style.top = ty + 'px';
+    requestAnimationFrame(loop);
+  }}
+  loop();
+  var body = document.body;
+  document.querySelectorAll('a, button, .cta-primary, .cta-ghost').forEach(function(el) {{
+    el.addEventListener('mouseenter', function() {{ body.classList.add('hover-cta'); }});
+    el.addEventListener('mouseleave', function() {{ body.classList.remove('hover-cta'); }});
+  }});
+  document.querySelectorAll('.hero-image, .pain-image, .banner-image, .sample-thumb, img').forEach(function(el) {{
+    el.addEventListener('mouseenter', function() {{ body.classList.add('hover-image'); }});
+    el.addEventListener('mouseleave', function() {{ body.classList.remove('hover-image'); }});
+  }});
+}})();
+</script>
 
 </body>
 </html>
