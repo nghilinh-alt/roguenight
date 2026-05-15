@@ -1,13 +1,15 @@
-"""Updated matching script (v2) — handles multi-value Pain tag and Airtable's actual category names.
+"""Recommendation matching script (v3) — reads Pain tags (multi) field with expanded vocabulary.
 
-Differences from skill v1:
-- Categories use Airtable names ("Accounting & finance" not "Accounting", "Field service & trades" not "Field service")
-- Pain tag input is now a COMMA-SEPARATED string (multi-value) — split before matching
-- Filter Tools where Pain tags overlaps with ANY of the response's pains (not just the single primary)
-- Scoring prioritises tools matching the FIRST pain (= primary, per formula order)
+v3 changes from v2:
+- Reads 'Pain tags (multi)' multi-select field first (array of {name:...} objects or strings),
+  falls back to 'Pain tag (derived)' formula field for backwards compatibility
+- Expanded canonical tag vocabulary: adds system-fragmentation, rostering, email-overload, training
+- NEW: Also matches tools by category relevance (e.g. File storage → documents pain) even when
+  the tool's Pain tags don't explicitly list the client's pain tag
+- Scoring still prioritises the FIRST tag as primary pain
 
 Usage:
-    python3 match_v2.py <response.json> <tools.json>
+    python3 match_recommendations.py <response.json> <tools.json>
 """
 import json
 import sys
@@ -17,12 +19,27 @@ PAIN_PRIORITY_ORDER = [
     "lead-tracking",
     "invoicing",
     "comms",
+    "email-overload",
     "reporting",
     "documents",
     "onboarding",
     "compliance",
+    "system-fragmentation",
+    "rostering",
+    "training",
     "other",
 ]
+
+# Category → implicit pain tag relevance (tools in these categories are relevant
+# to these pains even if the tool's own Pain tags don't list them explicitly)
+CATEGORY_PAIN_AFFINITY = {
+    "File storage": {"documents"},
+    "E-signature & documents": {"documents", "compliance"},
+    "Project management & operations": {"reporting", "system-fragmentation", "training"},
+    "Workflow automation": {"manual-entry", "system-fragmentation"},
+    "Communications & inbox": {"comms", "email-overload"},
+    "Scheduling & meetings": {"rostering", "comms"},
+}
 
 # Airtable category names (the actual ones in the live Tools table)
 FOUNDATION_CATEGORIES = {
@@ -54,9 +71,9 @@ DEFAULT_PHASE = {
 # Industry → categories that don't fit (drop these from candidates)
 WRONG_VERTICAL = {
     "Hospitality / food": {"Field service & trades"},
-    "Retail / e-commerce": {"Field service & trades"},
+    "Retail / e-commerce": {"Field service & trades", "Salon and personal services"},
     "Education / training": {"Field service & trades", "Salon and personal services"},
-    "Healthcare admin / allied health": {"Field service & trades"},
+    "Healthcare admin / allied health": {"Field service & trades", "Salon and personal services"},
     "Professional services (legal, accounting, consulting, design, etc.)": {"Field service & trades", "Salon and personal services"},
     "Finance / financial services": {"Field service & trades", "Salon and personal services"},
     "Real estate / property": {"Field service & trades", "Salon and personal services"},
@@ -65,22 +82,62 @@ WRONG_VERTICAL = {
     "Logistics / transport / warehousing": {"Salon and personal services", "Field service & trades"},
 }
 
-SALON_FIT_INDUSTRIES = {"Hospitality / food", "Retail / e-commerce"}
+# Only these industries should see Salon tools
+SALON_FIT_INDUSTRIES = {"Hospitality / food"}
+
+
+def parse_pain_tags_multi(multi_field) -> list:
+    """Parse the Pain tags (multi) field — array of {name:...} objects or plain strings."""
+    if not multi_field:
+        return []
+    tags = []
+    for item in multi_field:
+        if isinstance(item, dict):
+            tag = item.get("name", "")
+        else:
+            tag = str(item)
+        tag = tag.strip()
+        if tag and tag not in tags:
+            tags.append(tag)
+    return tags
 
 
 def parse_pain_tags(pain_tag_str: str) -> list:
     """Split the comma-separated Pain tag (derived) string into a list of canonical tags, preserving order."""
     if not pain_tag_str:
         return []
-    return [t.strip() for t in pain_tag_str.split(",") if t.strip()]
+    # Handle both comma-separated and slash-separated (some formula outputs use /)
+    for sep in [",", "/"]:
+        if sep in pain_tag_str:
+            return [t.strip() for t in pain_tag_str.split(sep) if t.strip()]
+    return [pain_tag_str.strip()] if pain_tag_str.strip() else []
+
+
+# Bundled-tool aliases: if the client has the key, the values are already in their stack
+BUNDLE_ALIASES = {
+    "microsoft 365": ["onedrive", "sharepoint", "microsoft teams", "outlook"],
+    "google workspace": ["google drive", "gmail", "google meet", "google docs"],
+    "hubspot": ["hubspot crm"],
+    "salesforce": ["salesforce essentials"],
+    "zoho": ["zoho crm"],
+    "pipedrive": ["pipedrive"],
+}
 
 
 def already_in_stack(tool_name: str, tool_stack: list) -> bool:
-    """Substring match against the client's Tool stack array."""
+    """Substring match against the client's Tool stack array, including bundle aliases."""
     name_lower = tool_name.lower()
     for selection in tool_stack or []:
-        if name_lower in selection.lower():
+        sel_lower = selection.lower()
+        # Direct substring match
+        if name_lower in sel_lower or sel_lower in name_lower:
             return True
+        # Bundle alias: if they have M365, they have OneDrive/SharePoint/Teams
+        for bundle_key, aliases in BUNDLE_ALIASES.items():
+            if bundle_key in sel_lower:
+                for alias in aliases:
+                    if alias in name_lower:
+                        return True
     return False
 
 
@@ -97,26 +154,43 @@ def is_small(headcount: str) -> bool:
 
 
 def score_tool(tool: dict, pain_tags: list, primary_pain: str) -> dict:
-    """Score a tool: priority + reason."""
+    """Score a tool: priority + reason.
+
+    v3: Foundation tools that also match a pain tag score higher than
+    foundation tools with no pain overlap. Category affinity counts too.
+    """
     category = tool["fields"].get("Category", "")
     tool_pains = tool["fields"].get("Pain tags", [])
+    category_affinity = CATEGORY_PAIN_AFFINITY.get(category, set())
 
-    # Foundation tools = always High
-    if category in FOUNDATION_CATEGORIES:
-        priority = "High"
-        reason = f"Foundation category ({category})"
-    elif primary_pain in tool_pains:
+    matches_primary = primary_pain in tool_pains or primary_pain in category_affinity
+    matches_any_pain = any(p in tool_pains for p in pain_tags)
+    matches_any_affinity = bool(category_affinity & set(pain_tags))
+
+    if matches_primary:
         priority = "High"
         reason = f"Directly addresses primary pain ({primary_pain})"
-    elif any(p in tool_pains for p in pain_tags):
+    elif category in FOUNDATION_CATEGORIES and matches_any_pain:
+        priority = "High"
+        matched = [p for p in pain_tags if p in tool_pains]
+        reason = f"Foundation category ({category}) + matches pain ({', '.join(matched)})"
+    elif category in FOUNDATION_CATEGORIES:
+        # Foundation but no pain match — deprioritise
         priority = "Medium"
-        matched_pains = [p for p in pain_tags if p in tool_pains]
-        reason = f"Addresses secondary pain(s) ({', '.join(matched_pains)})"
+        reason = f"Foundation category ({category}) — no direct pain match"
+    elif matches_any_pain:
+        priority = "Medium"
+        matched = [p for p in pain_tags if p in tool_pains]
+        reason = f"Addresses secondary pain(s) ({', '.join(matched)})"
+    elif matches_any_affinity:
+        priority = "Medium"
+        matched = [p for p in pain_tags if p in category_affinity]
+        reason = f"Category affinity for ({', '.join(matched)})"
     elif category in ("Workflow automation",):
         priority = "Low"
         reason = "Glue layer for connecting recommended tools"
     else:
-        priority = "Medium"
+        priority = "Low"
         reason = "Generally relevant"
 
     return {"priority": priority, "reason": reason}
@@ -135,11 +209,14 @@ def main():
     fields = response.get("fields", response)
     industry = fields.get("Industry", "Other")
     headcount = fields.get("Headcount", "Just me / 1")
-    pain_tag_str = fields.get("Pain tag (derived)") or _derive_pain_tag(fields.get("Biggest frustration", ""))
     tool_stack = fields.get("Tool stack", []) or []
     tech_appetite = fields.get("Tech appetite", "")
 
-    pain_tags = parse_pain_tags(pain_tag_str)
+    # v3: read Pain tags (multi) first, fall back to Pain tag (derived)
+    pain_tags = parse_pain_tags_multi(fields.get("Pain tags (multi)"))
+    if not pain_tags:
+        pain_tag_str = fields.get("Pain tag (derived)") or _derive_pain_tag(fields.get("Biggest frustration", ""))
+        pain_tags = parse_pain_tags(pain_tag_str)
     primary_pain = pain_tags[0] if pain_tags else "other"
 
     candidates = []
@@ -159,8 +236,11 @@ def main():
             continue
         if ceiling == "Enterprise" and is_small(headcount):
             continue
-        # Must touch at least one pain OR be a foundation category
-        if not any(p in tool_pains for p in pain_tags) and category not in FOUNDATION_CATEGORIES:
+        # Must touch at least one pain OR be a foundation category OR have category affinity
+        category_affinity = CATEGORY_PAIN_AFFINITY.get(category, set())
+        has_pain_overlap = any(p in tool_pains for p in pain_tags)
+        has_affinity_overlap = bool(category_affinity & set(pain_tags))
+        if not has_pain_overlap and not has_affinity_overlap and category not in FOUNDATION_CATEGORIES:
             continue
 
         score = score_tool(tool, pain_tags, primary_pain)

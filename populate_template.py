@@ -62,7 +62,14 @@ def _resolve(filename):
 
 
 def render_tool_card(r):
-    """Render one tool card matching v5's .tool / .tool-grid / .tier-row markup."""
+    """Render one tool card matching v5's .tool / .tool-grid / .tier-row markup.
+
+    Supports an optional 'existing' boolean field on the rec object.
+    When existing=True the card shows an 'Already in your stack' badge
+    and an optional 'existing_note' callout explaining how to unlock value
+    from a tool the client already pays for.
+    """
+    is_existing = r.get("existing", False)
     badge_class = "priority-high" if r["priority"] == "High" else (
         "priority-med" if r["priority"] == "Medium" else "priority-low"
     )
@@ -79,6 +86,11 @@ def render_tool_card(r):
         f'<span class="tier-price">{t["price"]}</span></div>'
         for t in tiers
     )
+    existing_badge = '<span class="badge existing">Already in your stack</span>' if is_existing else ""
+    existing_callout = (
+        f'<div class="existing-callout">{r["existing_note"]}</div>'
+        if is_existing and r.get("existing_note") else ""
+    )
     return f"""
       <div class="tool">
         <div class="tool-top">
@@ -87,10 +99,12 @@ def render_tool_card(r):
             <div class="tool-subtitle">{r.get('subtitle', '')}</div>
           </div>
           <div class="tool-badges">
+            {existing_badge}
             <span class="badge {badge_class}">Priority · {r['priority']}</span>
             <span class="badge when">Goes live: {r['phase']}</span>
           </div>
         </div>
+        {existing_callout}
         <div class="tool-grid">
           <div class="tool-rationale">
             <div class="rationale-block">
@@ -119,6 +133,25 @@ def render_tool_card(r):
         {f'<div class="tool-evidence"><em>In practice:</em> {r["evidence"]}</div>' if r.get("evidence") else ""}
       </div>
 """
+
+
+def _render_testimonial(t):
+    """Render an optional client testimonial quote block for Section 10.
+
+    Expects a dict: { "quote": "...", "name": "...", "business": "..." }
+    Returns empty string if t is None/falsy.
+    """
+    if not t:
+        return ""
+    return (
+        f'<div style="background: var(--cloud); border-left: 3px solid var(--gold); '
+        f'border-radius: 0 6px 6px 0; padding: 24px 32px; margin: 28px 0 36px 0;">'
+        f'<p style="font-family: \'Source Serif 4\', serif; font-size: 18px; font-style: italic; '
+        f'line-height: 1.7; color: var(--ink); margin: 0 0 10px 0;">&ldquo;{t["quote"]}&rdquo;</p>'
+        f'<p style="font-family: \'Inter\', sans-serif; font-size: 13px; font-weight: 600; '
+        f'color: var(--slate); margin: 0;">{t["name"]}, {t["business"]}</p>'
+        f'</div>'
+    )
 
 
 def render_benefit_row(b):
@@ -211,38 +244,25 @@ def main():
             )
         else:
             ties_str = ""
-        # Workflow step-flow strip — renders when agent has a "workflow" array
+        # Workflow table — renders when agent has a "workflow" array
+        # Uses the same visual language as the day-in-the-life table (Section 02)
         workflow = a.get("workflow", [])
         if workflow:
-            wf_items = []
-            for i, step in enumerate(workflow):
-                who = step.get("who", "agent")
-                if who == "agent":
-                    avatar_b64 = AVATAR_AGENT_B64
-                    avatar_class = "agent"
-                elif who == "team":
-                    avatar_b64 = AVATAR_TEAM_B64
-                    avatar_class = "team"
-                else:
-                    avatar_b64 = AVATAR_YOU_B64
-                    avatar_class = "human"
-                wf_items.append(
-                    f'<div class="wf-step">'
-                    f'<img class="wf-avatar {avatar_class}" src="data:image/png;base64,{avatar_b64}" alt="{who}" />'
-                    f'{step["step"]}'
-                    f'</div>'
-                )
-                if i < len(workflow) - 1:
-                    wf_items.append('<span class="wf-arrow">→</span>')
+            who_labels = {"agent": "Agent", "human": "You", "team": "Your team"}
+            wf_rows = "".join(
+                f'<tr>'
+                f'<td class="wf-tbl-step">{i + 1}</td>'
+                f'<td class="wf-tbl-who wf-tbl-who-{step.get("who", "agent")}">{who_labels.get(step.get("who", "agent"), "Agent")}</td>'
+                f'<td class="wf-tbl-desc">{step["step"]}</td>'
+                f'</tr>'
+                for i, step in enumerate(workflow)
+            )
             wf_str = (
                 f'<div class="agent-workflow">'
                 f'<div class="wf-label">How it works — you stay in control</div>'
-                f'<div class="wf-steps">{"".join(wf_items)}</div>'
-                f'<div class="wf-legend">'
-                f'<span class="wf-legend-item"><img class="wf-avatar-sm agent" src="data:image/png;base64,{AVATAR_AGENT_B64}" alt="agent" /> Agent</span>'
-                f'<span class="wf-legend-item"><img class="wf-avatar-sm human" src="data:image/png;base64,{AVATAR_YOU_B64}" alt="you" /> You</span>'
-                f'<span class="wf-legend-item"><img class="wf-avatar-sm team" src="data:image/png;base64,{AVATAR_TEAM_B64}" alt="team" /> Your team</span>'
-                f'</div>'
+                f'<table class="wf-table"><thead><tr>'
+                f'<th style="width: 40px;">#</th><th style="width: 100px;">Who</th><th>What happens</th>'
+                f'</tr></thead><tbody>{wf_rows}</tbody></table>'
                 f'</div>'
             )
         else:
@@ -417,7 +437,7 @@ def main():
     border-left: 2px solid var(--gold-line);
   }}
 
-  /* ---------- Workflow step-flow strip (Section 08 agent cards) ---------- */
+  /* ---------- Workflow table (Section 07 agent cards) ---------- */
   .agent-workflow {{
     margin-top: 16px;
     padding-top: 14px;
@@ -432,69 +452,108 @@ def main():
     color: var(--gold);
     margin-bottom: 10px;
   }}
-  .agent-workflow .wf-steps {{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0;
+  .wf-table {{
+    width: 100%;
+    border-collapse: collapse;
   }}
-  .agent-workflow .wf-step {{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--ink);
-    padding: 6px 0;
-  }}
-  .agent-workflow .wf-avatar {{
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    object-fit: cover;
-  }}
-  .agent-workflow .wf-avatar.agent {{
-    box-shadow: 0 0 0 1.5px var(--gold);
-  }}
-  .agent-workflow .wf-avatar.human {{
-    box-shadow: 0 0 0 1.5px var(--ink);
-  }}
-  .agent-workflow .wf-avatar.team {{
-    box-shadow: 0 0 0 1.5px var(--ink);
-  }}
-  .agent-workflow .wf-arrow {{
-    color: var(--slate);
-    font-size: 14px;
-    margin: 0 6px;
-    flex-shrink: 0;
-  }}
-  .agent-workflow .wf-legend {{
-    display: flex;
-    gap: 16px;
-    margin-top: 8px;
+  .wf-table thead th {{
+    font-family: 'Inter', sans-serif;
     font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--rule-strong);
+  }}
+  .wf-table tbody td {{
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }}
+  .wf-table tbody tr:last-child td {{
+    border-bottom: 0;
+  }}
+  .wf-tbl-step {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
     color: var(--slate);
+    text-align: center;
   }}
-  .agent-workflow .wf-legend-item {{
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  .wf-tbl-who {{
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
   }}
-  .agent-workflow .wf-avatar-sm {{
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    object-fit: cover;
+  .wf-tbl-who-agent {{ color: var(--gold); }}
+  .wf-tbl-who-human {{ color: var(--ink); }}
+  .wf-tbl-who-team {{ color: var(--ink); }}
+  .wf-tbl-desc {{
+    font-family: 'Source Serif 4', serif;
+    color: var(--ink);
   }}
-  .agent-workflow .wf-avatar-sm.agent {{
-    box-shadow: 0 0 0 1px var(--gold);
+
+  /* ---------- Stack at a glance (Section 06) ---------- */
+  .stack-section {{
+    margin-bottom: 28px;
   }}
-  .agent-workflow .wf-avatar-sm.human {{
-    box-shadow: 0 0 0 1px var(--ink);
+  .stack-heading {{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
   }}
-  .agent-workflow .wf-avatar-sm.team {{
-    box-shadow: 0 0 0 1px var(--ink);
+  .stack-group {{
+    background: var(--cloud);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }}
+  .stack-group .stack-badge {{
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }}
+  .stack-badge.high {{ color: white; background: var(--ember); }}
+  .stack-badge.medium {{ color: var(--ink); background: var(--gold); }}
+  .stack-group p {{
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--slate);
+    margin: 8px 0 0 0;
+  }}
+  .stack-flows {{
+    counter-reset: flow;
+  }}
+  .stack-flows li {{
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--rule);
+    list-style: none;
+  }}
+  .stack-flows li:last-child {{
+    border-bottom: 0;
+  }}
+  .stack-flows li strong {{
+    color: var(--ink);
   }}
 
   /* ---------- Day-in-the-life comparison table ---------- */
@@ -849,6 +908,7 @@ def main():
       <div class="number">10 · Next steps</div>
       <h2>Where to from here.</h2>
     </div>
+    {_render_testimonial(v.get('testimonial'))}
     <div style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 32px;">
       <div style="background: rgba(201, 169, 97, 0.06); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 28px 32px;">
         <div style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px;">Option 01 · Refine</div>
