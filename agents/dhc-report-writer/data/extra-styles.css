@@ -1,0 +1,364 @@
+  .cover-logo { height: 56px; width: auto; }
+
+  /* ---------- Page breaks: every section starts on a new page ---------- */
+  section.block {
+    page-break-before: always;
+  }
+
+  /* ---------- Phase headings (Section 06) ---------- */
+  .phase-heading {
+    margin-top: 40px;
+    padding: 16px 20px;
+    background: rgba(201, 169, 97, 0.08);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .phase-heading .phase-week {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ---------- Batch headers (Section 08) ---------- */
+  .batch-header {
+    margin-top: 48px;
+    padding: 20px 24px;
+    background: rgba(201, 169, 97, 0.22);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    color: var(--ink);
+  }
+  .batch-header:first-of-type { margin-top: 24px; }
+  .batch-header .batch-title {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 24px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .batch-header .batch-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .batch-header .batch-desc {
+    font-size: 15px;
+    color: var(--slate);
+    margin-top: 10px;
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  /* ---------- Agent cards (Section 08) ---------- */
+  .agent-card {
+    margin-top: 20px;
+    padding: 24px 28px;
+    background: rgba(201, 169, 97, 0.06);
+    border: 1px solid var(--gold-line);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+  }
+  .agent-card .agent-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .agent-card .agent-name {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .agent-card .agent-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--slate);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .agent-card .agent-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .agent-card .agent-readiness {
+    font-size: 13px;
+    color: var(--slate);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule);
+  }
+  .agent-card .agent-ties {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--slate);
+    margin-top: 12px;
+    padding-left: 16px;
+    border-left: 2px solid var(--gold-line);
+  }
+
+  /* ---------- Workflow table (Section 07 agent cards) ---------- */
+  .agent-workflow {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
+  }
+  .agent-workflow .wf-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .wf-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .wf-table thead th {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--rule-strong);
+  }
+  .wf-table tbody td {
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .wf-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  .wf-tbl-step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--slate);
+    text-align: center;
+  }
+  .wf-tbl-who {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .wf-tbl-who-agent { color: var(--gold); }
+  .wf-tbl-who-human { color: var(--ink); }
+  .wf-tbl-who-team { color: var(--ink); }
+  .wf-tbl-desc {
+    font-family: 'Source Serif 4', serif;
+    color: var(--ink);
+  }
+
+  /* ---------- Stack at a glance (Section 06) ---------- */
+  .stack-section {
+    margin-bottom: 28px;
+  }
+  .stack-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .stack-group {
+    background: var(--cloud);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .stack-group .stack-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .stack-badge.high { color: white; background: var(--ember); }
+  .stack-badge.medium { color: var(--ink); background: var(--gold); }
+  .stack-group p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--slate);
+    margin: 8px 0 0 0;
+  }
+  .stack-flows {
+    counter-reset: flow;
+  }
+  .stack-flows li {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--rule);
+    list-style: none;
+  }
+  .stack-flows li:last-child {
+    border-bottom: 0;
+  }
+  .stack-flows li strong {
+    color: var(--ink);
+  }
+
+  /* ---------- Day-in-the-life comparison table ---------- */
+  .dil-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+  }
+  .dil-table thead th {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--rule-strong);
+  }
+  .dil-table tbody td {
+    font-size: 15px;
+    line-height: 1.55;
+    padding: 14px 14px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .dil-table .dil-who {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink);
+    white-space: nowrap;
+    width: 120px;
+  }
+  .dil-table .dil-task {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--slate);
+    width: 140px;
+  }
+  .dil-table .dil-now {
+    color: var(--slate);
+  }
+  .dil-table .dil-after {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .dil-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  /* ---------- Security section assurance cards ---------- */
+  .assurance-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 28px;
+  }
+  .assurance-card {
+    padding: 20px 24px;
+    background: rgba(201, 169, 97, 0.06);
+    border: 1px solid var(--gold-line);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+  }
+  .assurance-card .ac-icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .assurance-card .ac-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .assurance-card .ac-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--slate);
+  }
+  @media print {
+    .assurance-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ---------- Tool card: recommended tier summary ---------- */
+  .tier-summary {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 10px 0 12px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 12px;
+  }
+
+  /* ---------- Tool card: evidence / case study callout ---------- */
+  .tool-evidence {
+    margin-top: 16px;
+    padding: 14px 20px;
+    background: rgba(201, 169, 97, 0.06);
+    border-left: 2px solid var(--gold-line);
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--slate);
+    font-style: italic;
+  }
+  .tool-evidence em {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold);
+    margin-right: 4px;
+  }
+
+  /* ---------- "What we left out" starts on own page ---------- */
+  .stack-category {
+    page-break-before: always;
+  }
+
+  /* ---------- Section headings: h3 inside .page (cost, growth tables) ---------- */
+  .page > h3 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 20px;
+    color: var(--ink);
+    margin-top: 36px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }

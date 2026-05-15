@@ -5,11 +5,12 @@ Keeps the canonical vetted tool catalogue (`stack.md`, Linh's local file) and th
 ## What this skill encodes
 
 - The diff logic between stack.md and the Airtable Tools table
-- The schema for new tool rows (Category, Difficulty, Ceiling, Pain tags, Best for, Watch out for, Last reviewed, Linh-vetted, Indicative cost AUD/month, Notes)
+- The schema for new tool rows (Category, Difficulty, Ceiling, Pain tags, Best for, Watch out for, Last reviewed, Linh-vetted, Indicative cost AUD/month, **Pricing region**, Notes)
 - The Linh-vetted rule: new entries default to `Pending`. Promotion to `Yes` is always a human decision.
+- **The AUD pricing rule (non-negotiable):** every price in the catalogue is in Australian dollars. Tools have a `Pricing region` field with four values: `AU regional`, `Global / USD converted`, `Bundled / free`, `Transactional`. The quarterly price-check workflow (Workflow D below) keeps prices fresh.
 - The voice rule for any new content written into stack.md or Airtable: never SME or SMEs. Use "small to medium businesses" or "small business".
-- The synonym table for known rename pairs (MYOB / MYOB Business, HubSpot Free / Starter / HubSpot CRM (Starter), Google Drive / Google Drive (Workspace bundled), etc.)
-- Three workflow triggers: post-report scan, manual full audit, Tally-response industry check.
+- The synonym table for known rename pairs (MYOB / MYOB Business, HubSpot Free / Starter / HubSpot CRM (Starter), Google Drive / Google Drive (Workspace bundled), Salesforce Essentials / Salesforce Starter Suite, etc.)
+- Four workflow triggers: post-report scan, manual full audit, Tally-response industry check, quarterly price check.
 
 ## Inputs
 
@@ -31,6 +32,7 @@ Production:
 - Always use the current product names from the synonym table (MYOB Business, not MYOB; HubSpot CRM (Starter), not HubSpot Free / Starter).
 - The `Linh-vetted` column has four valid values: `Yes`, `No`, `Pending`, `[STARTER — Linh to confirm]`. New entries created by this skill default to `Pending`. Never auto-promote.
 - `Last reviewed` is updated to today's date whenever a tool's fields are changed via this skill. The date represents the last time someone looked at the row, not when the tool was last seen in a report.
+- **All prices are in AUD.** Every Tools row must have a `Pricing region` set. When adding a new tool: if the vendor publishes USD only, use `Global / USD converted`, convert with the snapshot in `agents/dhc-report-writer/data/rates.json`, and record the conversion in `Notes` (e.g. "$25 USD/user/mo × 1.3826 = A$35"). If the vendor publishes AU pricing, use `AU regional` and pull the price directly from the vendor's AU page.
 
 ## Workflows
 
@@ -64,9 +66,19 @@ Triggered when a new Tally response lands and its Industry value is unfamiliar t
 
 1. Lois (or another agent) sees a new industry in the response.
 2. Check if the industry maps to an existing stack.md category (e.g. "Construction / trades" -> "Field service & trades"; "Beauty and personal care" -> "Salon & personal services").
-3. If no match: propose a new section in stack.md (and a new Category value in Airtable's single-select).
+3. If no match: propose a new section in stack.md (and a new Category value in Airtable's single-select). Also propose adding the new industry to `match_recommendations.py` `VERTICAL_CATEGORY_FIT` if the new category is vertical-specific — otherwise tools in the new section won't match.
 4. Surface to Linh with a recommendation for which existing tools belong in the new section (and which would be better as new tools entirely).
 5. Treat the response as a category-expansion opportunity, even if the specific tool recommendations end up being existing ones.
+
+### D. Quarterly price check (every three months)
+
+Triggered by Linh saying "run the quarterly price check" or by a calendar reminder.
+
+1. Confirm `agents/dhc-report-writer/data/rates.json` is fresh — its `fetched_at` should be within the last 14 days. If older, run `python3 agents/dhc-report-writer/scripts/refresh_rates.py` to pull the latest rates from open.er-api.com.
+2. Query all Tools rows where `Pricing region = Global / USD converted`. For each one, multiply the vendor's current USD list price by `rates.json["rates_to_aud"]["USD"]` and compare to the stored AUD value. If the drift is more than 10%, propose an update.
+3. Query all Tools rows where `Pricing region = AU regional`. Spot-check 5-8 rows against the vendor's current AU pricing page. Flag any with material drift (more than 10% or a tier rename).
+4. For every row touched, update `Indicative cost AUD/month`, refresh the `Notes` field with the conversion math (e.g. "Price refreshed YYYY-MM-DD: $X USD × 1.3826 = A$Y"), and set `Last reviewed` to today.
+5. Surface the audit summary to Linh as a project document with a "tools updated", "tools verified unchanged", and "tools needing manual review" breakdown. Confirm with Linh before writing to Airtable.
 
 ## Schema for new entries
 
@@ -78,13 +90,14 @@ When adding a tool to stack.md or Airtable, every field below should be populate
 | Category | Category | Category | Match an existing section/category, or propose a new one. |
 | Difficulty | Difficulty | Difficulty | Simple / Medium / Hard — implementation effort |
 | Ceiling | Ceiling | Ceiling | Starter / Pro / Enterprise — scales to what team size |
-| Pain tags | Pain tags | Pain tags | Multi-select from: manual-entry, lead-tracking, invoicing, comms, reporting, documents, onboarding, compliance, other |
+| Pain tags | Pain tags | Pain tags | Multi-select from: manual-entry, lead-tracking, invoicing, comms, email-overload, reporting, documents, onboarding, compliance, system-fragmentation, rostering, training, other |
 | Best for | Best for | Best for | One sentence on the ideal customer profile. Voice-clean. |
 | Watch out for | Watch out for | Watch out for | One sentence on the gotcha. Voice-clean. |
 | Last reviewed | Last reviewed | Last reviewed | YYYY-MM-DD, today's date for new entries |
 | Linh-vetted | Linh-vetted | Linh-vetted | New entries default to Pending |
-| Indicative cost AUD/month | (not in stack.md) | Indicative cost AUD/month | Add to Airtable; optionally add to stack.md as a free-form note |
-| Notes | (not in stack.md) | Notes | Free-form context (which client surfaced this, integration quirks, etc.) |
+| Indicative cost AUD/month | (not in stack.md) | Indicative cost AUD/month | Add to Airtable. Always AUD; convert USD list prices via rates.json. |
+| Pricing region | (not in stack.md) | Pricing region | Single-select: AU regional / Global / USD converted / Bundled / free / Transactional. Required for every row. |
+| Notes | (not in stack.md) | Notes | Free-form context. For Global / USD converted rows, record the USD list price and conversion math (e.g. "$25 USD × 1.3826 = A$35"). |
 
 ## Scripts in this skill
 

@@ -1,6 +1,6 @@
 # Vetted Stack — Tool Catalogue
 
-> **Status:** v1.1, 2026-05-04. Linh's first curation pass complete — all 41 starter rows confirmed as-is and flipped to `Yes` in the Linh-vetted column. Last-reviewed dates rolled forward to today. Additions deferred to a follow-up pass before first prospect test. See `README.md` for categorisation logic, pain tag schema, and maintenance cadence.
+> **Status:** v1.2, 2026-05-15. AUD pricing rule formalised — every Tools row now has a `Pricing region` field (AU regional / Global / USD converted / Bundled / free / Transactional) and a documented quarterly price-check workflow. Pain tag vocabulary expanded to thirteen tags (added `system-fragmentation`, `rostering`, `email-overload`, `training`). v1.1 (2026-05-04): Linh's first curation pass complete — all 41 starter rows confirmed as-is and flipped to `Yes` in the Linh-vetted column. See `README.md` for categorisation logic, pain tag schema, and maintenance cadence.
 
 This file is grep-friendly markdown for now. Migrate to `.xlsx` when the catalogue exceeds ~80 entries.
 
@@ -10,9 +10,32 @@ This file is grep-friendly markdown for now. Migrate to `.xlsx` when the catalog
 
 - **Difficulty:** Simple / Medium / Hard (implementation effort)
 - **Ceiling:** Starter / Pro / Enterprise (scales to what team size)
-- **Pain tags:** match Section C2 of the questionnaire — `manual-entry` `lead-tracking` `invoicing` `comms` `reporting` `documents` `onboarding` `compliance`
+- **Pain tags:** match Section C2 of the questionnaire — `manual-entry` `lead-tracking` `invoicing` `comms` `email-overload` `reporting` `documents` `onboarding` `compliance` `system-fragmentation` `rostering` `training` `other`
 - **Last reviewed:** YYYY-MM-DD (must be within 12 months — older = flagged for refresh)
 - **Linh-vetted:** Yes / No / Pending / `[STARTER — Linh to confirm]`
+
+## Pricing rule — AUD only
+
+> **Every price in this catalogue is in Australian dollars.** Clients see AUD in their reports; we record AUD in Airtable. No USD-as-AUD slip-ups.
+
+Tools fall into one of four pricing regions (set on the Airtable Tools table's `Pricing region` field):
+
+| Region | What it means | How to keep it fresh |
+|---|---|---|
+| **AU regional** | Vendor publishes Australia-specific pricing in AUD (Xero, MYOB, ServiceM8, HubSpot, Microsoft 365, Google Workspace, etc.) | Check the vendor's AU pricing page each quarter. Update the Airtable row directly. |
+| **Global / USD converted** | Vendor prices in USD only; we convert (Slack, Zapier, Notion, Salesforce, ClickUp, etc.) | Pull the spot rate from `agents/dhc-report-writer/data/rates.json` (refreshed weekly by GitHub Action). Convert the USD list price and round to nearest dollar. |
+| **Bundled / free** | Free tier or bundled inside another suite (OneDrive in M365, Google Drive in Workspace, Trello free, n8n self-hosted) | Verify the bundling rule is still true; cost stays at 0. |
+| **Transactional** | Per-transaction fee, no monthly subscription (Stripe, Square) | Verify the transaction fee in the Notes field. Monthly cost stays at 0. |
+
+**Quarterly price check (run by Stack.md Maintainer):**
+
+1. Run `python3 agents/dhc-report-writer/scripts/refresh_rates.py` (or rely on the weekly cron — `.github/workflows/refresh-rates.yml`).
+2. List every Tools row with `Pricing region = Global / USD converted` and verify the AUD value matches `usd_list_price * rates.json USD-to-AUD`.
+3. List every Tools row with `Pricing region = AU regional` and spot-check 5 against the vendor's current AU pricing page. If any have drifted, update.
+4. For `Bundled / free` and `Transactional` rows, confirm the bundling/fee description in Notes is still accurate.
+5. Update `Last reviewed` to today's date for every row touched.
+
+**When adding a new tool**, always set `Pricing region` and record the price in AUD. If the vendor only publishes USD, note the USD list price in the `Notes` field along with the conversion (e.g. `"$25 USD/user/mo × 1.3826 = A$35"`) so future maintainers can verify the conversion.
 
 ---
 

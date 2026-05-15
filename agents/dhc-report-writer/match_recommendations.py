@@ -1,12 +1,24 @@
-"""Recommendation matching script (v3) — reads Pain tags (multi) field with expanded vocabulary.
+"""Recommendation matching script (v4) — allowlist-based vertical filtering.
 
-v3 changes from v2:
+v4 changes from v3:
+- Replaces WRONG_VERTICAL denylist and SALON_FIT_INDUSTRIES exception with a single
+  VERTICAL_CATEGORY_FIT allowlist. Vertical-specific categories (e.g. Salon and personal
+  services, Field service & trades) must positively match a client's industry; categories
+  not listed are cross-vertical (allowed for any industry).
+- This fails safely: when a new Industry option is added in Airtable, vertical-specific
+  tools stay blocked until the allowlist is updated. The previous denylist failed open —
+  unknown industries silently received salon and field-service tools.
+
+v3 features retained:
 - Reads 'Pain tags (multi)' multi-select field first (array of {name:...} objects or strings),
   falls back to 'Pain tag (derived)' formula field for backwards compatibility
-- Expanded canonical tag vocabulary: adds system-fragmentation, rostering, email-overload, training
-- NEW: Also matches tools by category relevance (e.g. File storage → documents pain) even when
-  the tool's Pain tags don't explicitly list the client's pain tag
-- Scoring still prioritises the FIRST tag as primary pain
+- Expanded canonical tag vocabulary: manual-entry, lead-tracking, invoicing, comms,
+  email-overload, reporting, documents, onboarding, compliance, system-fragmentation,
+  rostering, training, other
+- Category affinity (CATEGORY_PAIN_AFFINITY) — tools in certain categories match certain
+  pains implicitly even when the tool's own Pain tags don't list them
+- Bundle aliases (BUNDLE_ALIASES) for existing-stack detection
+- First tag treated as primary pain for High-priority scoring
 
 Usage:
     python3 match_recommendations.py <response.json> <tools.json>
@@ -68,22 +80,24 @@ DEFAULT_PHASE = {
     "AI assistants (tier 3)": "Day 90",
 }
 
-# Industry → categories that don't fit (drop these from candidates)
-WRONG_VERTICAL = {
-    "Hospitality / food": {"Field service & trades"},
-    "Retail / e-commerce": {"Field service & trades", "Salon and personal services"},
-    "Education / training": {"Field service & trades", "Salon and personal services"},
-    "Healthcare admin / allied health": {"Field service & trades", "Salon and personal services"},
-    "Professional services (legal, accounting, consulting, design, etc.)": {"Field service & trades", "Salon and personal services"},
-    "Finance / financial services": {"Field service & trades", "Salon and personal services"},
-    "Real estate / property": {"Field service & trades", "Salon and personal services"},
-    "Construction / trades": {"Salon and personal services"},
-    "Manufacturing": {"Salon and personal services", "Field service & trades"},
-    "Logistics / transport / warehousing": {"Salon and personal services", "Field service & trades"},
-}
+# Allowlist: vertical-specific tool categories that require an explicit positive industry
+# match. Any category NOT listed here is cross-vertical (allowed for any industry).
+#
+# Why allowlist over denylist? When a new Industry option is added in Airtable, a denylist
+# silently allows salon/field-service tools through. An allowlist keeps them blocked until
+# the new industry is explicitly granted access. Fails closed, not open.
+#
+# When the Airtable Industry singleSelect grows (e.g. adding "Beauty / personal services"
+# or "HVAC / electrical / plumbing"), update this map to grant access from those industries.
+VERTICAL_CATEGORY_FIT = {
+    # Salon-specific tools (Fresha, Phorest, Timely, Mindbody): only recommend to
+    # actual personal-services businesses. No current Airtable Industry option fits.
+    # When a Beauty / personal services / wellness option is added, list it here.
+    "Salon and personal services": set(),
 
-# Only these industries should see Salon tools
-SALON_FIT_INDUSTRIES = {"Hospitality / food"}
+    # Field-service tools (ServiceM8, Tradify, SimPRO, AroFlo): trades businesses only.
+    "Field service & trades": {"Construction / trades"},
+}
 
 
 def parse_pain_tags_multi(multi_field) -> list:
@@ -142,10 +156,18 @@ def already_in_stack(tool_name: str, tool_stack: list) -> bool:
 
 
 def is_industry_match(tool_category: str, industry: str) -> bool:
-    if "Salon" in tool_category and industry not in SALON_FIT_INDUSTRIES:
-        return False
-    if tool_category in WRONG_VERTICAL.get(industry, set()):
-        return False
+    """Return True if tools in this category are appropriate for this industry.
+
+    Allowlist semantics: categories listed in VERTICAL_CATEGORY_FIT must positively
+    match the client's industry. Categories not listed are cross-vertical (always
+    allowed). This fails closed when a new Industry option appears without an
+    explicit allowlist entry.
+    """
+    allowed_industries = VERTICAL_CATEGORY_FIT.get(tool_category)
+    if allowed_industries is not None:
+        # Vertical-specific category — require positive industry match
+        return industry in allowed_industries
+    # Cross-vertical category — always allowed
     return True
 
 
