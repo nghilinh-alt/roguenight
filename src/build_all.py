@@ -50,9 +50,15 @@ def main():
     for sub in ['', 'privacy', 'terms', 'thank-you', 'confirmation', 'agents', 'images']:
         os.makedirs(os.path.join(PUBLIC, sub), exist_ok=True)
 
-    # 1. OG image (always — no mode toggle)
-    print("\n[1/8] Open Graph image")
-    print(f"  {run('build_og_image.py')}")
+    # 0. Brand logos — regenerate the masked-background base64 data files so the
+    #    horizontal logos blend cleanly into the page Ink background. Cheap to run
+    #    every build and keeps the data/ files in sync with assets-raw/.
+    print("\n[0/8] Brand logos (masked background)")
+    print(f"  {run('build_logos.py')}")
+
+    # 1. OG image v2 (composite — outcomes-relaxed.jpg + brand text overlay)
+    print("\n[1/8] Open Graph image (v2 composite)")
+    print(f"  {run('build_og_image_v2.py')}")
     stage(os.path.join(SRC, 'og-image.jpg'), os.path.join(PUBLIC, 'og-image.jpg'))
 
     # 2. Apple touch icon
