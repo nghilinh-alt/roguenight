@@ -77,7 +77,7 @@ Replace these placeholder values:
   "offers": {
     "@type": "Offer",
     "name": "AI & Automation Strategy",
-    "price": "880",
+    "price": "395",
     "priceCurrency": "AUD",
     "description": "Specially curated digital health check for small business — tool snapshot, six tool recommendations, three AI agent ideas, and a cull list. Delivered to your inbox within 48 hours."
   }

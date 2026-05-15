@@ -26,7 +26,7 @@ TALLY_URL = 'https://tally.so/r/xX4YaG'
 PDF_PAGES = 18
 SITE_URL = 'https://roguenight.com.au'
 ABN = '31 633 650 334'
-PRICE = '880'
+PRICE = '395'
 PRICE_DISPLAY = '$395'
 
 # MODE: 'staging' (default — absolute URLs to the live site so the in-thread
