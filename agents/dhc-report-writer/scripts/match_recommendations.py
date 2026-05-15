@@ -87,13 +87,13 @@ DEFAULT_PHASE = {
 # silently allows salon/field-service tools through. An allowlist keeps them blocked until
 # the new industry is explicitly granted access. Fails closed, not open.
 #
-# When the Airtable Industry singleSelect grows (e.g. adding "Beauty / personal services"
-# or "HVAC / electrical / plumbing"), update this map to grant access from those industries.
+# When the Airtable Industry singleSelect grows (e.g. adding "HVAC / electrical / plumbing"),
+# update this map to grant access from those industries.
 VERTICAL_CATEGORY_FIT = {
-    # Salon-specific tools (Fresha, Phorest, Timely, Mindbody): only recommend to
-    # actual personal-services businesses. No current Airtable Industry option fits.
-    # When a Beauty / personal services / wellness option is added, list it here.
-    "Salon and personal services": set(),
+    # Salon-specific tools (Fresha, Phorest, Timely, Mindbody): only recommend to actual
+    # personal-services businesses. Beauty / personal services is the matching industry
+    # in the Airtable Responses.Industry singleSelect.
+    "Salon and personal services": {"Beauty / personal services"},
 
     # Field-service tools (ServiceM8, Tradify, SimPRO, AroFlo): trades businesses only.
     "Field service & trades": {"Construction / trades"},
