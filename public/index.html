@@ -773,6 +773,19 @@
   @media (max-width: 720px) {
     .hero-image, .pain-image { display: none; }
     .banner-image { margin: 2rem auto 3rem; }
+    /* Primary CTAs stretch full-width for thumb reachability */
+    .hero .cta-primary, .final-cta .cta-primary {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    /* Final CTA: tighter vertical padding on mobile */
+    .final-cta { padding: 4.5rem 6% 4rem; }
+    .final-cta .cta-bg img { object-position: center; }
+  }
+  @media (max-width: 520px) {
+    /* Brand-bar ghost link smaller on extra-narrow */
+    .brand-bar .cta-ghost { font-size: 0.85rem; padding: 0.4rem 0; }
   }
 
   /* ============================================================ */
