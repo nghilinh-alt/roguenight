@@ -10,7 +10,7 @@ The current self-contained landing HTML has minimal `<head>` — when migrating 
 
 Replace these placeholder values:
 - `https://roguenight.com.au/` → final canonical URL
-- `https://roguenight.com.au/og-image.png` → path to your OG image (see specs below)
+- `https://roguenight.com.au/og-image.jpg` → path to your OG image (see specs below)
 - `https://roguenight.com.au/favicon.svg` → path to favicon.svg (in this package)
 
 ```html
@@ -35,7 +35,7 @@ Replace these placeholder values:
 <meta property="og:title" content="Rogue Night — The work that runs while you sleep">
 <meta property="og:description" content="We help Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. AI & Automation Strategy, $395 flat, within 48 hours.">
 <meta property="og:url" content="https://roguenight.com.au/">
-<meta property="og:image" content="https://roguenight.com.au/og-image.png">
+<meta property="og:image" content="https://roguenight.com.au/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Rogue Night — enterprise-grade digital transformation, AI-amplified, priced for small business">
@@ -45,7 +45,7 @@ Replace these placeholder values:
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rogue Night — The work that runs while you sleep">
 <meta name="twitter:description" content="We help Australian small to medium businesses identify the right tools and deploy AI agents and digital employees. AI & Automation Strategy, $395 flat, within 48 hours.">
-<meta name="twitter:image" content="https://roguenight.com.au/og-image.png">
+<meta name="twitter:image" content="https://roguenight.com.au/og-image.jpg">
 <meta name="twitter:image:alt" content="Rogue Night logo on Ink background with editorial headline">
 
 <!-- Robots -->
@@ -59,7 +59,7 @@ Replace these placeholder values:
   "name": "Rogue Night PTY LTD",
   "url": "https://roguenight.com.au/",
   "logo": "https://roguenight.com.au/logo-stacked.png",
-  "image": "https://roguenight.com.au/og-image.png",
+  "image": "https://roguenight.com.au/og-image.jpg",
   "description": "Digital transformation consulting, AI agent and digital employee deployment, and vetted tool advisory for Australian small to medium businesses.",
   "email": "hello@roguenight.com.au",
   "identifier": [
@@ -93,7 +93,7 @@ The OG image is what shows when someone shares the landing URL in LinkedIn / Sla
 
 | Spec | Value |
 |---|---|
-| File path | `/og-image.png` |
+| File path | `/og-image.jpg` |
 | Dimensions | 1200×630 pixels (mandatory — LinkedIn / Facebook standard) |
 | Aspect ratio | 1.91:1 |
 | File format | PNG (preferred) or JPG |

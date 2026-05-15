@@ -50,7 +50,7 @@ HTML = f"""<!DOCTYPE html>
 <meta property="og:title" content="Terms of Service — Rogue Night">
 <meta property="og:description" content="Engagement terms for the Digital Health Check and follow-on consulting work. Plain-English, Australian Consumer Law compliant.">
 <meta property="og:url" content="{SITE_URL}/terms">
-<meta property="og:image" content="{SITE_URL}/og-image.png">
+<meta property="og:image" content="{SITE_URL}/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Rogue Night — digital transformation, AI-amplified, priced for small business">
@@ -60,7 +60,7 @@ HTML = f"""<!DOCTYPE html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Terms of Service — Rogue Night">
 <meta name="twitter:description" content="Engagement terms for the Digital Health Check and follow-on consulting work.">
-<meta name="twitter:image" content="{SITE_URL}/og-image.png">
+<meta name="twitter:image" content="{SITE_URL}/og-image.jpg">
 
 <!-- Geographic targeting -->
 <meta name="geo.region" content="AU">

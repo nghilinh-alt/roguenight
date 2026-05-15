@@ -106,7 +106,7 @@ div_w = 80
 draw.rectangle([(W - div_w) // 2, strip_y - 24, (W + div_w) // 2, strip_y - 23], fill=GOLD)
 
 # === SAVE ===
-_OUT = os.path.join(_SCRIPT_DIR, 'og-image.png')
+_OUT = os.path.join(_SCRIPT_DIR, 'og-image.jpg')
 canvas.save(_OUT, 'PNG', optimize=True)
 
 size_kb = os.path.getsize(_OUT) / 1024

@@ -73,7 +73,7 @@ HTML = f"""<!DOCTYPE html>
 <meta property="og:title" content="Rogue Night — Run your business smarter">
 <meta property="og:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. A custom plan to identify the right tools, eliminate wasted effort, and design AI-powered systems. $395, within 48 hours.">
 <meta property="og:url" content="{SITE_URL}/">
-<meta property="og:image" content="{SITE_URL}/og-image.png">
+<meta property="og:image" content="{SITE_URL}/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Rogue Night — AI &amp; Automation Strategy for Australian small to medium businesses">
@@ -83,7 +83,7 @@ HTML = f"""<!DOCTYPE html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rogue Night — Run your business smarter">
 <meta name="twitter:description" content="AI &amp; Automation Strategy for Australian small to medium businesses. $395, within 48 hours.">
-<meta name="twitter:image" content="{SITE_URL}/og-image.png">
+<meta name="twitter:image" content="{SITE_URL}/og-image.jpg">
 <meta name="twitter:image:alt" content="Rogue Night logo on Ink background with editorial headline">
 
 <!-- Geographic targeting -->
@@ -99,7 +99,7 @@ HTML = f"""<!DOCTYPE html>
   "alternateName": "Rogue Night",
   "url": "{SITE_URL}/",
   "logo": "{SITE_URL}/logo-stacked.png",
-  "image": "{SITE_URL}/og-image.png",
+  "image": "{SITE_URL}/og-image.jpg",
   "description": "AI & Automation Strategy and tool advisory for Australian small to medium businesses. Custom business optimisation plans, AI agent and digital employee design and implementation.",
   "slogan": "The work that runs while you sleep.",
   "email": "hello@roguenight.com.au",
@@ -756,14 +756,31 @@ HTML = f"""<!DOCTYPE html>
     z-index: -1;
   }}
 
-  .pain-image {{
-    margin: 3rem auto 4rem;
-    max-width: 460px;
+  /* Pain section header — two columns: text left, image right */
+  .pain-header {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin: 1.5rem 0 4rem;
   }}
+  .pain-header h2 {{ max-width: 14ch; }}
+  .pain-intro {{
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: var(--slate);
+    margin-top: 1.25rem;
+    max-width: 38ch;
+  }}
+  .pain-image {{ margin: 0; }}
   .pain-image img {{
     width: 100%; height: auto; display: block;
     border-radius: 4px;
-    box-shadow: 0 16px 40px -12px rgba(10, 14, 26, 0.15);
+    box-shadow: 0 24px 60px -20px rgba(10, 14, 26, 0.25);
+  }}
+  @media (max-width: 900px) {{
+    .pain-header {{ grid-template-columns: 1fr; gap: 2rem; }}
+    .pain-image {{ max-width: 460px; margin: 0 auto; }}
   }}
 
   .banner-image {{
@@ -945,10 +962,15 @@ HTML = f"""<!DOCTYPE html>
 <!-- PROBLEM -->
 <section class="pain">
   <div class="container">
-    <p class="eyebrow">The problem we see</p>
-    <h2>You're not slow.<br><em>You're under-systemised.</em></h2>
-    <div class="pain-image">
-      <img src="{ASSET_BASE}/images/pain-overwhelm.jpg" alt="An agent surrounded by chaotic dashboards — the under-systemised state" loading="lazy" width="960" height="1191">
+    <div class="pain-header">
+      <div class="pain-header-text">
+        <p class="eyebrow">The problem we see</p>
+        <h2>You're not slow.<br><em>You're under-systemised.</em></h2>
+        <p class="pain-intro">The pattern is almost always the same: too many tools doing too little, too much manual work in between, and no clear way to bring AI in without making the mess worse.</p>
+      </div>
+      <div class="pain-image">
+        <img src="{ASSET_BASE}/images/pain-overwhelm.jpg" alt="An agent surrounded by chaotic dashboards — the under-systemised state" loading="lazy" width="960" height="1191">
+      </div>
     </div>
     <div class="pain-cards">
       <div class="pain-card">

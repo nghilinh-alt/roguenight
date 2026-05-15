@@ -52,7 +52,7 @@ HTML = f"""<!DOCTYPE html>
 <meta property="og:title" content="Privacy Policy — Rogue Night">
 <meta property="og:description" content="How Rogue Night collects, uses, and protects information. Voluntary OAIC-aligned compliance.">
 <meta property="og:url" content="{SITE_URL}/privacy">
-<meta property="og:image" content="{SITE_URL}/og-image.png">
+<meta property="og:image" content="{SITE_URL}/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Rogue Night — digital transformation, AI-amplified, priced for small business">
@@ -62,7 +62,7 @@ HTML = f"""<!DOCTYPE html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Privacy Policy — Rogue Night">
 <meta name="twitter:description" content="How Rogue Night collects, uses, and protects information. Voluntary OAIC-aligned compliance.">
-<meta name="twitter:image" content="{SITE_URL}/og-image.png">
+<meta name="twitter:image" content="{SITE_URL}/og-image.jpg">
 
 <!-- Geographic targeting -->
 <meta name="geo.region" content="AU">

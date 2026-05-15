@@ -53,7 +53,7 @@ def main():
     # 1. OG image (always — no mode toggle)
     print("\n[1/8] Open Graph image")
     print(f"  {run('build_og_image.py')}")
-    stage(os.path.join(SRC, 'og-image.png'), os.path.join(PUBLIC, 'og-image.png'))
+    stage(os.path.join(SRC, 'og-image.jpg'), os.path.join(PUBLIC, 'og-image.jpg'))
 
     # 2. Apple touch icon
     print("\n[2/8] Apple touch icon")
