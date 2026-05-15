@@ -47,7 +47,7 @@ One row per questionnaire submission. Mirrors the live Tally form at `https://ta
 | `Submitted` | Date with time | Airtable's built-in `Created time` field |
 | `Status` | Single select | `New` · `In analysis` · `Has reports` · `Engaged` · `Declined` · `Stale` |
 | `Owner` | Collaborator | Linh, for now. Future-proof for a second analyst. |
-| `Stripe paid` | Checkbox | $880 received |
+| `Stripe paid` | Checkbox | $395 received |
 
 ### Section A — The landscape
 

@@ -45,7 +45,7 @@ They are also enforced in the build scripts and the agent system prompts (Lois, 
 
 ### Currency
 
-- **All customer-facing prices are in AUD.** No "A" prefix needed on display (just `$880`, not `A$880`). Single-currency Australian audience.
+- **All customer-facing prices are in AUD.** No "A" prefix needed on display (just `$395`, not `A$395`). Single-currency Australian audience.
 - **When a vendor quotes natively in non-AUD (USD/GBP/EUR/CAD/NZD), convert before showing in the report.** Use `agents/dhc-report-writer/scripts/convert_currency.py` to get the AUD value with an attribution string.
 - **Always show the conversion inline.** Example: `$68 AUD (originally $49 USD, May 2026 rate)`. Customers should never wonder where a number came from.
 - Rates refresh weekly via GitHub Action. Lois uses cached rates from `agents/dhc-report-writer/data/rates.json` — never hits a live API at report-draft time.
@@ -53,7 +53,7 @@ They are also enforced in the build scripts and the agent system prompts (Lois, 
 ### Scope clarity
 
 - **AI & Automation Strategy is advisory only.** The report is the deliverable. Agent / digital-employee implementation is a **separate, quoted engagement**.
-- Never imply implementation is included in the $880.
+- Never imply implementation is included in the $395.
 
 ### Honesty rule
 

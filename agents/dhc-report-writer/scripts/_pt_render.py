@@ -88,16 +88,38 @@ def render_tool_card(r):
 
 
 # ---------------------------------------------------------------------------
-# Testimonial block (Section 10 — Next steps)
+# Testimonial block (Section 11 — Next steps)
 # ---------------------------------------------------------------------------
-def render_testimonial(t):
-    """Render an optional client testimonial quote block for Section 10.
+def render_testimonial(t, verified: bool = False):
+    """Render an optional client testimonial quote block for Section 11.
 
-    Expects a dict: { "quote": "...", "name": "...", "business": "..." }
+    Expects a dict: { "quote": "...", "name": "...", "business": "..." }.
     Returns empty string if t is None/falsy.
+
+    **Testimonials must be real.** The template refuses to render the
+    testimonial block unless `verified=True` is passed (mapped from
+    vars.json `testimonial_verified`). When a testimonial dict is provided
+    but verification is False, the function returns a vivid ember-red
+    warning ribbon instead of the quote — a forcing function so Lois
+    cannot ship a fabricated quote to a client.
     """
     if not t:
         return ""
+
+    if not verified:
+        # Vivid warning — fabricated/unverified testimonial guarded
+        return (
+            '<div style="background: var(--ember); color: #FFE8E8; '
+            'padding: 16px 22px; margin: 28px 0 36px 0; border-radius: 2px; '
+            'border: 2px solid #FF6B35; font-family: \'Inter\', sans-serif; '
+            'font-size: 13px; font-weight: 700; letter-spacing: 0.10em; '
+            'text-transform: uppercase; line-height: 1.5;">'
+            'Unverified testimonial &mdash; set <code style="background: rgba(0,0,0,0.2); '
+            'padding: 1px 6px; border-radius: 2px;">testimonial_verified: true</code> '
+            'in vars.json only after confirming this is a real client quote with explicit '
+            'permission to publish.</div>'
+        )
+
     return (
         f'<div style="background: var(--cloud); border-left: 3px solid var(--gold); '
         f'border-radius: 0 6px 6px 0; padding: 24px 32px; margin: 28px 0 36px 0;">'

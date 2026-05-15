@@ -161,7 +161,7 @@ Plus the **Implementation · optional** dark callout box (always include):
 - "What we don't do" sub-block: hands-on training (we provide written guides + pointers to official video training)
 - "Implementation quote provided on request — book a walkthrough to scope."
 
-**Currency convention (locked):** all figures in the report are AUD with no "A" prefix on display (just `$880`, not `A$880`). When a vendor quotes natively in non-AUD (HubSpot/Slack/Asana/Zapier/most US SaaS in USD; some EU/UK tools in EUR/GBP), convert before showing in the report:
+**Currency convention (locked):** all figures in the report are AUD with no "A" prefix on display (just `$395`, not `A$395`). When a vendor quotes natively in non-AUD (HubSpot/Slack/Asana/Zapier/most US SaaS in USD; some EU/UK tools in EUR/GBP), convert before showing in the report:
 
 ```bash
 python3 agents/dhc-report-writer/scripts/convert_currency.py <amount> <currency>
@@ -215,9 +215,9 @@ End with the **Implementation · optional** dark callout box for digital employe
 
 Three doors. The v5 template's exact copy is the locked default:
 
-1. **Feel strongly about something? We'll amend the report.** Free of charge. The $880 covers the work, including refinement.
+1. **Feel strongly about something? We'll amend the report.** Free of charge. The $395 covers the work, including refinement.
 2. **Engage Rogue Night for the implementation.** Fixed-fee, fixed-scope. Quote after a scoping call.
-3. **Take the report and run it yourself.** The recommendations are vendor-neutral. The $880 has covered the work.
+3. **Take the report and run it yourself.** The recommendations are vendor-neutral. The $395 has covered the work.
 
 **Locked instruction (per Linh, 2026-05-11):** do NOT include "Book a free 45-minute walkthrough call" copy in the email body or in section 09. Walkthroughs happen organically; don't prompt for them in the canonical send.
 
@@ -369,7 +369,7 @@ Drop any agent that doesn't make sense for the client's industry:
    - Primary pain (first tag in `Pain tag (derived)`) gets priority weighting
    - Cost-sensitivity: if "I have no money" appears in Anything else notes, lead with cheapest credible tiers
    - Drop any tool the matcher recommended that doesn't fit the client's specific situation
-5. **Draft per-client copy** for each tool's "Why this for you" and "Why not the alternatives". These are the high-judgement bits that justify the $880 fee — don't template them.
+5. **Draft per-client copy** for each tool's "Why this for you" and "Why not the alternatives". These are the high-judgement bits that justify the $395 fee — don't template them.
 6. **Score the digital employees** against the impact / readiness / pain-match rubric. Pick 3 per batch. Draft each card with pain_match, pain_tier, readiness, ties_to, ties_label.
 7. **Assemble `vars.json`** (see `report_vars.example.json` for shape). Include narrative copy for sections 01, 02, 04, 05, 06, 08. Section 06 phases array MUST span Week 1 → Week 12.
 8. **Run `populate_template.py`** → produces `report.html` using v5 CSS + client content.

@@ -143,7 +143,7 @@ Short. Then medium. Then occasionally longer for the rhythm break — like this.
 
 ## Pricing language
 
-The AI & Automation Strategy is **$880 flat**. Always pair with:
+The AI & Automation Strategy is **$395 flat**. Always pair with:
 
 - "delivered to your inbox in 48 hours" OR
 - "in your inbox within 48 hours" OR
@@ -160,7 +160,7 @@ Never:
 
 Primary button reads **"Get your AI & Automation Strategy"** with supporting text:
 
-> $880 flat · Delivered to your inbox in 48 hours · Yours to keep
+> $395 flat · Delivered to your inbox in 48 hours · Yours to keep
 
 The button click goes **directly to the Tally form**: `https://tally.so/r/xX4YaG` (target="_blank")
 

@@ -35,7 +35,7 @@ Workflow context (Lois agent calling this script):
   * Industry-fit nuance the matcher can miss (e.g. Xero Cashbook for tight-budget
     healthcare admin instead of Xero Grow)
 - Lois drafts per-client copy for each tool's "Why this for you" and "Why not the
-  alternatives" — these are the high-judgement bits that justify the $880 fee
+  alternatives" — these are the high-judgement bits that justify the $395 fee
 - Lois assembles vars.json and calls this script to generate the HTML
 """
 import json
@@ -145,8 +145,13 @@ def _build_context(resp: dict, v: dict) -> SimpleNamespace:
         cost_recurring_html=render_cost_recurring_html(v.get("cost_recurring", [])),
         cost_growth_html=render_cost_growth_html(v.get("cost_growth", [])),
 
-        # Section 10 — Next steps
-        testimonial_html=render_testimonial(v.get("testimonial")),
+        # Section 11 — Next steps
+        # Testimonials must be real, verified, and explicitly permitted.
+        # The renderer guards unverified testimonials with a vivid warning.
+        testimonial_html=render_testimonial(
+            v.get("testimonial"),
+            verified=v.get("testimonial_verified", False),
+        ),
     )
 
 

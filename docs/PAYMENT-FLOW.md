@@ -65,7 +65,7 @@ Dashboard → Payment Links → + New
 
 - Product: "AI & Automation Strategy"
 - Description: "Specially curated report for your small to medium business. Delivered within 48 hours."
-- Price: $880.00 (one-time)
+- Price: $395.00 (one-time)
 - After payment: redirect to `https://roguenight.com.au/confirmation/`
 - Customer information to collect: just email (other fields already captured by Tally)
 - Save the link — you'll get a `https://buy.stripe.com/abc123xyz` URL.
@@ -136,7 +136,7 @@ See [`cloudflare-worker/README.md`](../cloudflare-worker/README.md) for the full
 1. Cloudflare Dashboard → Workers & Pages → Create → Worker (auto-named, currently `snowy-salad-ba26`; can be renamed via Settings → General if you want a friendlier slug)
 2. Paste the contents of `cloudflare-worker/worker-pay-later.js` into the editor, Save and Deploy
 3. Settings → Variables, set secrets: `STRIPE_SECRET_KEY` (sk_test_... to start), `ALLOWED_ORIGIN` (`https://roguenight.com.au`)
-4. Settings → Variables, set env vars: `PRODUCT_NAME="AI Automation Strategy"`, `AMOUNT_CENTS=88000`, `CURRENCY=aud`, `DAYS_UNTIL_DUE=14`
+4. Settings → Variables, set env vars: `PRODUCT_NAME="AI Automation Strategy"`, `AMOUNT_CENTS=39500`, `CURRENCY=aud`, `DAYS_UNTIL_DUE=14`
 5. Triggers → Routes → Add route: `roguenight.com.au/api/*` → the Worker
 
 **Test the Worker:**
@@ -210,7 +210,7 @@ Once all four pieces are deployed, run a full test in Stripe **test mode** (sk_t
 3. Click "Send me an invoice".
 4. Within 1-3 seconds, the inline confirmation should appear ("Invoice on the way").
 5. Check that inbox: you should receive a Stripe invoice email from `noreply@stripe.com` with subject "Invoice from Rogue Night PTY LTD".
-6. Email contains a link to the Hosted Invoice Page. Click it — page should be Rogue Night branded with the $880 amount and payment buttons.
+6. Email contains a link to the Hosted Invoice Page. Click it — page should be Rogue Night branded with the $395 amount and payment buttons.
 7. Pay using the test card. Invoice marks as paid in your Stripe dashboard.
 
 ### Test 3: Error handling

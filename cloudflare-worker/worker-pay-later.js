@@ -2,7 +2,7 @@
  * Rogue Night — Pay Later Worker
  *
  * Receives POST /api/pay-later with { email, name, business, ref }
- * Creates a Stripe customer + $880 invoice with collection_method=send_invoice,
+ * Creates a Stripe customer + $395 invoice with collection_method=send_invoice,
  * then EXPLICITLY finalizes the invoice so Stripe emails the customer the
  * Hosted Invoice Page link straight away.
  *
@@ -12,7 +12,7 @@
  *
  * Required env (vars, plain text):
  *   PRODUCT_NAME          — default "AI & Automation Strategy"
- *   AMOUNT_CENTS          — default 88000 (A$880.00)
+ *   AMOUNT_CENTS          — default 39500 (A$395.00)
  *   CURRENCY              — default "aud"
  *   DAYS_UNTIL_DUE        — default 14
  *
@@ -117,7 +117,7 @@ async function handlePayLater(request, env) {
   }
 
   const productName = env.PRODUCT_NAME || "AI & Automation Strategy";
-  const amountCents = parseInt(env.AMOUNT_CENTS || "88000", 10);
+  const amountCents = parseInt(env.AMOUNT_CENTS || "39500", 10);
   const currency = (env.CURRENCY || "aud").toLowerCase();
   const daysUntilDue = parseInt(env.DAYS_UNTIL_DUE || "14", 10);
 

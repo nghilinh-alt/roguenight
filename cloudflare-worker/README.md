@@ -22,7 +22,7 @@ When a customer clicks "Send me an invoice" on `roguenight.com.au/thank-you/`, t
    - `ALLOWED_ORIGIN` = `https://roguenight.com.au`
 6. Settings → Variables, set plain-text env vars:
    - `PRODUCT_NAME` = `AI & Automation Strategy`
-   - `AMOUNT_CENTS` = `88000`
+   - `AMOUNT_CENTS` = `39500`
    - `CURRENCY` = `aud`
    - `DAYS_UNTIL_DUE` = `14`
 7. Triggers → Routes → Add route: `roguenight.com.au/api/*` → Worker `rogue-night-pay-later`

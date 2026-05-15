@@ -188,7 +188,7 @@ If you'd still like the report, here's the direct link:
 
   [Stripe Payment Link URL]
 
-Once the $880 lands, your report goes into the build queue and lands 
+Once the $395 lands, your report goes into the build queue and lands 
 in your inbox within 48 hours.
 
 If you've changed your mind, no need to reply — I'll close the request 
@@ -262,7 +262,7 @@ For replies that are clearly from the founder voice, swap "The Rogue Night team"
 - "Brisbane" — say "Australian"
 - "SME" — say "small to medium business"
 - "Sole director" — say "Founder" if attribution needed
-- Discount language ("$880 normally, $700 for you")
+- Discount language ("$395 normally, $300 for you")
 - "Synergy" / "leverage" / "holistic" / "premier" / "world-class"
 
 ---

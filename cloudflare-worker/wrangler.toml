@@ -18,7 +18,7 @@ compatibility_date = "2026-05-13"
 # Override per environment if you set up staging/production separately.
 [vars]
 PRODUCT_NAME = "Digital Health Check"
-AMOUNT_CENTS = "35000"
+AMOUNT_CENTS = "39500"
 CURRENCY = "aud"
 DAYS_UNTIL_DUE = "14"
 

@@ -267,7 +267,7 @@ def render_report_html(ctx) -> str:
       <div style="background: rgba(201, 169, 97, 0.06); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 28px 32px;">
         <div style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px;">Option 01 · Refine</div>
         <p class="body-lede" style="font-size: 19px; margin-bottom: 10px;">Feel strongly about something? We'll amend the report.</p>
-        <p style="font-size: 15px; line-height: 1.7;">This report is yours. If something doesn't fit your business — a tool you've already tried, a phase that doesn't make sense, a number that feels off — tell us, and we'll revise. Free of charge. The $880 covers the work, including refinement.</p>
+        <p style="font-size: 15px; line-height: 1.7;">This report is yours. If something doesn't fit your business — a tool you've already tried, a phase that doesn't make sense, a number that feels off — tell us, and we'll revise. Free of charge. The $395 covers the work, including refinement.</p>
       </div>
       <div style="background: rgba(201, 169, 97, 0.06); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 28px 32px;">
         <div style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px;">Option 02 · Implement</div>
@@ -277,7 +277,7 @@ def render_report_html(ctx) -> str:
       <div style="background: rgba(201, 169, 97, 0.06); border: 1px solid var(--gold-line); border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 28px 32px;">
         <div style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px;">Option 03 · Self-serve</div>
         <p class="body-lede" style="font-size: 19px; margin-bottom: 10px;">Take the report and run it yourself.</p>
-        <p style="font-size: 15px; line-height: 1.7;">The recommendations are vendor-neutral. The $880 has covered the work.</p>
+        <p style="font-size: 15px; line-height: 1.7;">The recommendations are vendor-neutral. The $395 has covered the work.</p>
       </div>
     </div>
     <div style="border-top: 1px solid var(--rule-strong); padding-top: 24px; text-align: center; margin-top: 64px;">
