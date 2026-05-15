@@ -80,6 +80,7 @@ Customer journey                         Where it lives
 - **Airtable schema:** `docs/operations/AIRTABLE-SCHEMA.md` (this repo) — canonical, mirrors the live base
 - **Questionnaire spec:** `docs/operations/QUESTIONNAIRE.md` (this repo) — canonical, mirrors the live Tally form
 - **Stack.md audit findings:** `docs/operations/STACK-AUDIT-*.md` (this repo) — dated snapshots
+- **Tool price audit findings:** `docs/operations/PRICE-AUDIT-*.md` (this repo) — dated snapshots from the quarterly Pricing-region sweep
 - **Voice rules:** `docs/operations/VOICE-RULES.md` (this repo) — canonical
 
 ### Secrets and credentials
@@ -107,6 +108,7 @@ Customer journey                         Where it lives
 | Where do per-client report templates live? | `docs/reports/README.md` (note: they live in Airtable + are generated on demand) |
 | How do I deploy a change? | `docs/DEPLOYMENT-GUIDE.md` (website) + `docs/PAYMENT-FLOW.md` (payment flow) |
 | What's the latest stack.md audit say? | `docs/operations/STACK-AUDIT-2026-05-13.md` |
+| What's the latest price audit say? | `docs/operations/PRICE-AUDIT-2026-05-15.md` |
 
 ---
 
