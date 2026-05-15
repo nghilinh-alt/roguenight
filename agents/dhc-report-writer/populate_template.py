@@ -68,6 +68,19 @@ from _pt_render import (
 from _pt_template import render_report_html
 
 
+def _client_logo_html(v: dict, client: str) -> str:
+    """Render the client logo slot on the cover.
+
+    Honours `client_logo_b64` from vars.json when present; otherwise emits a
+    parchment-outlined placeholder so cover layout stays balanced even when
+    Lois doesn't have the client's logo yet.
+    """
+    b64 = v.get("client_logo_b64")
+    if b64:
+        return f'<img class="client-logo" src="data:image/png;base64,{b64}" alt="{client}">'
+    return '<div class="client-logo-placeholder">Replace before sending</div>'
+
+
 def _build_context(resp: dict, v: dict) -> SimpleNamespace:
     """Assemble the rendering context from a parsed response + vars dict.
 
@@ -76,6 +89,7 @@ def _build_context(resp: dict, v: dict) -> SimpleNamespace:
     is purely interpolation — no inline rendering logic.
     """
     fields = resp.get("fields", resp)
+    client = fields.get("Business name") or fields.get("Client name", "Client")
 
     return SimpleNamespace(
         # Raw vars for v.get() calls in the template
@@ -87,7 +101,8 @@ def _build_context(resp: dict, v: dict) -> SimpleNamespace:
         logo_b64=load_logo_b64(),
 
         # Client identity
-        client=fields.get("Business name") or fields.get("Client name", "Client"),
+        client=client,
+        client_logo_html=_client_logo_html(v, client),
         ref=fields.get("Reference", "DHC-XXXX-XXXX"),
         today=v.get("delivered_date", ""),
 

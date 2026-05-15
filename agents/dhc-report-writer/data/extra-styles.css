@@ -86,7 +86,7 @@
     margin-bottom: 8px;
   }
   .agent-card .agent-meta {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 12px;
     color: var(--slate);
     margin-bottom: 12px;
@@ -155,7 +155,7 @@
     border-bottom: 0;
   }
   .wf-tbl-step {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 12px;
     color: var(--slate);
     text-align: center;
@@ -196,7 +196,7 @@
   }
   .stack-group .stack-badge {
     display: inline-block;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 0.04em;
@@ -361,4 +361,197 @@
     margin-top: 36px;
     padding-bottom: 8px;
     border-bottom: 1px solid var(--rule);
+  }
+
+
+  /* ---------- v3: Client logo slot on cover ---------- */
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .client-logo-slot {
+    flex-shrink: 0;
+  }
+  .client-logo {
+    height: 40px;
+    max-width: 220px;
+    width: auto;
+    object-fit: contain;
+  }
+  .client-logo-placeholder {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #FFE8E8;
+    background: rgba(194, 65, 12, 0.92);  /* var(--ember) — high-contrast warning */
+    border: 2px solid #FF6B35;
+    padding: 14px 22px;
+    border-radius: 2px;
+    box-shadow: 0 0 0 4px rgba(194, 65, 12, 0.15);
+  }
+  /* Two-line stack so the warning is unmissable in draft mode */
+  .client-logo-placeholder::before {
+    content: "Placeholder";
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: rgba(255, 232, 232, 0.85);
+    margin-bottom: 3px;
+  }
+
+  /* ---------- v3: Section 03 snapshot — facts + voice columns ---------- */
+  .snapshot-v3 {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 56px;
+    margin-top: 32px;
+  }
+  .snapshot-v3 h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 22px 0;
+    border-bottom: 1px solid var(--gold-line);
+    padding-bottom: 12px;
+  }
+  .snapshot-facts .fact {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .snapshot-facts .fact:last-child {
+    border-bottom: 0;
+  }
+  .snapshot-facts .fact-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-bottom: 4px;
+  }
+  .snapshot-facts .fact-value {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .snapshot-voice .voice {
+    margin: 0 0 26px 0;
+    padding-left: 20px;
+    border-left: 2px solid var(--gold-line);
+  }
+  .snapshot-voice .voice:last-child {
+    margin-bottom: 0;
+  }
+  .snapshot-voice .voice-label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .snapshot-voice .voice p {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16.5px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0;
+  }
+  @media (max-width: 720px) {
+    .snapshot-v3 { grid-template-columns: 1fr; gap: 36px; }
+    .cover-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+  }
+
+
+  /* ---------- v4: Promoted cull section (Section 06) ---------- */
+  .cull-list {
+    list-style: none;
+    margin: 24px 0 0 0;
+    padding: 0;
+  }
+  .cull-list li {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink);
+    padding: 18px 0 18px 28px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .cull-list li:first-child {
+    border-top: 1px solid var(--rule);
+  }
+  .cull-list li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    top: 18px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .cull-list li strong {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ---------- Print stylesheet (browser Ctrl+P and Playwright PDF) ---------- */
+  @media print {
+    /* Make sure backgrounds render in PDF (Playwright passes print_background=True). 
+       For browser paper print, users can toggle "background graphics" — when off,
+       these fallback colors keep the text legible against the stripped backgrounds. */
+    * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Cover — if backgrounds strip (paper print without backgrounds enabled), 
+       this fallback keeps the title readable on white. */
+    @supports not (print-color-adjust: exact) {
+      .cover { background: white !important; color: var(--ink) !important; }
+      .cover-title, .cover-title .accent, .cover-eyebrow, .cover-subtitle,
+      .cover-meta-label, .cover-meta-value { color: var(--ink) !important; }
+    }
+
+    /* RN build/implement CTA block — same fallback for paper-print without backgrounds. */
+    @supports not (print-color-adjust: exact) {
+      .rn-build-block {
+        background: var(--cloud) !important;
+        color: var(--ink) !important;
+        border: 1px solid var(--gold-line) !important;
+      }
+      .rn-build-block h3, .rn-build-block p, .rn-build-block strong {
+        color: var(--ink) !important;
+      }
+    }
+
+    /* Pagination hygiene — avoid splitting cards across pages where possible. */
+    .tool, .agent-card, .stack-group, .benefit, .assurance-card {
+      page-break-inside: avoid;
+    }
+    h2, h3 {
+      page-break-after: avoid;
+    }
+
+    /* Section dividers — already have page-break-before on .block; ensure cover doesn't 
+       force a blank first page in PDF. */
+    .cover {
+      page-break-after: always;
+    }
   }

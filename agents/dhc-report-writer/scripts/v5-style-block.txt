@@ -24,7 +24,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   body {
-    font-family: 'Source Serif 4', 'Instrument Serif', Georgia, serif;
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.65;
     color: var(--ink);
@@ -53,7 +53,7 @@
     color: var(--gold);
   }
   .meta {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 11.5px; letter-spacing: 0.04em; color: var(--slate);
   }
   .body-lede {
@@ -96,7 +96,7 @@
   .cover-title .accent { font-style: italic; color: var(--gold); }
   .cover-subtitle {
     margin-top: 28px;
-    font-family: 'Source Serif 4', 'Instrument Serif', Georgia, serif;
+    font-family: 'Inter', sans-serif;
     font-size: 18px; line-height: 1.55;
     color: rgba(237, 232, 221, 0.78); max-width: 580px;
   }
@@ -107,7 +107,7 @@
   }
   .cover-meta-block { display: flex; flex-direction: column; gap: 4px; }
   .cover-meta-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.18em;
     text-transform: uppercase; color: rgba(201, 169, 97, 0.7);
   }
@@ -126,7 +126,7 @@
   .section-head h2 { max-width: 720px; }
   .section-head .lede {
     margin-top: 18px;
-    font-family: 'Source Serif 4', 'Instrument Serif', Georgia, serif;
+    font-family: 'Inter', sans-serif;
     font-size: 17px; line-height: 1.6;
     color: var(--slate); max-width: 640px;
   }
@@ -143,7 +143,7 @@
     grid-column: 1 / -1;
   }
   .snapshot-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.16em;
     text-transform: uppercase; color: var(--slate);
   }
@@ -160,7 +160,7 @@
   .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 36px; }
   .benefit { background: var(--gold-soft); border-left: 2px solid var(--gold); padding: 22px 22px 26px; min-width: 0; overflow-wrap: break-word; word-wrap: break-word; }
   .benefit-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.16em;
     text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
   }
@@ -174,7 +174,7 @@
   /* ---------- Quantified benefits table ---------- */
   .qb-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
   .qb-table th {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--slate);
     text-align: left; padding: 12px 0;
@@ -218,7 +218,7 @@
   }
   .qb-total { display: flex; flex-direction: column; gap: 6px; }
   .qb-total .label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.16em;
     text-transform: uppercase; color: var(--gold);
   }
@@ -277,7 +277,7 @@
   }
   .tool-badges { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
   .badge {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10px; letter-spacing: 0.12em;
     text-transform: uppercase; padding: 4px 10px;
     border-radius: 2px; border: 1px solid; white-space: nowrap;
@@ -286,12 +286,6 @@
   .badge.priority-med { color: var(--ink); background: var(--gold); border-color: var(--gold); }
   .badge.priority-low { color: var(--slate); background: white; border-color: var(--rule-strong); }
   .badge.when { color: var(--ink); background: var(--gold-soft); border-color: var(--gold-line); }
-  .badge.existing { color: white; background: var(--ink); border-color: var(--ink); }
-  .existing-callout {
-    font-family: 'Source Serif 4', serif; font-size: 14.5px; color: var(--ink);
-    background: rgba(201, 169, 97, 0.10); border-left: 3px solid var(--gold);
-    padding: 10px 14px; margin-bottom: 18px; border-radius: 0 4px 4px 0;
-  }
   .tool-grid {
     display: grid; grid-template-columns: 1.6fr 1fr;
     gap: 36px; margin-top: 4px;
@@ -299,12 +293,12 @@
   .tool-rationale { display: flex; flex-direction: column; gap: 14px; }
   .rationale-block { display: flex; flex-direction: column; gap: 4px; }
   .rationale-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--slate);
   }
   .rationale-text {
-    font-family: 'Source Serif 4', 'Instrument Serif', Georgia, serif;
+    font-family: 'Inter', sans-serif;
     font-size: 15.5px; line-height: 1.55; color: var(--ink);
   }
   .rationale-text.warn { color: var(--ember); }
@@ -314,7 +308,7 @@
     border-radius: 2px; align-self: start;
   }
   .tool-pricing-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--slate); margin-bottom: 10px;
   }
@@ -339,7 +333,7 @@
     text-transform: uppercase; color: var(--gold); font-style: normal;
   }
   .tier-price {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 13px; color: var(--ink); font-variant-numeric: tabular-nums;
   }
   .upgrade-trigger {
@@ -396,7 +390,7 @@
     background: white; border: 1px solid var(--rule); border-radius: 4px;
   }
   .integration-map-title {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--slate); margin-bottom: 28px;
   }
@@ -476,7 +470,7 @@
   }
   .phase-week .num { color: var(--ink); font-style: normal; }
   .phase-tag {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--slate); margin-top: 6px;
   }
@@ -488,7 +482,6 @@
   }
   .phase-tasks { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .phase-tasks li {
-    font-family: 'Source Serif 4', 'Instrument Serif', Georgia, serif;
     font-size: 15.5px; line-height: 1.55;
     padding-left: 22px; position: relative; color: var(--ink);
   }
@@ -500,7 +493,7 @@
   /* ---------- Cost ---------- */
   .cost-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
   .cost-table th {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--slate);
     text-align: left; padding: 12px 0;
@@ -532,7 +525,7 @@
     border-left: 3px solid var(--gold);
   }
   .rn-implement-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 11px; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
   }
@@ -581,7 +574,7 @@
   }
   .batch-totals {
     margin-left: auto;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 11px; letter-spacing: 0.10em;
     text-transform: uppercase; color: var(--slate); text-align: right;
   }
@@ -594,7 +587,7 @@
   .agent:last-child { border-bottom: 0; }
   .agent-name { display: flex; flex-direction: column; gap: 6px; }
   .agent-name .role {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10.5px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--gold);
   }
@@ -616,7 +609,7 @@
   }
   .saving-row { display: flex; flex-direction: column; gap: 2px; }
   .saving-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 10px; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--slate);
   }
@@ -647,7 +640,7 @@
   }
   .step-body { font-size: 15.5px; line-height: 1.55; color: var(--ink); }
   .step-meta {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 11.5px; color: var(--slate); margin-top: 4px;
   }
 
@@ -660,7 +653,7 @@
   .doc-footer p { font-size: 14px; color: var(--slate); margin-bottom: 4px; }
   .doc-footer .legal {
     margin-top: 12px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 11px; color: var(--slate-soft); letter-spacing: 0.06em;
   }
   .doc-footer .tagline {
@@ -675,7 +668,7 @@
   }
   .editor-cheat .ec-badge {
     display: inline-block;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 11px; letter-spacing: 0.16em;
     text-transform: uppercase; color: var(--ember);
     background: white; padding: 4px 10px;
@@ -686,7 +679,7 @@
   .editor-cheat ul { padding-left: 22px; margin-bottom: 12px; }
   .editor-cheat li { font-size: 14.5px; line-height: 1.6; margin-bottom: 6px; }
   .editor-cheat code {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: ui-monospace, 'Menlo', monospace;
     font-size: 13px; background: white;
     padding: 1px 6px; border: 1px solid var(--rule-strong); border-radius: 2px;
   }

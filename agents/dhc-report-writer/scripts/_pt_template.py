@@ -28,7 +28,7 @@ def render_report_html(ctx) -> str:
 <title>AI & Automation Strategy — {ctx.client}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
 {ctx.style}
 <style>
 {ctx.extra_styles}
@@ -40,6 +40,7 @@ def render_report_html(ctx) -> str:
   <div class="cover-inner">
     <div class="cover-top">
       <img class="cover-logo" src="data:image/png;base64,{ctx.logo_b64}" alt="Rogue Night">
+      <div class="client-logo-slot">{ctx.client_logo_html}</div>
     </div>
     <div class="cover-title-block">
       <div class="cover-eyebrow">AI & Automation Strategy · Specially curated</div>
@@ -92,11 +93,11 @@ def render_report_html(ctx) -> str:
     <p class="lede" style="margin-top: 8px; margin-bottom: 16px;">{ctx.v.get('q_benefits_lede', '')}</p>
     <table class="qb-table">
       <thead>
-        <tr><th>The change</th><th class="right">Hours saved · monthly</th><th class="right">Dollar value · monthly</th></tr>
+        <tr><th>The change</th><th class="right">Hours saved</th><th class="right">Dollar value</th></tr>
       </thead>
       <tbody>
         {ctx.benefits_html}
-        <tr class="subtotal"><td>Time and admin recovered, monthly</td><td class="right"><span class="num" style="font-style: italic;">{ctx.v.get('benefits_subtotal_hrs', '')}</span> hrs</td><td class="right"><em>{ctx.v.get('benefits_subtotal_dollar', '')}</em></td></tr>
+        <tr class="subtotal"><td>Total monthly impact</td><td class="right"><span class="num" style="font-style: italic;">{ctx.v.get('benefits_subtotal_hrs', '')}</span> hrs</td><td class="right"><em>{ctx.v.get('benefits_subtotal_dollar', '')}</em></td></tr>
       </tbody>
     </table>
     <p class="meta" style="margin-top: 24px;">{ctx.v.get('benefits_basis_note', '')}</p>
@@ -108,19 +109,25 @@ def render_report_html(ctx) -> str:
   <div class="page">
     <div class="section-head">
       <div class="number">03 · Current state</div>
-      <h2>The snapshot. Verbatim from your questionnaire.</h2>
+      <h2>Where you are today. In your own words.</h2>
     </div>
-    <div class="snapshot">
-      <div class="snapshot-row"><div class="snapshot-label">Industry</div><div class="snapshot-value">{ctx.industry}</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Headcount</div><div class="snapshot-value">{ctx.headcount}</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Years operating</div><div class="snapshot-value">{ctx.years}</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Customers per week</div><div class="snapshot-value">~{ctx.cpw}</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Stated goal</div><div class="snapshot-value" style="font-style: italic;">"{ctx.goal}"</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Pain narrative</div><div class="snapshot-value" style="font-style: italic;">"{ctx.pain_narr}"</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Hated weekly task</div><div class="snapshot-value" style="font-style: italic;">"{ctx.hated}"</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Future state vision</div><div class="snapshot-value" style="font-style: italic;">"{ctx.future}"</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">Tech comfort</div><div class="snapshot-value">{ctx.tech}</div></div>
-      <div class="snapshot-row"><div class="snapshot-label">AI readiness</div><div class="snapshot-value">{ctx.ai_appetite}</div></div>
+    <div class="snapshot-v3">
+      <div class="snapshot-facts">
+        <h3>At a glance</h3>
+        <div class="fact"><div class="fact-label">Industry</div><div class="fact-value">{ctx.industry}</div></div>
+        <div class="fact"><div class="fact-label">Headcount</div><div class="fact-value">{ctx.headcount}</div></div>
+        <div class="fact"><div class="fact-label">Years operating</div><div class="fact-value">{ctx.years}</div></div>
+        <div class="fact"><div class="fact-label">Customers per week</div><div class="fact-value">~{ctx.cpw}</div></div>
+        <div class="fact"><div class="fact-label">Tech comfort</div><div class="fact-value">{ctx.tech}</div></div>
+        <div class="fact"><div class="fact-label">AI readiness</div><div class="fact-value">{ctx.ai_appetite}</div></div>
+      </div>
+      <div class="snapshot-voice">
+        <h3>In your words</h3>
+        <blockquote class="voice"><span class="voice-label">Stated goal</span><p>&ldquo;{ctx.goal}&rdquo;</p></blockquote>
+        <blockquote class="voice"><span class="voice-label">Pain narrative</span><p>&ldquo;{ctx.pain_narr}&rdquo;</p></blockquote>
+        <blockquote class="voice"><span class="voice-label">Hated weekly task</span><p>&ldquo;{ctx.hated}&rdquo;</p></blockquote>
+        <blockquote class="voice"><span class="voice-label">Future state vision</span><p>&ldquo;{ctx.future}&rdquo;</p></blockquote>
+      </div>
     </div>
   </div>
 </section>
@@ -146,50 +153,50 @@ def render_report_html(ctx) -> str:
       <p class="lede">{ctx.v.get('recs_lede', '')}</p>
     </div>
     {ctx.recs_html}
-    <div class="stack-category">
-      <div class="stack-category-head">
-        <div class="stack-category-num">{ctx.v.get('cull_num', '5.6')}</div>
-        <div class="stack-category-title">What we left out — and why</div>
-      </div>
-      <ul style="margin-top: 14px; padding-left: 20px; font-size: 15px; line-height: 1.7; font-family: 'Source Serif 4', Georgia, serif;">{ctx.cull_items}</ul>
-    </div>
   </div>
 </section>
 
-<!-- 06 · Stack at a glance (was 05) -->
+<!-- 06 · What we left out — and why (PROMOTED from 5.6 in v6.5) -->
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">06 · Stack at a glance</div>
+      <div class="number">06 · What we left out — and why</div>
+      <h2>{ctx.v.get("cull_h2", "The recommendations you won&rsquo;t pay for, and the reasoning.")}</h2>
+      <p class="lede">{ctx.v.get("cull_lede", "Half the value of this report is what we&rsquo;re not recommending. Each line below is a category, brand, or product we considered and chose not to put on your stack.")}</p>
+    </div>
+    <ul class="cull-list">{ctx.cull_items}</ul>
+  </div>
+</section>
+
+<!-- 07 · Stack at a glance (was 06) -->
+<section class="block">
+  <div class="page">
+    <div class="section-head">
+      <div class="number">07 · Stack at a glance</div>
       <h2>{ctx.v.get('stack_glance_h2', 'How the tools work together.')}</h2>
     </div>
     {ctx.v.get('stack_glance_body', '')}
   </div>
 </section>
 
-<!-- 07 · Your future digital employees (was 08) -->
+<!-- 08 · Your future digital employees -->
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">07 · Your future digital employees</div>
+      <div class="number">08 · Your future digital employees</div>
       <h2>{ctx.v.get('employees_h2', 'Three batches, scored on impact and readiness.')}</h2>
       <p class="lede">{ctx.v.get('employees_lede', '')}</p>
     </div>
     {ctx.employees_html}
     <p style="margin-top: 48px; color: var(--slate); font-style: italic;">{ctx.v.get('employees_outro', '')}</p>
-    <div style="background: var(--ink); color: var(--parchment); padding: 32px 36px; border-radius: 4px; margin-top: 36px;">
-      <h3 style="color: var(--gold); font-size: 22px;">Rogue Night can build and deploy these for you</h3>
-      <p style="color: rgba(237, 232, 221, 0.85); margin-top: 12px;">Discovery, build, supervised deployment, handoff, and monitoring. You can engage Batch 01 standalone, see results, then commit to the next batches. <strong style="color: var(--parchment);">What we don't do:</strong> replace your team.</p>
-      <p style="color: rgba(237, 232, 221, 0.85); margin-top: 12px;"><strong style="color: var(--gold);">Implementation quote provided per batch — book a walkthrough to scope.</strong></p>
-    </div>
   </div>
 </section>
 
-<!-- 08 · Cost and investment (was 07) -->
+<!-- 09 · Cost and investment -->
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">08 · Cost and investment</div>
+      <div class="number">09 · Cost and investment</div>
       <h2>{ctx.v.get('cost_h2', 'What the recommended stack costs.')}</h2>
     </div>
     <h3>Recurring software</h3>
@@ -205,18 +212,18 @@ def render_report_html(ctx) -> str:
       <thead><tr><th>Trigger</th><th>What comes next</th><th class="right">Additional cost</th></tr></thead>
       <tbody>{ctx.cost_growth_html}</tbody>
     </table>
-    <div style="background: var(--ink); color: var(--parchment); padding: 32px 36px; border-radius: 4px; margin-top: 36px;">
-      <h3 style="color: var(--gold); font-size: 22px;">Rogue Night can implement this for you</h3>
-      <p style="color: rgba(237, 232, 221, 0.85); margin-top: 12px;">Data migration, account setup, configuration, integrations, process design, scoping. <strong style="color: var(--parchment);">What we don't do:</strong> hands-on team training. We provide written guides and pointers to official video training, plus availability for questions during the first month at no extra cost.</p>
-      <p style="color: rgba(237, 232, 221, 0.85); margin-top: 12px;"><strong style="color: var(--gold);">Implementation quote provided on request — book a walkthrough to scope.</strong></p>
+    <div class="rn-build-block" style="background: var(--ink); color: var(--parchment); padding: 32px 36px; border-radius: 4px; margin-top: 36px;">
+      <h3 style="color: var(--gold); font-size: 22px; margin: 0;">Rogue Night builds and deploys all of this for you.</h3>
+      <p style="color: rgba(237, 232, 221, 0.88); margin-top: 12px; line-height: 1.6;">The recommended tools, the integrations, the digital employees — implementation end to end. Discovery, build, supervised deployment, handoff. <strong style="color: var(--gold);">Quote provided on request — book a walkthrough to scope.</strong></p>
     </div>
+    <p style="font-size: 13px; color: var(--slate); margin-top: 14px; font-style: italic; line-height: 1.55;">We don't replace your team or run hands-on training. Written guides and pointers to official video training are included, plus availability for questions during the first month at no extra cost.</p>
   </div>
 </section>
 
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">09 · Security and reliability</div>
+      <div class="number">10 · Security and reliability</div>
       <h2>{ctx.v.get('security_h2', 'Your data. Your control. Our commitment.')}</h2>
       <p class="lede">{ctx.v.get('security_lede', 'Every tool we recommend is a reputable, Australian-accessible SaaS platform. Here is how your data stays safe — and what happens if something breaks.')}</p>
     </div>
@@ -239,11 +246,11 @@ def render_report_html(ctx) -> str:
       </div>
       <div class="assurance-card">
         <div class="ac-title">What Rogue Night sees</div>
-        <div class="ac-body">{ctx.v.get('security_rn_access', 'During the first 90 days after deployment, we monitor agent logs and error rates to catch issues early. After handoff, we have no standing access to your accounts unless you grant it for a specific support request.')}</div>
+        <div class="ac-body">{ctx.v.get('security_rn_access', 'During the first 30 days after deployment, we monitor agent logs and error rates to catch issues early. After handoff, we have no standing access to your accounts unless you grant it for a specific support request.')}</div>
       </div>
       <div class="assurance-card">
         <div class="ac-title">What happens if something breaks</div>
-        <div class="ac-body">{ctx.v.get('security_support', 'The tools in this report are maintained by their vendors — updates, security patches, and uptime are their responsibility. If an integration breaks or an agent misbehaves, reach out to us. First 90 days of monitoring are included with implementation. After that, we are a call away — diagnosis and fixes quoted per incident.')}</div>
+        <div class="ac-body">{ctx.v.get('security_support', 'The tools in this report are maintained by their vendors — updates, security patches, and uptime are their responsibility. If an integration breaks or an agent misbehaves, reach out to us. First 30 days of monitoring are included with implementation. After that, we are a call away — diagnosis and fixes quoted per incident.')}</div>
       </div>
     </div>
   </div>
@@ -252,7 +259,7 @@ def render_report_html(ctx) -> str:
 <section class="block">
   <div class="page">
     <div class="section-head">
-      <div class="number">10 · Next steps</div>
+      <div class="number">11 · Next steps</div>
       <h2>Where to from here.</h2>
     </div>
     {ctx.testimonial_html}
