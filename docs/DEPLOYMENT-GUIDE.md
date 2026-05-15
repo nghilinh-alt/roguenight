@@ -17,7 +17,7 @@ This guide covers how updates flow from this repo to production, how to deploy W
 | DNS | **Cloudflare** (zone `roguenight.com.au`) | Nameservers: `adrian.ns.cloudflare.com`, `cullen.ns.cloudflare.com` |
 | SSL | Cloudflare Universal SSL | Auto — no manual provisioning |
 | Email | Hostinger registrar-level forwarding to `hello@roguenight.com.au` | Manual — Linh sends from Hostinger webmail (Google Workspace migration is a future decision) |
-| Payments | Stripe — Payment Link `https://buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03` | Configured once in Stripe Dashboard |
+| Payments | Stripe — Payment Link `https://buy.stripe.com/5kQ8wR77yagNh2k5u9dIA04` | Configured once in Stripe Dashboard |
 
 Cloudflare account ID: `a18b9bc7aad669c66aad28fc193338f2`. Workers subdomain: `nghi-linh.workers.dev`.
 

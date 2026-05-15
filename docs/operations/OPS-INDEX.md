@@ -13,7 +13,7 @@ Customer journey                         Where it lives
 2. Decide to buy                         Tally form (https://tally.so/r/xX4YaG)
 3. Submit questionnaire (5-7 min)        Tally form → Airtable Responses
 4. Land on thank-you page                public/thank-you/index.html (Cloudflare Pages)
-5. Pay Now                               Stripe Payment Link (buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03)
+5. Pay Now                               Stripe Payment Link (buy.stripe.com/5kQ8wR77yagNh2k5u9dIA04)
    ├─ Card payment                       Stripe Checkout (Stripe-hosted)
    └─ Redirect to confirmation           public/confirmation/index.html (Cloudflare Pages)
 6. Pay Later                             /api/pay-later (Cloudflare Worker)

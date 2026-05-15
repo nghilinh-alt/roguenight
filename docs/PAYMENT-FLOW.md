@@ -17,7 +17,7 @@ Tally form (free)
   → redirect with email/name/ref/business params
   → roguenight.com.au/thank-you/ (Cloudflare Pages, auto-deployed from this repo's main branch)
      │
-     ├─ Pay Now button → buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03?prefilled_email=...
+     ├─ Pay Now button → buy.stripe.com/5kQ8wR77yagNh2k5u9dIA04?prefilled_email=...
      │    (Stripe Payment Link, RN-branded via Stripe Dashboard branding settings)
      │    → customer pays → roguenight.com.au/confirmation/
      │
@@ -125,7 +125,7 @@ Visit:
 - `https://roguenight.com.au/thank-you/?email=test@example.com&name=Sample%20Owner&ref=abc123` — branded thank-you page with personalised lede.
 - `https://roguenight.com.au/confirmation/` — branded confirmation page.
 
-The Pay Later button won't work yet (Worker not deployed). The Pay Now button is wired to the real Stripe Payment Link `https://buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03` — see `src/build_thank_you.py` (`PAYMENT_LINK_BASE` constant) if you ever need to swap it.
+The Pay Later button won't work yet (Worker not deployed). The Pay Now button is wired to the real Stripe Payment Link `https://buy.stripe.com/5kQ8wR77yagNh2k5u9dIA04` — see `src/build_thank_you.py` (`PAYMENT_LINK_BASE` constant) if you ever need to swap it.
 
 ---
 
@@ -198,7 +198,7 @@ Once all four pieces are deployed, run a full test in Stripe **test mode** (sk_t
 
 1. Fill the live Tally form with a real email.
 2. Land on `https://roguenight.com.au/thank-you/?email=...`. See your details pre-populated.
-3. Click Pay Now → land on `https://buy.stripe.com/dRmaEZdvWgFb8vOg8NdIA03?prefilled_email=...` (Payment Link with your email pre-filled).
+3. Click Pay Now → land on `https://buy.stripe.com/5kQ8wR77yagNh2k5u9dIA04?prefilled_email=...` (Payment Link with your email pre-filled).
 4. Use Stripe test card `4242 4242 4242 4242`, any future expiry, any CVC.
 5. After payment, redirect to `https://roguenight.com.au/confirmation/` with the success message.
 6. Check your inbox: Stripe should email a receipt.
