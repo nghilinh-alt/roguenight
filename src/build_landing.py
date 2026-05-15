@@ -1163,9 +1163,10 @@ HTML = f"""<!DOCTYPE html>
       <a href="mailto:hello@roguenight.com.au">hello@roguenight.com.au</a>
     </div>
     <div class="footer-col">
-      <div class="footer-col-title">Get started</div>
-      <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer">Get your AI &amp; Automation Strategy</a>
+      <div class="footer-col-title">Explore</div>
+      <a href="{ASSET_BASE}/agents/">Meet your digital employees</a>
       <a href="{PDF_URL}" target="_blank" rel="noopener noreferrer">Sample strategy (PDF)</a>
+      <a href="{TALLY_URL}" target="_blank" rel="noopener noreferrer">Get your AI &amp; Automation Strategy</a>
     </div>
   </div>
   <div class="footer-meta">

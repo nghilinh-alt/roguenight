@@ -47,7 +47,7 @@ def main():
     print("=" * 48)
 
     # Ensure public folder structure exists
-    for sub in ['', 'privacy', 'terms', 'thank-you', 'confirmation']:
+    for sub in ['', 'privacy', 'terms', 'thank-you', 'confirmation', 'agents', 'images']:
         os.makedirs(os.path.join(PUBLIC, sub), exist_ok=True)
 
     # 1. OG image (always — no mode toggle)
@@ -63,6 +63,7 @@ def main():
     # 3-8. HTML pages in production mode
     pages = [
         ('Landing page',         'build_landing.py',      'rogue-night-landing.html',      'index.html'),
+        ('Agents page',          'build_agents.py',       'rogue-night-agents.html',       'agents/index.html'),
         ('Privacy policy',       'build_privacy.py',      'rogue-night-privacy.html',      'privacy/index.html'),
         ('Terms of service',     'build_terms.py',        'rogue-night-terms.html',        'terms/index.html'),
         ('404 page',             'build_404.py',          'rogue-night-404.html',          '404.html'),
