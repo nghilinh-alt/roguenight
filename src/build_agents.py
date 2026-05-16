@@ -488,7 +488,7 @@ HTML = f"""<!DOCTYPE html>
       </div>
     </div>
     <div class="agent-image">
-      <img src="{ASSET_BASE}/images/hero-agent.jpg" alt="An AI agent managing multiple business systems at once" loading="lazy" width="960" height="1191">
+      <img src="{ASSET_BASE}/images/hero-agent.jpg" alt="A humanoid robot in hi-vis on an Australian worksite — the digital employee that handles the back-of-house" loading="lazy" width="960" height="1191">
     </div>
   </div>
 </section>
@@ -518,7 +518,7 @@ HTML = f"""<!DOCTYPE html>
       </div>
     </div>
     <div class="agent-image">
-      <img src="{ASSET_BASE}/images/system-build.jpg" alt="An AI agent arranging a clean business system architecture" loading="lazy" width="1600" height="893">
+      <img src="{ASSET_BASE}/images/system-build.jpg" alt="A humanoid robot in a waistcoat working through paperwork at an Australian accountant's desk — the digital employee connecting your systems" loading="lazy" width="1600" height="893">
     </div>
   </div>
 </section>
@@ -548,7 +548,7 @@ HTML = f"""<!DOCTYPE html>
       </div>
     </div>
     <div class="agent-image">
-      <img src="{ASSET_BASE}/images/cta-thinking.jpg" alt="An AI agent in deliberate contemplation, reviewing a system architecture" loading="lazy" width="1600" height="893">
+      <img src="{ASSET_BASE}/images/cta-thinking.jpg" alt="A humanoid robot working the espresso machine in a small Australian café — the digital employee that keeps things on schedule" loading="lazy" width="1600" height="893">
     </div>
   </div>
 </section>
@@ -578,7 +578,7 @@ HTML = f"""<!DOCTYPE html>
       </div>
     </div>
     <div class="agent-image">
-      <img src="{ASSET_BASE}/images/outcomes-relaxed.jpg" alt="A business owner reviewing while AI agents work in the background" loading="lazy" width="1600" height="893">
+      <img src="{ASSET_BASE}/images/outcomes-relaxed.jpg" alt="An Australian business owner on the couch watching the footy while a digital employee quietly works at the desk in the background" loading="lazy" width="1600" height="893">
     </div>
   </div>
 </section>
