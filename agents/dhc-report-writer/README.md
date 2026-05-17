@@ -434,3 +434,37 @@ This supersedes the earlier v2 fix (overflow: hidden, which clipped text).
 ### Section 08 three-batch redesign (2026-05-13)
 
 Section 08 of `populate_template.py` rewritten to render three batches (Day 90, Day 180, Day 270), each with three agent cards. New per-card fields: `pain_match`, `pain_tier`, `readiness`, `ties_to`, `ties_label`. New per-batch fields: `number`, `day`, `title`, `description`, `agents`. Visual: gold-eyebrow pain badge, soft-gold card background with 2px gold left border, italic serif "Ties to: ..." quote at the bottom of each card, gray-eyebrow + serif title for each batch header. Backward compat: legacy flat `employees` array auto-wraps as Batch 01. The agent menu in the docs now carries an explicit scoring rubric (Impact 1-5, Readiness 1-5, Pain match 0-3) and a wider candidate library including Phone Reception Specialist and Phone Agent Swarm. `report_vars.example.json` updated with a complete 3-batch example for Pacific Coast Plumbing. Section 06 phases also updated to span Week 1 → Week 12 (5 milestones).
+
+### Lessons from the Luan Nguyen run (2026-05-16) → see [`LESSONS-2026-05-16.md`](LESSONS-2026-05-16.md)
+
+Hardened the writer pipeline and the editorial discipline after a three-round revision on `DHC-2026-sn6Z`. Captured durable patterns in a sibling doc; the highlights as code-level constraints:
+
+- **Pain hierarchy:** narrative + hated task + future-state + Confirmed pains beat derived `Pain tags (multi)` for priority. Derived tags surface candidates only.
+- **Editorial test:** every recommendation must be quotable to a source field in the Response. If you can\'t quote it, drop it or label it as an assumption.
+- **Assumption-handling:** when you must infer (sparse response), say so explicitly in the report body — *"we assume X based on Y; we\'ll confirm in Discovery Week 1"* — and describe what changes if the assumption is wrong. Lois\'s system prompt now carries this as a non-negotiable rule.
+- **"Lean on agents, not tools":** when the client is already on a capable stack with a Simple tech appetite, the right report often recommends *less software, not more*. The digital-employee section becomes the main work.
+
+### Canonical Phase values (Airtable single-select)
+
+The `Phase` field on the `Recommendations` table is a single-select. Submitting any non-canonical string returns 422 and crashes `write_back.py` mid-loop. Canonical options:
+
+```
+Day 0   Day 1   Day 7   Day 14   Day 21   Day 30   Day 60   Day 90
+```
+
+(Plus `Week N` variants if the schema admits them — check the field\'s options before writing.)
+
+**Conditional or explanatory framing belongs in `Plan / tier`, not in Phase.** Example for a conditional Xero+Chaser pair:
+
+- `Phase`: `Day 30`
+- `Plan / tier`: `Conditional — Starter $35/mo · activate only if invoicing pain confirmed at Day-30 review`
+
+`write_back.py` v2 (2026-05-16) validates Phase before any POST and rejects values containing `(`, `)`, `+`, `conditional`, `deferred`, `skip`, or `see ` with a clear error message.
+
+### `write_back.py` v2 changelog (2026-05-16)
+
+Three reliability improvements over v1:
+
+1. **Auto-lookup Tool IDs by name** — `recommendations.json` only needs `tool_name`; the script queries the Tools table on the fly. No more empty `Tool / Tool Name (from Tool) / Category (from Tool)` cells.
+2. **Phase pre-flight validation** — fails fast with a clear message before any Airtable write. No more partial-state writes.
+3. **Label + Sent date on Reports row creation** — fetches the Response\'s `Business name` and builds `<Business> — AI & Automation Strategy`. Accepts `sent_date` in `report_meta.json`, defaults to today. No more remediation patch step.
