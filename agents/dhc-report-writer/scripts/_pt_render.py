@@ -197,7 +197,7 @@ def render_agent_card(a):
     # Uses the same visual language as the day-in-the-life table (Section 02)
     workflow = a.get("workflow", [])
     if workflow:
-        who_labels = {"agent": "Agent", "human": "You", "team": "Your team"}
+        who_labels = {"agent": "Agent", "human": "You", "team": "Your team", "customer": "Customer", "lead": "Lead"}
         wf_rows = "".join(
             f'<tr>'
             f'<td class="wf-tbl-step">{i + 1}</td>'
