@@ -1,13 +1,13 @@
 {
   "source": "open.er-api.com",
   "base_currency": "AUD",
-  "fetched_at": "2026-11-02T10:30:12Z",
+  "fetched_at": "2026-11-09T10:52:52Z",
   "_note": "Rates are 1 X = N AUD. Conversion: amount * rates_to_aud[from] = aud_amount. Refreshed weekly by .github/workflows/refresh-rates.yml. To run manually: python3 agents/dhc-report-writer/scripts/refresh_rates.py",
   "rates_to_aud": {
-    "USD": 1.4227,
-    "GBP": 1.9053,
-    "EUR": 1.588,
-    "CAD": 1.0187,
-    "NZD": 0.8005
+    "USD": 1.4558,
+    "GBP": 1.9456,
+    "EUR": 1.6232,
+    "CAD": 1.0315,
+    "NZD": 0.8088
   }
 }
